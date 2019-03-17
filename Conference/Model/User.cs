@@ -20,5 +20,7 @@ namespace Conference.Model
         public SexType Sex { get; set; }
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
+
+        public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
     }
 }
