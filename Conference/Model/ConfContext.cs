@@ -15,5 +15,7 @@ namespace Conference.Model
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<Message> Messages { get; set; }
 
+
+        //todo override SaveChanging in order to delete orphans
     }
 }
