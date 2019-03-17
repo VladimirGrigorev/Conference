@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace Conference.Model
 {
-    public class Message
+    public class File
     {
         public int Id { get; set; }
 
         [StringLength(200)]
-        public string Text { get; set; }
-         
-        public DateTime DateTimeSent { get; set; }  = DateTime.Now;
+        public string Name { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public double Size { get; set; }
 
-        public int LectureId { get; set; }
+        public bool Private { get; set; }
+
+        public int LectureID { get; set; }
         public Lecture Lecture { get; set; }
     }
 }
