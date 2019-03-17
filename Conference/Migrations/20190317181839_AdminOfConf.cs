@@ -2,22 +2,28 @@
 
 namespace Conference.Migrations
 {
-    public partial class adminofconference : Migration
+    public partial class AdminOfConf : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "ThemeSectionName",
+                table: "ThemeSection",
+                nullable: true,
+                oldClrType: typeof(int));
+
             migrationBuilder.CreateTable(
                 name: "AdminOfConference",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    AdminOfConferenceId = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     UserId = table.Column<int>(nullable: false),
                     ConferenceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AdminOfConference", x => x.Id);
+                    table.PrimaryKey("PK_AdminOfConference", x => x.AdminOfConferenceId);
                     table.ForeignKey(
                         name: "FK_AdminOfConference_Conference_ConferenceId",
                         column: x => x.ConferenceId,
@@ -47,6 +53,13 @@ namespace Conference.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AdminOfConference");
+
+            migrationBuilder.AlterColumn<int>(
+                name: "ThemeSectionName",
+                table: "ThemeSection",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldNullable: true);
         }
     }
 }

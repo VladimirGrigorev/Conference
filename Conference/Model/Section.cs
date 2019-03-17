@@ -14,7 +14,8 @@ namespace Conference.Model
         public ThemeSection ThemeSection { get; set; }
 
         public int ConferenceId { get; set; }
-        public Conference Conference{ get; set; } 
+        public Conference Conference{ get; set; }
 
+        public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
     }
 }

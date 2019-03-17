@@ -7,8 +7,8 @@ namespace Conference.Model
 {
     public class ThemeConference
     {
-        public int ThemeConderenceId { get; set; }
-        public int ThemeConferenceName{ get; set; }
+        public int ThemeConferenceId { get; set; }
+        public string ThemeConferenceName{ get; set; }
     }
 
 }

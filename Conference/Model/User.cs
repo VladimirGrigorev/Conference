@@ -23,6 +23,6 @@ namespace Conference.Model
 
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
 
-        public List<AdminOfConference> AdminOfConferences { get; set; }
+        public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
     }
 }

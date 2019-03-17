@@ -7,9 +7,9 @@ namespace Conference.Model
 {
     public class AdminOfConference
     {
-      
-        public int Id { get; set; }
-        
+
+        public int AdminOfConferenceId { get; set; }
+
         public int UserId { get; set; }
         public User User;
 

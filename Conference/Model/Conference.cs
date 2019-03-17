@@ -21,6 +21,6 @@ namespace Conference.Model
         public int ThemeConferenced { get; set; }
         public ThemeSection ThemeConference { get; set; }
 
-        public List<AdminOfConference> AdminOfConferences { get; set; }
+        public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conference.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190317174225_adminofconference")]
-    partial class adminofconference
+    [Migration("20190317181839_AdminOfConf")]
+    partial class AdminOfConf
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,14 +20,14 @@ namespace Conference.Migrations
 
             modelBuilder.Entity("Conference.Model.AdminOfConference", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AdminOfConferenceId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ConferenceId");
 
                     b.Property<int>("UserId");
 
-                    b.HasKey("Id");
+                    b.HasKey("AdminOfConferenceId");
 
                     b.HasIndex("ConferenceId");
 
@@ -171,7 +171,7 @@ namespace Conference.Migrations
                     b.Property<int>("ThemeSectionId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ThemeSectionName");
+                    b.Property<string>("ThemeSectionName");
 
                     b.HasKey("ThemeSectionId");
 
@@ -230,7 +230,7 @@ namespace Conference.Migrations
             modelBuilder.Entity("Conference.Model.Lecture", b =>
                 {
                     b.HasOne("Conference.Model.Section", "Section")
-                        .WithMany()
+                        .WithMany("Lectures")
                         .HasForeignKey("SectionID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

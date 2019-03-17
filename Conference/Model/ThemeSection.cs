@@ -8,6 +8,6 @@ namespace Conference.Model
     public class ThemeSection
     {
         public int ThemeSectionId { get; set; }
-        public int ThemeSectionName { get; set; }
+        public string ThemeSectionName { get; set; }
     }
 }
