@@ -22,5 +22,7 @@ namespace Conference.Model
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
+
+        public List<AdminOfConference> AdminOfConferences { get; set; }
     }
 }
