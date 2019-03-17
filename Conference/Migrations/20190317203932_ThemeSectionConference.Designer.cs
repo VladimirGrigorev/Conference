@@ -9,14 +9,32 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conference.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190317163655_ThemesSectionConference")]
-    partial class ThemesSectionConference
+    [Migration("20190317203932_ThemeSectionConference")]
+    partial class ThemeSectionConference
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+
+            modelBuilder.Entity("Conference.Model.AdminOfConference", b =>
+                {
+                    b.Property<int>("AdminOfConferenceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("AdminOfConferenceId");
+
+                    b.HasIndex("ConferenceId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AdminOfConference");
+                });
 
             modelBuilder.Entity("Conference.Model.Conference", b =>
                 {
@@ -31,13 +49,11 @@ namespace Conference.Migrations
 
                     b.Property<string>("Location");
 
-                    b.Property<int?>("ThemeConferenceThemeSectionId");
-
-                    b.Property<int>("ThemeConferenced");
+                    b.Property<int>("ThemeConferenceId");
 
                     b.HasKey("ConferenceId");
 
-                    b.HasIndex("ThemeConferenceThemeSectionId");
+                    b.HasIndex("ThemeConferenceId");
 
                     b.ToTable("Conference");
                 });
@@ -148,12 +164,24 @@ namespace Conference.Migrations
                     b.ToTable("Section");
                 });
 
+            modelBuilder.Entity("Conference.Model.ThemeConference", b =>
+                {
+                    b.Property<int>("ThemeConferenceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ThemeConferenceName");
+
+                    b.HasKey("ThemeConferenceId");
+
+                    b.ToTable("ThemeConference");
+                });
+
             modelBuilder.Entity("Conference.Model.ThemeSection", b =>
                 {
                     b.Property<int>("ThemeSectionId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ThemeSectionName");
+                    b.Property<string>("ThemeSectionName");
 
                     b.HasKey("ThemeSectionId");
 
@@ -181,11 +209,25 @@ namespace Conference.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("Conference.Model.AdminOfConference", b =>
+                {
+                    b.HasOne("Conference.Model.Conference", "Conference")
+                        .WithMany("AdminOfConferences")
+                        .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Conference.Model.User")
+                        .WithMany("AdminOfConferences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Conference.Model.Conference", b =>
                 {
-                    b.HasOne("Conference.Model.ThemeSection", "ThemeConference")
+                    b.HasOne("Conference.Model.ThemeConference", "ThemeConference")
                         .WithMany()
-                        .HasForeignKey("ThemeConferenceThemeSectionId");
+                        .HasForeignKey("ThemeConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conference.Model.File", b =>
@@ -199,7 +241,7 @@ namespace Conference.Migrations
             modelBuilder.Entity("Conference.Model.Lecture", b =>
                 {
                     b.HasOne("Conference.Model.Section", "Section")
-                        .WithMany()
+                        .WithMany("Lectures")
                         .HasForeignKey("SectionID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

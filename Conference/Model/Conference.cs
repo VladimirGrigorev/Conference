@@ -18,8 +18,8 @@ namespace Conference.Model
         [DataType(DataType.DateTime)]
         public DateTime DateTimeFinishConference { get; set; }
 
-        public int ThemeConferenced { get; set; }
-        public ThemeSection ThemeConference { get; set; }
+        public int ThemeConferenceId { get; set; }
+        public ThemeConference ThemeConference { get; set; }
 
         public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
     }

@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190317203105_confThemes.cs" />
+    <Compile Remove="Migrations\20190317203105_confThemes.Designer.cs" />
+    <Compile Remove="Migrations\20190317203311_confchanges.cs" />
+    <Compile Remove="Migrations\20190317203311_confchanges.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

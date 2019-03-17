@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Conference.Migrations
 {
-    public partial class ThemesSectionConference : Migration
+    public partial class ThemeSectionConference : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,12 +25,25 @@ namespace Conference.Migrations
                 defaultValue: 0);
 
             migrationBuilder.CreateTable(
+                name: "ThemeConference",
+                columns: table => new
+                {
+                    ThemeConferenceId = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    ThemeConferenceName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ThemeConference", x => x.ThemeConferenceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ThemeSection",
                 columns: table => new
                 {
                     ThemeSectionId = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    ThemeSectionName = table.Column<int>(nullable: false)
+                    ThemeSectionName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,18 +60,43 @@ namespace Conference.Migrations
                     Location = table.Column<string>(nullable: true),
                     DateTimeStartConference = table.Column<DateTime>(nullable: false),
                     DateTimeFinishConference = table.Column<DateTime>(nullable: false),
-                    ThemeConferenced = table.Column<int>(nullable: false),
-                    ThemeConferenceThemeSectionId = table.Column<int>(nullable: true)
+                    ThemeConferenceId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Conference", x => x.ConferenceId);
                     table.ForeignKey(
-                        name: "FK_Conference_ThemeSection_ThemeConferenceThemeSectionId",
-                        column: x => x.ThemeConferenceThemeSectionId,
-                        principalTable: "ThemeSection",
-                        principalColumn: "ThemeSectionId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_Conference_ThemeConference_ThemeConferenceId",
+                        column: x => x.ThemeConferenceId,
+                        principalTable: "ThemeConference",
+                        principalColumn: "ThemeConferenceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AdminOfConference",
+                columns: table => new
+                {
+                    AdminOfConferenceId = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    UserId = table.Column<int>(nullable: false),
+                    ConferenceId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AdminOfConference", x => x.AdminOfConferenceId);
+                    table.ForeignKey(
+                        name: "FK_AdminOfConference_Conference_ConferenceId",
+                        column: x => x.ConferenceId,
+                        principalTable: "Conference",
+                        principalColumn: "ConferenceId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AdminOfConference_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -72,9 +110,19 @@ namespace Conference.Migrations
                 column: "ThemeSectionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Conference_ThemeConferenceThemeSectionId",
+                name: "IX_AdminOfConference_ConferenceId",
+                table: "AdminOfConference",
+                column: "ConferenceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AdminOfConference_UserId",
+                table: "AdminOfConference",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Conference_ThemeConferenceId",
                 table: "Conference",
-                column: "ThemeConferenceThemeSectionId");
+                column: "ThemeConferenceId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Section_Conference_ConferenceId",
@@ -104,10 +152,16 @@ namespace Conference.Migrations
                 table: "Section");
 
             migrationBuilder.DropTable(
-                name: "Conference");
+                name: "AdminOfConference");
 
             migrationBuilder.DropTable(
                 name: "ThemeSection");
+
+            migrationBuilder.DropTable(
+                name: "Conference");
+
+            migrationBuilder.DropTable(
+                name: "ThemeConference");
 
             migrationBuilder.DropIndex(
                 name: "IX_Section_ConferenceId",

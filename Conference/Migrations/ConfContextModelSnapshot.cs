@@ -47,13 +47,11 @@ namespace Conference.Migrations
 
                     b.Property<string>("Location");
 
-                    b.Property<int?>("ThemeConferenceThemeSectionId");
-
-                    b.Property<int>("ThemeConferenced");
+                    b.Property<int>("ThemeConferenceId");
 
                     b.HasKey("ConferenceId");
 
-                    b.HasIndex("ThemeConferenceThemeSectionId");
+                    b.HasIndex("ThemeConferenceId");
 
                     b.ToTable("Conference");
                 });
@@ -164,6 +162,18 @@ namespace Conference.Migrations
                     b.ToTable("Section");
                 });
 
+            modelBuilder.Entity("Conference.Model.ThemeConference", b =>
+                {
+                    b.Property<int>("ThemeConferenceId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ThemeConferenceName");
+
+                    b.HasKey("ThemeConferenceId");
+
+                    b.ToTable("ThemeConference");
+                });
+
             modelBuilder.Entity("Conference.Model.ThemeSection", b =>
                 {
                     b.Property<int>("ThemeSectionId")
@@ -212,9 +222,10 @@ namespace Conference.Migrations
 
             modelBuilder.Entity("Conference.Model.Conference", b =>
                 {
-                    b.HasOne("Conference.Model.ThemeSection", "ThemeConference")
+                    b.HasOne("Conference.Model.ThemeConference", "ThemeConference")
                         .WithMany()
-                        .HasForeignKey("ThemeConferenceThemeSectionId");
+                        .HasForeignKey("ThemeConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conference.Model.File", b =>
