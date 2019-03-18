@@ -18,14 +18,14 @@ namespace Conference.Migrations
 
             modelBuilder.Entity("Conference.Model.AdminOfConference", b =>
                 {
-                    b.Property<int>("AdminOfConferenceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ConferenceId");
 
                     b.Property<int>("UserId");
 
-                    b.HasKey("AdminOfConferenceId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ConferenceId");
 
@@ -36,7 +36,7 @@ namespace Conference.Migrations
 
             modelBuilder.Entity("Conference.Model.Conference", b =>
                 {
-                    b.Property<int>("ConferenceId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConferenceName");
@@ -47,11 +47,7 @@ namespace Conference.Migrations
 
                     b.Property<string>("Location");
 
-                    b.Property<int>("ThemeConferenceId");
-
-                    b.HasKey("ConferenceId");
-
-                    b.HasIndex("ThemeConferenceId");
+                    b.HasKey("Id");
 
                     b.ToTable("Conference");
                 });
@@ -151,39 +147,11 @@ namespace Conference.Migrations
 
                     b.Property<string>("SectionName");
 
-                    b.Property<int>("ThemeSectionId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ConferenceId");
 
-                    b.HasIndex("ThemeSectionId");
-
                     b.ToTable("Section");
-                });
-
-            modelBuilder.Entity("Conference.Model.ThemeConference", b =>
-                {
-                    b.Property<int>("ThemeConferenceId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ThemeConferenceName");
-
-                    b.HasKey("ThemeConferenceId");
-
-                    b.ToTable("ThemeConference");
-                });
-
-            modelBuilder.Entity("Conference.Model.ThemeSection", b =>
-                {
-                    b.Property<int>("ThemeSectionId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ThemeSectionName");
-
-                    b.HasKey("ThemeSectionId");
-
-                    b.ToTable("ThemeSection");
                 });
 
             modelBuilder.Entity("Conference.Model.User", b =>
@@ -217,14 +185,6 @@ namespace Conference.Migrations
                     b.HasOne("Conference.Model.User")
                         .WithMany("AdminOfConferences")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Conference.Model.Conference", b =>
-                {
-                    b.HasOne("Conference.Model.ThemeConference", "ThemeConference")
-                        .WithMany()
-                        .HasForeignKey("ThemeConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -275,11 +235,6 @@ namespace Conference.Migrations
                     b.HasOne("Conference.Model.Conference", "Conference")
                         .WithMany()
                         .HasForeignKey("ConferenceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Conference.Model.ThemeSection", "ThemeSection")
-                        .WithMany()
-                        .HasForeignKey("ThemeSectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

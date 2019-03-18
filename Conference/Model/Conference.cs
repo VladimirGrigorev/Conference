@@ -8,8 +8,10 @@ namespace Conference.Model
 {
     public class Conference
     {
-        public int ConferenceId { get; set; }
+        public int Id { get; set; }
+
         public string ConferenceName { get; set; }
+
         public string Location { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -17,9 +19,6 @@ namespace Conference.Model
 
         [DataType(DataType.DateTime)]
         public DateTime DateTimeFinishConference { get; set; }
-
-        public int ThemeConferenceId { get; set; }
-        public ThemeConference ThemeConference { get; set; }
 
         public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
     }
