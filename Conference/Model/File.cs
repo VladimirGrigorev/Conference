@@ -10,14 +10,14 @@ namespace Conference.Model
     {
         public int Id { get; set; }
 
-        [StringLength(200)]
+        [StringLength(300)]
         public string Name { get; set; }
 
         public double Size { get; set; }
 
         public bool Private { get; set; }
 
-        public int LectureID { get; set; }
+        public int LectureId { get; set; }
         public Lecture Lecture { get; set; }
     }
 }
