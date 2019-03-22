@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Conference.Model
+namespace ConfModel.Model
 {
     public class RoleInLecture
     {

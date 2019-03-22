@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace Conference.Model
+namespace ConfModel.Model
 {
     public class ConfContext : DbContext
     {
