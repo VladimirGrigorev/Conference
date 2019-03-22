@@ -10,8 +10,12 @@ namespace Conference.Model
     {
         public int Id { get; set; }
 
-        public string ConferenceName { get; set; }
+        [StringLength(500)]
+        public string Name { get; set; }
 
+        [StringLength(8000)]
+        public string Info { get; set; }
+        [StringLength(500)]
         public string Location { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -21,5 +25,7 @@ namespace Conference.Model
         public DateTime DateTimeFinishConference { get; set; }
 
         public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
+
+        public ICollection<Section> Sections { get; set; } = new List<Section>();
     }
 }

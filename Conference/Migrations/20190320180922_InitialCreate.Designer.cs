@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Conference.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190318174423_ConferenceSectionAdmin")]
-    partial class ConferenceSectionAdmin
+    [Migration("20190320180922_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
+                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
             modelBuilder.Entity("Conference.Model.AdminOfConference", b =>
                 {
@@ -33,7 +33,7 @@ namespace Conference.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AdminOfConference");
+                    b.ToTable("AdminOfConferences");
                 });
 
             modelBuilder.Entity("Conference.Model.Conference", b =>
@@ -41,17 +41,22 @@ namespace Conference.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ConferenceName");
-
                     b.Property<DateTime>("DateTimeFinishConference");
 
                     b.Property<DateTime>("DateTimeStartConference");
 
-                    b.Property<string>("Location");
+                    b.Property<string>("Info")
+                        .HasMaxLength(8000);
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(500);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(500);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Conference");
+                    b.ToTable("Conferences");
                 });
 
             modelBuilder.Entity("Conference.Model.File", b =>
@@ -59,10 +64,10 @@ namespace Conference.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("LectureID");
+                    b.Property<int>("LectureId");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(200);
+                        .HasMaxLength(300);
 
                     b.Property<bool>("Private");
 
@@ -70,9 +75,9 @@ namespace Conference.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LectureID");
+                    b.HasIndex("LectureId");
 
-                    b.ToTable("File");
+                    b.ToTable("Files");
                 });
 
             modelBuilder.Entity("Conference.Model.Lecture", b =>
@@ -82,17 +87,21 @@ namespace Conference.Migrations
 
                     b.Property<DateTime>("DateTimeCloseChat");
 
-                    b.Property<DateTime>("DateTimeLecture");
-
                     b.Property<DateTime>("DateTimeOpenChat");
 
-                    b.Property<int>("SectionID");
+                    b.Property<DateTime>("DateTimeStart");
 
-                    b.Property<string>("TopicLecture");
+                    b.Property<string>("Info")
+                        .HasMaxLength(8000);
+
+                    b.Property<int>("SectionId");
+
+                    b.Property<string>("Topic")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SectionID");
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Lectures");
                 });
@@ -125,19 +134,19 @@ namespace Conference.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("LectureID");
+                    b.Property<int>("LectureId");
 
                     b.Property<int>("Role");
 
-                    b.Property<int>("UserID");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LectureID");
+                    b.HasIndex("LectureId");
 
-                    b.HasIndex("UserID");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("RoleInLecture");
+                    b.ToTable("RoleInLectures");
                 });
 
             modelBuilder.Entity("Conference.Model.Section", b =>
@@ -147,13 +156,17 @@ namespace Conference.Migrations
 
                     b.Property<int>("ConferenceId");
 
-                    b.Property<string>("SectionName");
+                    b.Property<string>("Info")
+                        .HasMaxLength(8000);
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
                     b.HasIndex("ConferenceId");
 
-                    b.ToTable("Section");
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Conference.Model.User", b =>
@@ -163,6 +176,8 @@ namespace Conference.Migrations
 
                     b.Property<string>("Email")
                         .HasMaxLength(50);
+
+                    b.Property<bool>("IsGlobalAdmin");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200);
@@ -193,8 +208,8 @@ namespace Conference.Migrations
             modelBuilder.Entity("Conference.Model.File", b =>
                 {
                     b.HasOne("Conference.Model.Lecture", "Lecture")
-                        .WithMany("Lectures")
-                        .HasForeignKey("LectureID")
+                        .WithMany("Files")
+                        .HasForeignKey("LectureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -202,7 +217,7 @@ namespace Conference.Migrations
                 {
                     b.HasOne("Conference.Model.Section", "Section")
                         .WithMany("Lectures")
-                        .HasForeignKey("SectionID")
+                        .HasForeignKey("SectionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -223,19 +238,19 @@ namespace Conference.Migrations
                 {
                     b.HasOne("Conference.Model.Lecture", "Lecture")
                         .WithMany("RoleInLectures")
-                        .HasForeignKey("LectureID")
+                        .HasForeignKey("LectureId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Conference.Model.User", "User")
                         .WithMany("RoleInLectures")
-                        .HasForeignKey("UserID")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Conference.Model.Section", b =>
                 {
                     b.HasOne("Conference.Model.Conference", "Conference")
-                        .WithMany()
+                        .WithMany("Sections")
                         .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

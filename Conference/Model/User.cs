@@ -17,6 +17,8 @@ namespace Conference.Model
         [StringLength(500)]
         public string PassHash { get; set; }
 
+        public bool IsGlobalAdmin { get; set; }
+
         public SexType Sex { get; set; }
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
