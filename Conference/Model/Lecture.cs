@@ -9,13 +9,16 @@ namespace Conference.Model
     public class Lecture
     {
         public int Id { get; set; }
+        [StringLength(200)]
+        public string Topic { get; set; }
 
-        public string TopicLecture { get; set; }
+        [StringLength(8000)]
+        public string Info { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime DateTimeLecture { get; set; }
+        public DateTime DateTimeStart { get; set; }
 
-        public int SectionID { get; set; }
+        public int SectionId { get; set; }
         public Section Section { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -26,7 +29,7 @@ namespace Conference.Model
 
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
 
-        public ICollection<File> Lectures { get; set; } = new List<File>();
+        public ICollection<File> Files { get; set; } = new List<File>();
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 

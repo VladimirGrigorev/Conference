@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 
 namespace Conference.Model
 {
-    public class RoleInLecture
+    public class AdminOfConference
     {
         public int Id { get; set; }
 
         public int UserId { get; set; }
-        public User User { get; set; }
+        public User User;
 
-        public int LectureId { get; set; }
-        public Lecture Lecture { get; set; }
-
-        public Role Role { get; set; }
+        public int ConferenceId { get; set; }
+        public Conference Conference { get; set; }
     }
 }

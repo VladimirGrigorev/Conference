@@ -17,10 +17,14 @@ namespace Conference.Model
         [StringLength(500)]
         public string PassHash { get; set; }
 
+        public bool IsGlobalAdmin { get; set; }
+
         public SexType Sex { get; set; }
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
+
+        public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
     }
 }
