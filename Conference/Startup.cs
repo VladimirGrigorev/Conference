@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ConfModel.Model;
+using ConfRepository.Interface;
+using ConfRepository.Repository;
+using ConfService.Interface;
+using ConfService.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +33,9 @@ namespace Conference
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddAutoMapper();
+            services.AddScoped<IConferenceRepository, ConferenceRepository>();
+            services.AddScoped<IConferenceService, ConferenceService>();
             services.AddDbContext<ConfContext>
                 (options => options.UseMySQL(Configuration.GetConnectionString("db")));
         }

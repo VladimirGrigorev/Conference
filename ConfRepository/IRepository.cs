@@ -10,7 +10,7 @@ namespace ConfRepository
         IEnumerable<T> GetAll();
         T Get(int id);
         IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate);
-        void Add(T entity);
+        int Add(T entity);
         void Update(T entity);
         void Delete(int id);
     }

@@ -37,10 +37,11 @@ namespace ConfRepository
             return _context.Set<T>().Where(predicate);
         }
 
-        public void Add(T entity)
+        public int Add(T entity)
         {
-            Set.Add(entity);
+            var entityEntry = Set.Add(entity);
             _context.SaveChanges();
+            return entityEntry.Entity.Id;
         }
 
         public void Update(T entity)
