@@ -12,9 +12,9 @@ namespace Conference.Controllers
     public class UserController : ControllerBase
     {
         [HttpGet]
-        public Model.User Get()
+        public ConfModel.Model.User Get()
         {
-            var employees = new Model.User(){Name = "Alex"};
+            var employees = new ConfModel.Model.User() { Name = "Alex" };
             return employees;
         }
     }

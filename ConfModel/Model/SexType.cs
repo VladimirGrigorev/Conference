@@ -1,4 +1,4 @@
-﻿namespace Conference.Model
+﻿namespace ConfModel.Model
 {
     public enum SexType
     {

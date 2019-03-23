@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Conference.Migrations
+namespace ConfModel.Migrations
 {
     public partial class InitialCreate : Migration
     {
