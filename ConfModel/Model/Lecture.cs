@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ConfModel.Interface;
 
 namespace ConfModel.Model
 {
-    public class Lecture
+    public class Lecture : IId
     {
         public int Id { get; set; }
         [StringLength(200)]
