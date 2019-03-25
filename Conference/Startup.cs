@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Conference.Middleware;
 using ConfModel.Model;
 using ConfRepository.Interface;
 using ConfRepository.Repository;
@@ -52,6 +53,7 @@ namespace Conference
                 app.UseHsts();
             }
 
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

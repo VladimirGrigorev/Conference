@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ConfService.Dto
 {
@@ -7,17 +8,17 @@ namespace ConfService.Dto
     {
         public int Id { get; set; }
 
-        //[StringLength(500)]
+        [Required]
+        [StringLength(500)]
         public string Name { get; set; }
-
-        //[StringLength(8000)]
+        [StringLength(8000)]
         public string Info { get; set; }
-        //[StringLength(500)]
+        [StringLength(500)]
         public string Location { get; set; }
-        
-        public DateTime DateTimeStartConference { get; set; }
-        
-        public DateTime DateTimeFinishConference { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime DateTimeStart { get; set; }
+        [DataType(DataType.DateTime)]
+        public DateTime DateTimeFinish { get; set; }
         
         public ICollection<SectionDto> SectionsDto { get; set; } = new List<SectionDto>();
 
