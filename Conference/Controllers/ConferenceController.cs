@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Conference.Filter;
 using ConfService.Dto;
 using ConfService.Interface;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,7 @@ namespace Conference.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ValidateModel]
     public class ConferenceController : ControllerBase
     {
         private readonly IConferenceService _iConferenceService;
@@ -29,6 +31,7 @@ namespace Conference.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]ConferenceDto conference)
         {
+            throw new Exception("Dooooom");
             return Ok(_iConferenceService.Add(conference));
         }
     }
