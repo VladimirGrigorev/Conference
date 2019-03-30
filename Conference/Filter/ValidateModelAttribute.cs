@@ -13,7 +13,7 @@ namespace Conference.Filter
             if (!context.ModelState.IsValid)
             {
                 throw new ConfException(new
-                    {errors = context.ModelState.Select(a => a.Key + ":" + a.Value.Errors[0].ErrorMessage)});
+                    {errors = context.ModelState.Select(a => new { prop = a.Key, message =  a.Value.Errors[0].ErrorMessage})});
             }
         }
     }
