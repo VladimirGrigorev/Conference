@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ConfModel.Interface;
 
 namespace ConfModel.Model
 {
-    public class RoleInLecture
+    public class RoleInLecture : IId
     {
         public int Id { get; set; }
 
