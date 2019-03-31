@@ -6,7 +6,7 @@ using ConfRepository.Interface;
 
 namespace ConfRepository.Repository
 {
-    class AdminOfConferenceRepository : BaseRepository<AdminOfConference>, IAdminOfConferenceRepository
+    public class AdminOfConferenceRepository : BaseRepository<AdminOfConference>, IAdminOfConferenceRepository
     {
         public AdminOfConferenceRepository(ConfContext confContext) : base(confContext)
         {

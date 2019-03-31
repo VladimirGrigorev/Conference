@@ -6,7 +6,7 @@ using ConfRepository.Interface;
 
 namespace ConfRepository.Repository
 {
-    class LectureRepository : BaseRepository<Lecture>, ILectureRepository
+    public class LectureRepository : BaseRepository<Lecture>, ILectureRepository
     {
         public LectureRepository(ConfContext confContext) : base(confContext)
         {

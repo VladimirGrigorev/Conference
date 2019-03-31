@@ -15,24 +15,23 @@ namespace Conference.Controllers
     [ValidateModel]
     public class ConferenceController : ControllerBase
     {
-        private readonly IConferenceService _iConferenceService;
+        private readonly IConferenceService _conferenceService;
 
         public ConferenceController(IConferenceService service)
         {
-            _iConferenceService = service;
+            _conferenceService = service;
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_iConferenceService.Get(id));
+            return Ok(_conferenceService.Get(id));
         }
 
         [HttpPost]
         public IActionResult Add([FromBody]ConferenceDto conference)
         {
-            throw new Exception("Dooooom");
-            return Ok(_iConferenceService.Add(conference));
+            return Ok(_conferenceService.Add(conference));
         }
     }
 }

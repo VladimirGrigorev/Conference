@@ -5,7 +5,7 @@ using ConfModel.Model;
 
 namespace ConfRepository.Interface
 {
-    interface IAdminOfConferenceRepository : IRepository<AdminOfConference>
+    public interface IAdminOfConferenceRepository : IRepository<AdminOfConference>
     {
     }
 }

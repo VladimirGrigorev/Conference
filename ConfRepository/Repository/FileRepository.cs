@@ -6,7 +6,7 @@ using ConfRepository.Interface;
 
 namespace ConfRepository.Repository
 {
-    class FileRepository : BaseRepository<File>, IFileRepository
+    public class FileRepository : BaseRepository<File>, IFileRepository
     {
         public FileRepository(ConfContext confContext) : base(confContext)
         {

@@ -5,7 +5,7 @@ using ConfModel.Model;
 
 namespace ConfRepository.Interface
 {
-    interface IRoleInLectureRepository : IRepository<RoleInLecture>
+    public interface IRoleInLectureRepository : IRepository<RoleInLecture>
     {
     }
 }

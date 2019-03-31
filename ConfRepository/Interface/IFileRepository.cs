@@ -5,7 +5,7 @@ using ConfModel.Model;
 
 namespace ConfRepository.Interface
 {
-    interface IFileRepository : IRepository<File>
+    public interface IFileRepository : IRepository<File>
     {
     }
 }
