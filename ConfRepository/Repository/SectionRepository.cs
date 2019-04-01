@@ -6,7 +6,7 @@ using ConfRepository.Interface;
 
 namespace ConfRepository.Repository
 {
-    class SectionRepository : BaseRepository<Section>, ISectionRepository
+    public class SectionRepository : BaseRepository<Section>, ISectionRepository
     {
         public SectionRepository(ConfContext confContext) : base(confContext)
         { }

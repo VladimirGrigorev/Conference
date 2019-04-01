@@ -5,7 +5,7 @@ using ConfModel.Model;
 
 namespace ConfRepository.Interface
 {
-    interface ISectionRepository : IRepository<Section>
+    public interface ISectionRepository : IRepository<Section>
     {
     }
 }

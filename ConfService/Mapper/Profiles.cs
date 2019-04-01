@@ -8,6 +8,7 @@ namespace ConfService.Mapper
     {
         public Profiles()
         {
+            CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Conference, ConferenceDto>().ReverseMap();
             CreateMap<Section, SectionDto>().ReverseMap();
             CreateMap<Lecture, LectureDto>().ReverseMap();

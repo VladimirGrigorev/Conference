@@ -3,6 +3,7 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Conference.CustomException;
+using ConfService.ServiceException;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -37,12 +38,23 @@ namespace Conference.Middleware
             //else if (ex is MyUnauthorizedException) code = HttpStatusCode.Unauthorized;
             //else if (ex is MyException) code = HttpStatusCode.BadRequest;
 
-            string result = null;
+            object obj = null;
             if (ex is ConfException cex)
-                result = JsonConvert.SerializeObject(cex.Body);
+                obj = cex.Body;
+            else if (ex is UserWithThisEmailExistsException)
+            {
+                code = HttpStatusCode.BadRequest;
+                obj = new {error = "User with this email already exists"};
+            }
+            else if (ex is UnauthorizedAccessException)
+            {
+                code = HttpStatusCode.Unauthorized;
+                obj = new { error = "Bad or missing credentials" };
+            } 
             else
-                result = JsonConvert.SerializeObject(new { error = ex.Message });
+                obj = new { error = ex.Message };
 
+            var result = JsonConvert.SerializeObject(obj);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConfModel.Model
 {
@@ -20,7 +21,13 @@ namespace ConfModel.Model
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<AdminOfConference> AdminOfConferences { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<User>()
+                .Property(r => r.IsGlobalAdmin)
+                .HasConversion(new BoolToZeroOneConverter<Int16>());
+        }
 
-        //todo override SaveChanging in order to delete orphans
     }
 }

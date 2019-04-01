@@ -6,7 +6,7 @@ using ConfRepository.Interface;
 
 namespace ConfRepository.Repository
 {
-    class MessageRepository : BaseRepository<Message>, IMessageRepository
+    public class MessageRepository : BaseRepository<Message>, IMessageRepository
     {
         public MessageRepository(ConfContext confContext) : base(confContext)
         {

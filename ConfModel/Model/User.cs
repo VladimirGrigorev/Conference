@@ -18,7 +18,7 @@ namespace ConfModel.Model
         [StringLength(500)]
         public string PassHash { get; set; }
 
-        public bool IsGlobalAdmin { get; set; }
+        public bool IsGlobalAdmin { get; set; } = false;
 
         public SexType Sex { get; set; }
 
