@@ -33,5 +33,11 @@ namespace Conference.Controllers
         {
             return Ok(_conferenceService.Add(conference));
         }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            return Ok(_conferenceService.GetAll());
+        }
     }
 }

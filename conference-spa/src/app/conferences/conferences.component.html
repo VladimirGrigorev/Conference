@@ -1,0 +1,22 @@
+<div class="album">
+  <div class="container">
+    <div class="row">
+      <div class=" col-xl-3 col-lg-4 col-md-6" *ngFor="let c of conferences">
+        <div class="card mb-4">
+          <div class="card-body box-shadow">
+            <h2>{{c.name}}</h2>
+            <p>{{c.info}}</p>
+            <p>{{c.location}}</p>
+            <p>{{c.dateTimeStart}}</p>
+            <p>{{c.dateTimeFinish}}</p>
+            
+            <p>
+              <a class="btn btn-outline-secondary" href="#" role="button">Details</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  
