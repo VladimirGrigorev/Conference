@@ -14,12 +14,6 @@ export class LecturesService {
   constructor(private httpClient:HttpClient) { }
 
   get(id:number): Observable<Lecture>{
-
-    let lec = new Lecture();
-    lec.info = "cat";
-    lec.topic = "furry";
-
-    return of(lec);
-    //return this.httpClient.get<Lecture>(this.baseUrl+id);
+    return this.httpClient.get<Lecture>(this.baseUrl+id);
   }
 }

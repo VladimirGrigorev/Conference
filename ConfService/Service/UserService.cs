@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
@@ -49,7 +50,7 @@ namespace ConfService.Service
                 x => x.Email == userDto.Email && x.PassHash == userDto.PassHash);
 
             if(user == null)
-                throw new UnauthorizedAccessException();
+                throw new AuthenticationException();
 
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtSettings.LifetimeSeconds);
             var tokenDto = new TokenDto()

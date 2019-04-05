@@ -15,7 +15,7 @@ namespace ConfService.Dto
 
         [DataType(DataType.DateTime)]
         public DateTime DateTimeStart { get; set; }
-
+        [Required]
         public int SectionId { get; set; }
 
         [DataType(DataType.DateTime)]

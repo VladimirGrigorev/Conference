@@ -26,11 +26,8 @@ export class LectureComponent implements OnInit {
       switchMap(params => {
         let id = +params.get('id');
         return this.lecturesService.get(id);
-      }),
-      tap (a=> console.log(a))
-    ).subscribe(lec=> this.lecture = lec) ;
-    //const id = this.route.snapshot.paramMap.get('id');
-    //this.lecturesService.get(+id).subscribe(lect=> this.lecture = lect);
+      })
+    ).subscribe(lec=> this.lecture = lec) ;    
   }
 
 }
