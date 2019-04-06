@@ -11,6 +11,6 @@
 
         public bool Private { get; set; }
 
-        public int LectureId { get; set; }
+        public int LectureDtoId { get; set; }
     }
 }
