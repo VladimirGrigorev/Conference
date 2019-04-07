@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { LECTURES_ENDPOINT } from '../conf-endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SectionsService {
 
   private headers: HttpHeaders;
-  private baseUrl: string = 'http://localhost:5000/api/section';
+  private baseUrl = LECTURES_ENDPOINT;
 
   constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json;  charset=utf-8'});

@@ -9,12 +9,28 @@
       <p class="lead text-muted">{{conference.dateTimeFinish}}</p>
 
       <p>
-        <a class="btn btn-outline-secondary" routerLink="/conference" role="button">Go back</a>
+        <a class="btn btn-outline-secondary" routerLink="/conferences" role="button">Go back</a>
       </p>
     </div>
   </div>
 
-  <div *ngFor="let s of conference.sections">{{s.name}}</div>
+  <div class="container">
+    <h2>Секции</h2>
+    <div *ngFor="let s of conference.sections" class="rowTable container">
+      <h4>{{s.name}}</h4>
+      <p>{{s.info}}</p>
+      <div class="container">
+        <h4>Лекции</h4>
+        <div *ngFor="let l of s.lectures" class="container">
+          <a routerLink="/lectures/{{l.id}}" class="topic">
+            <h5>{{l.topic}}</h5>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
 
 
 </div>

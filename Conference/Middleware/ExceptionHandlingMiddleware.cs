@@ -50,7 +50,12 @@ namespace Conference.Middleware
             {
                 code = HttpStatusCode.Unauthorized;
                 obj = new { error = "Bad or missing credentials" };
-            } 
+            }
+            else if (ex is NotEnoughRightsException)
+            {
+                code = HttpStatusCode.Unauthorized;
+                obj = new { error = "Not enough rights" };
+            }
             else
                 obj = new { error = ex.Message };
 

@@ -11,6 +11,7 @@ import { ConferenceDetailComponent } from './conference-detail/conference-detail
 import { AddConferenceComponent } from './add-conference/add-conference.component';
 import { AddSectionComponent } from './add-section/add-section.component';
 import { AddLectureComponent } from './add-lecture/add-lecture.component';
+import { LectureComponent } from './lecture/lecture.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AddLectureComponent } from './add-lecture/add-lecture.component';
       ConferenceDetailComponent,
       AddConferenceComponent,
       AddSectionComponent,
-      AddLectureComponent
+      AddLectureComponent,
+      LectureComponent
    ],
    imports: [
       BrowserModule,

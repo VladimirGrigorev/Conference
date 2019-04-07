@@ -1,0 +1,20 @@
+.rowTable{
+    margin-bottom: 0.5rem;
+    border-color: #6c757d;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.topic:hover{
+    color: #fff;
+    background-color: #6c757d;
+    display: block;
+}
+
+.topic{
+    color:#000;
+    text-decoration: none;
+    border-radius: 0.25rem;
+}

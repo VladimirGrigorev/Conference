@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CONFERENCES_ENDPOINT } from '../conf-endpoints';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConferencesService {
   private headers: HttpHeaders;
-  private baseUrl: string = 'http://localhost:5000/api/conference';
+  private baseUrl = CONFERENCES_ENDPOINT;
 
   constructor(private http: HttpClient) { 
     this.headers = new HttpHeaders({'Content-Type': 'application/json;  charset=utf-8'});

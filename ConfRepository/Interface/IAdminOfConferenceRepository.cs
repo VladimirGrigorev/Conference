@@ -7,5 +7,6 @@ namespace ConfRepository.Interface
 {
     public interface IAdminOfConferenceRepository : IRepository<AdminOfConference>
     {
+        bool IsAdminOfConf(int userId, int confId);
     }
 }
