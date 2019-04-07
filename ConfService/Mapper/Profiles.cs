@@ -11,7 +11,7 @@ namespace ConfService.Mapper
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Conference, ConferenceDto>()
-                //.ForMember(conferenceDto => conferenceDto.SectionsDto,
+                //.ForMember(conferenceDto => conferenceDto.Sections,
                 //a => a.MapFrom(conf => conf.Sections))
                 .ReverseMap();
             CreateMap<Section, SectionDto>()
