@@ -20,7 +20,7 @@ namespace ConfService.Dto
         [DataType(DataType.DateTime)]
         public DateTime DateTimeFinish { get; set; }
         
-        public ICollection<SectionDto> SectionsDto { get; set; } = new List<SectionDto>();
+        public ICollection<SectionDto> Sections { get; set; } = new List<SectionDto>();
 
     }
 }
