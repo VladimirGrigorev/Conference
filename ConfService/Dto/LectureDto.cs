@@ -17,7 +17,7 @@ namespace ConfService.Dto
         [DataType(DataType.DateTime)]
         public DateTime DateTimeStart { get; set; }
         [Required]
-        public int SectionDtoId { get; set; }
+        public int SectionId { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime DateTimeOpenChat { get; set; }
@@ -25,6 +25,6 @@ namespace ConfService.Dto
         [DataType(DataType.DateTime)]
         public DateTime DateTimeCloseChat { get; set; }
         
-        public ICollection<FileDto> FilesDto { get; set; } = new List<FileDto>();
+        public ICollection<FileDto> Files { get; set; } = new List<FileDto>();
     }
 }

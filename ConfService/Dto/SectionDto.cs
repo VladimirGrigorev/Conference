@@ -13,8 +13,8 @@ namespace ConfService.Dto
         [StringLength(8000)]
         public string Info { get; set; }
         [Required]
-        public int ConferenceDtoId { get; set; }
+        public int ConferenceId { get; set; }
 
-        public ICollection<LectureDto> LecturesDto { get; set; } = new List<LectureDto>();
+        public ICollection<LectureDto> Lectures { get; set; } = new List<LectureDto>();
     }
 }

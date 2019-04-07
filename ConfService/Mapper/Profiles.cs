@@ -11,22 +11,22 @@ namespace ConfService.Mapper
         {
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Conference, ConferenceDto>()
-                .ForMember(conferenceDto=>conferenceDto.SectionsDto, 
-                a=>a.MapFrom(conf=>conf.Sections))
+                //.ForMember(conferenceDto => conferenceDto.SectionsDto,
+                //a => a.MapFrom(conf => conf.Sections))
                 .ReverseMap();
             CreateMap<Section, SectionDto>()
-                .ForMember(sectionDto => sectionDto.ConferenceDtoId,
-                    a=>a.MapFrom(sect=> sect.ConferenceId))
-                .ForMember(sectionDto => sectionDto.LecturesDto,
-                    a => a.MapFrom(sect => sect.Lectures))
+                //.ForMember(sectionDto => sectionDto.ConferenceId,
+                //    a=>a.MapFrom(sect=> sect.ConferenceId))
+                //.ForMember(sectionDto => sectionDto.Lectures,
+                //    a => a.MapFrom(sect => sect.Lectures))
                 .ReverseMap();
             CreateMap<Lecture, LectureDto>()
-                .ForMember(lectureDto => lectureDto.SectionDtoId,
-                    a => a.MapFrom(lect => lect.SectionId))
+                //.ForMember(lectureDto => lectureDto.SectionId,
+                //    a => a.MapFrom(lect => lect.SectionId))
                 .ReverseMap();
             CreateMap<File, FileDto>()
-                .ForMember(fileDto => fileDto.LectureDtoId,
-                    a => a.MapFrom(file => file.LectureId))
+                //.ForMember(fileDto => fileDto.LectureId,
+                //    a => a.MapFrom(file => file.LectureId))
                 .ReverseMap();
         }
     }
