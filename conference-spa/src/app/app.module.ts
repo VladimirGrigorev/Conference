@@ -5,20 +5,26 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
 import { HttpClient, HttpClientModule} from 'node_modules/@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import {ErrorInterceptorProvider } from './_services/error.interceptor';
 
 
 @NgModule({
    declarations: [
       AppComponent,
-      NavComponent
+      NavComponent,
+      RegisterComponent,
+      HomeComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
-      FormsModule,
+      FormsModule
    ],
    providers: [
-      AuthService
+      AuthService,
+      ErrorInterceptorProvider
    ],
    bootstrap: [
       AppComponent

@@ -1,0 +1,27 @@
+<form #registerFrom="ngForm" (ngSubmit)="register()">
+  <br>
+  <h2 class="text-center text-primary" style="padding: 5%">Регистрация</h2>
+  <hr>
+  <div class="form-group">
+    <input type="text" class="form-control" required name ="name" [(ngModel)]="model.name" placeholder="Username">
+  </div>
+  <div class="form-group">
+    <input type="radio" name="sex" [(ngModel)]="model.sex" value="male" checked> Male<br>
+    <input type="radio" name="sex" [(ngModel)]="model.sex" value="female"> Female<br>
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" required placeholder="Email">
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" required name="passhash" [(ngModel)]="model.passhash" placeholder="Password">
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+  <div *ngIf="errorFlag" class="Error" >
+          <p>{{errorMessage}}</p>
+  </div>
+</form>

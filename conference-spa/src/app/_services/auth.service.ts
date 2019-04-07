@@ -13,7 +13,7 @@ export class AuthService {
 constructor(private http: HttpClient) { }
 
 
-signin(model: any) {
+signin(model: any) { // авторизация
     //const body = {email: user.email, password: user.passhash};
   return this.http.post(this.baseUrl + 'signin', model)
   .pipe(
@@ -26,6 +26,9 @@ signin(model: any) {
         }
     )
   );
+  }
+  signup(model: any){ //регистрация
+    return this.http.post(this.baseUrl+'signup', model);
   }
 
 }
