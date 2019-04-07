@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Conference.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/conferences")]
     [ApiController]
     [ValidateModel]
     public class ConferenceController : ControllerBase
