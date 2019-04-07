@@ -21,4 +21,8 @@ export class ConferencesComponent implements OnInit {
     this.conferencesService.getAll()
       .subscribe((conferences :any ) => this.conferences = conferences);
   }
+
+  isDisplayed(id:number):boolean{
+    return id===1;
+  }
 }

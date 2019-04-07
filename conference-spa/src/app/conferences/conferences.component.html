@@ -1,17 +1,34 @@
 <div class="album">
   <div class="container">
     <div class="row">
+        <div class=" col-xl-3 col-lg-4 col-md-6" >
+          <div class="card mb-4" style="height:93%; ">
+            <div class="card-body box-shadow " style="position:relative; " >
+              <h2 class="text-center">Создать конференцию</h2>
+              <a class="add-conf-a text-center" routerLink="/conference/add-conf" >
+                <img class="add-conf-img rounded-circle " src="https://img.icons8.com/material-rounded/48/000000/plus-math.png">
+              </a>
+            </div>
+          </div>
+        </div>
       <div class=" col-xl-3 col-lg-4 col-md-6" *ngFor="let c of conferences">
         <div class="card mb-4">
-          <div class="card-body box-shadow">
+          <div class="card-body box-shadow text-center">
             <h2>{{c.name}}</h2>
             <p>{{c.info}}</p>
             <p>{{c.location}}</p>
             <p>{{c.dateTimeStart}}</p>
             <p>{{c.dateTimeFinish}}</p>
-            
+            <!--<button type="button" *ngIf="isDisplayed(c.id)" class="btn btn-outline-secondary">
+                <span class="glyphicon glyphicon-pencil"></span>
+            </button>-->
+
+            <a href="#"  *ngIf="isDisplayed(c.id)" class="buttonEdit btn btn-outline-secondary ">
+              <img src="https://img.icons8.com/small/32/000000/edit.png">
+            </a>
+
             <p>
-              <a class="btn btn-outline-secondary" href="#" role="button">Details</a>
+              <a class="btn btn-outline-secondary" role="button" routerLink="/conference/{{c.id}}">Details</a>
             </p>
           </div>
         </div>

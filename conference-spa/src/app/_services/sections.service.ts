@@ -4,11 +4,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ConferencesService {
-  private headers: HttpHeaders;
-  private baseUrl: string = 'http://localhost:5000/api/conference';
+export class SectionsService {
 
-  constructor(private http: HttpClient) { 
+  private headers: HttpHeaders;
+  private baseUrl: string = 'http://localhost:5000/api/section';
+
+  constructor(private http: HttpClient) {
     this.headers = new HttpHeaders({'Content-Type': 'application/json;  charset=utf-8'});
   }
 
@@ -31,5 +32,5 @@ export class ConferencesService {
   public update(body){
     return this.http.put(this.baseUrl, body, {headers: this.headers})
   }
-}
 
+}

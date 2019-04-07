@@ -1,0 +1,35 @@
+<div class="row">
+  <h2 class="col-md-2 col-3">Секции</h2>
+  <button class="btn btn-outline-secondary " type="button" (click)="addSection()" *ngIf="!opened">Добавить секцию</button>
+</div>
+<div *ngFor="let s of listSections" class="rowTable row">
+    <div class="col-12 col-md-8 ">
+      <h3>{{s.name}}</h3>
+      <p>{{s.info}}</p>
+    </div>
+
+    <div class="col-6 col-md-4 btn-group">
+      <button id="edit" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
+      <button id="lectures" type="button" class="btn  btn-outline-secondary" (click)="lectures()">Лекции</button>
+      <button id="hide" class="btn btn-outline-secondary " type="button" (click)="hideLectures()">Скрыть лекции</button>
+    </div>
+
+    <div *ngIf="openedLecture" id="compLectures">
+      <app-add-lecture></app-add-lecture>
+    </div>
+
+</div>
+<form [formGroup]="sectionForm" *ngIf="opened" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="name">Название секции:</label>
+    <input id="name" class="form-control" type="text" formControlName="name" required>
+  </div>
+  <div class="form-group">
+    <label for="info">Информация о секции: </label>
+    <input id="info" class="form-control" type="text" formControlName="info">
+  </div>
+  <div class="btn-group">
+    <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!sectionForm.valid" (click)="save()">Сохранить</button>
+    <button type="button" class="btn btn-outline-secondary" (click)="close()">Отменить</button>
+  </div>
+</form>

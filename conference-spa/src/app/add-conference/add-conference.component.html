@@ -1,0 +1,30 @@
+<div class="container">
+  <h2>Создание конференции</h2>
+  <form [formGroup]="conferenceForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Название конференции:</label>
+      <input id="name" class="form-control" type="text" formControlName="name" required>
+    </div>
+    <div class="form-group">
+      <label for="info">Информация о конференции: </label>
+      <input id="info" class="form-control" type="text" formControlName="info">
+    </div>
+    <div class="form-group">
+      <label for="location">Место проведения конференции: </label>
+      <input id="location" class="form-control" type="text" formControlName="location">
+    </div>
+    <div class="form-group">
+      <label for="dateTimeStart">Дата и время начала конференции: </label>
+      <input id="dateTimeStart" class="form-control" type="text" formControlName="dateTimeStart">
+    </div>
+    <div class="form-group">
+      <label for="dateTimeFinish">Дата и время окончания конференции: </label>
+      <input id="dateTimeFinish" class="form-control" type="text" formControlName="dateTimeFinish">
+    </div>
+    <!--<button type="submit" [disabled]="!conferenceForm.valid" (click)="save()">Сохранить</button>-->
+    <!--button type="submit">Добавить секции</button>-->
+
+    <app-add-section></app-add-section>
+
+  </form>
+</div>

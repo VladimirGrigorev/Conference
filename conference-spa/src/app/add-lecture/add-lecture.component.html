@@ -1,0 +1,37 @@
+<div class="container">
+<div class="row">
+    <h3 class="col-md-2 col-3">Лекции</h3>
+    <button class="btn btn-outline-secondary " type="button" (click)="addLecture()" *ngIf="!opened">Добавить лекцию</button>
+    
+  </div>
+  <div *ngFor="let s of listLectures" class="rowTable row">
+      <div class="col-12 col-md-8 ">
+        <h4>{{s.name}}</h4>
+        <p>{{s.info}}</p>
+      </div>
+  
+        <div class="col-6 col-md-4 btn-group">
+          <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
+          <!--<button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>-->
+        </div>
+  
+  </div>
+  <form [formGroup]="lectureForm" *ngIf="opened" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Тема лекции: </label>
+      <input id="name" class="form-control" type="text" formControlName="topic" required>
+    </div>
+    <div class="form-group">
+      <label for="info">Информация о секции: </label>
+      <input id="info" class="form-control" type="text" formControlName="info">
+    </div>
+    <div class="form-group">
+        <label for="info">Дата и время начала лекции: </label>
+        <input id="dateLecture" class="form-control" type="text" formControlName="dateTimeStart">
+      </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!lectureForm.valid" (click)="save()">Сохранить</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">Отменить</button>
+    </div>
+  </form>
+</div>
