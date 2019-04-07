@@ -8,6 +8,7 @@ import { HttpClient, HttpClientModule} from 'node_modules/@angular/common/http';
 import { ConferencesComponent } from './conferences/conferences.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
+import { LectureComponent } from './lecture/lecture.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { ConferenceDetailComponent } from './conference-detail/conference-detail
       AppComponent,
       NavComponent,
       ConferencesComponent,
-      ConferenceDetailComponent
+      ConferenceDetailComponent,
+      LectureComponent
    ],
    imports: [
       BrowserModule,
