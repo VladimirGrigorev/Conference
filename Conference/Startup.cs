@@ -78,6 +78,10 @@ namespace Conference
             services.AddAutoMapper();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceService, ConferenceService>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+            services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
+            services.AddScoped<ILectureRepository, LectureRepository>();
+            services.AddScoped<ILectureService, LectureService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddDbContext<ConfContext>

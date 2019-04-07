@@ -14,6 +14,6 @@ export class LecturesService {
   constructor(private httpClient:HttpClient) { }
 
   get(id:number): Observable<Lecture>{
-    return this.httpClient.get<Lecture>(this.baseUrl+id);
+    return this.httpClient.get<Lecture>(this.baseUrl+'/'+id);
   }
 }
