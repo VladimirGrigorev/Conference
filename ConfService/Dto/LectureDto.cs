@@ -8,6 +8,7 @@ namespace ConfService.Dto
     {
         public int Id { get; set; }
         [StringLength(200)]
+        [Required]
         public string Topic { get; set; }
 
         [StringLength(8000)]
@@ -16,7 +17,7 @@ namespace ConfService.Dto
         [DataType(DataType.DateTime)]
         public DateTime DateTimeStart { get; set; }
         [Required]
-        public int SectionId { get; set; }
+        public int SectionDtoId { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime DateTimeOpenChat { get; set; }
