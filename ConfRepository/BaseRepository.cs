@@ -27,7 +27,7 @@ namespace ConfRepository
             return Set;
         }
 
-        public T Get(int id)
+        public virtual T Get(int id)
         {
             return Set.Find(id);
         }
