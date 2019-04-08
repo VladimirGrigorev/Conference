@@ -1,6 +1,6 @@
 export class Lecture {
     id: number;
-    sectionId: number;
+    //sectionId: number;
     topic: string;
     info: string;
 }

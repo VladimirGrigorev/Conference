@@ -24,7 +24,92 @@
     <!--<button type="submit" [disabled]="!conferenceForm.valid" (click)="save()">Сохранить</button>-->
     <!--button type="submit">Добавить секции</button>-->
 
-    <app-add-section></app-add-section>
+
+
+    <!--------------------------------SECTIONS!!------------------------------>
+    <div class="row">
+        <h2 class="col-md-2 col-3">Секции</h2>
+        <button id="addSection" class="btn btn-outline-secondary " type="button" (click)="addSection()" *ngIf="!opened">Добавить секцию</button>
+      </div>
+      <div *ngFor="let s of listSections; let i=index" [attr.data-index]="i" class="rowTable row">
+          <div class="col-12 col-md-8 ">
+            <h3>{{s.name}}</h3>
+            <p>{{s.info}}</p>
+          </div>
+      
+          <div class="col-6 col-md-4 btn-group">
+            <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
+            <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="lectures(i)">Лекции</button>
+            <button attr.id="hide_{{i}}" class="btn btn-outline-secondary " type="button" (click)="hideLectures(i)" 
+              style="display:none;">Скрыть лекции</button>
+          </div>
+      
+          <div  attr.id="compLectures_{{i}}" style="width:100%; display: none;">
+            <!------------------------------------------LECTURE!!!-------------------------------------------------->
+
+            <div class="container">
+                <div class="row">
+                    <h3 class="col-md-2 col-3">Лекции</h3>
+                    <button id="addLecture{{i}}" class="btn btn-outline-secondary " type="button" (click)="addLecture(i)" >Добавить лекцию</button>
+                    
+                  </div>
+                  <div *ngFor="let s of listSections[i].lectures" class="rowTable row">
+                      <div class="col-12 col-md-8 ">
+                        <h4>{{s.topic}}</h4>
+                        <p>{{s.info}}</p>
+                      </div>
+                  
+                        <div class="col-6 col-md-4 btn-group">
+                          <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
+                          <!--<button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>-->
+                        </div>
+                  
+                  </div>
+                  <form id="formLecture{{i}}" [formGroup]="lectureForm" (ngSubmit)="onSubmit()" style="display:none;">
+                    <div class="form-group">
+                      <label for="name">Тема лекции: </label>
+                      <input id="name" class="form-control" type="text" formControlName="topic" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="info">Информация о лекции: </label>
+                      <input id="info" class="form-control" type="text" formControlName="info">
+                    </div>
+                    <div class="form-group">
+                        <label for="info">Дата и время начала лекции: </label>
+                        <input id="dateLecture" class="form-control" type="text" formControlName="dateTimeStart">
+                      </div>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!lectureForm.valid" (click)="saveLecture(i)">Сохранить</button>
+                      <button type="button" class="btn btn-outline-secondary" (click)="closeLecture(i)">Отменить</button>
+                    </div>
+                  </form>
+                </div>
+
+
+           </div>
+      
+      </div>
+      <form id="formSection" [formGroup]="sectionForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="name">Название секции:</label>
+          <input id="name" class="form-control" type="text" formControlName="name" required>
+        </div>
+        <div class="form-group">
+          <label for="info">Информация о секции: </label>
+          <input id="info" class="form-control" type="text" formControlName="info">
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!sectionForm.valid" (click)="saveSection()">Сохранить</button>
+          <button type="button" class="btn btn-outline-secondary" (click)="close()">Отменить</button>
+        </div>
+
+
+      </form>
+
+
+    
+      <button type="button" class="btn btn-outline-secondary" (click)="save()" routerLink="/conferences"
+        [disabled]="!conferenceForm.valid && !sectionForm.valid && !lectureForm.valid">Сохранить</button>
 
   </form>
 </div>
