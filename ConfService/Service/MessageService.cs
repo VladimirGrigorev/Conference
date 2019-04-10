@@ -5,10 +5,11 @@ using ConfService.Dto;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ConfService.Interface;
 
 namespace ConfService.Service
 {
-    class MessageService
+    public class MessageService : IMessageService
     {
         protected readonly IMessageRepository _messageRepository;
         protected readonly IMapper _mapper;
