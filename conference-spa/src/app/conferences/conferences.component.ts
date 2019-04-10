@@ -11,10 +11,11 @@ export class ConferencesComponent implements OnInit {
   conferences: Array<any>;
 
   constructor(private conferencesService: ConferencesService) { 
-    this.getConferences();
+    
   }
 
   ngOnInit() {
+    this.getConferences();
   }
 
   getConferences(): void{

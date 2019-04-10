@@ -83,7 +83,9 @@ export class AddConferenceComponent implements OnInit {
     this.currentConference.sections = this.listSections;
     console.log(this.currentConference);
     this.conferenceService.add(this.currentConference)
-      .subscribe();
+      .subscribe(res=>{
+        this.router.navigate(['/conferences'])
+      });
   }
 
   lectures(i:number){

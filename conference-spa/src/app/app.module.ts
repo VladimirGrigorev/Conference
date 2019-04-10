@@ -12,6 +12,7 @@ import { AddConferenceComponent } from './add-conference/add-conference.componen
 import { AddSectionComponent } from './add-section/add-section.component';
 import { AddLectureComponent } from './add-lecture/add-lecture.component';
 import { LectureComponent } from './lecture/lecture.component';
+import { ForumComponent } from './forum/forum.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { LectureComponent } from './lecture/lecture.component';
       AddConferenceComponent,
       AddSectionComponent,
       AddLectureComponent,
-      LectureComponent
+      LectureComponent,
+      ForumComponent
    ],
    imports: [
       BrowserModule,
