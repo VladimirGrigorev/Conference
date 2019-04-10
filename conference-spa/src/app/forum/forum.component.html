@@ -1,7 +1,20 @@
-<div class="container">
-  <input>
+<div class="">
+  <h4>Комментарии</h4>
+  <div id="addMessage">
+    <label for="message">Добавить комментарий</label>
+    <div class="row">
+      <input id="message" class="form-control col-xl-11">
+      <button id="send" type="button" class="btn col-xl-1 add-message">
+          <img  src="https://img.icons8.com/material-outlined/24/000000/send-comment.png">
+      </button>
+    </div>
+  </div>
 
-  <div *ngFor="let m of messages">
-    
+  <div *ngFor="let m of messages" class="rowTable">
+    <div class="container">
+      <p>{{m.userName}}</p>
+      <p>{{m.text}}</p>
+      <p>{{m.dateTimeSent}}</p>
+    </div>
   </div>
 </div>

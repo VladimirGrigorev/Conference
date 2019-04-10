@@ -22,6 +22,10 @@ export class ForumService {
     return this.http.get(this.baseUrl+'/'+id, {headers: this.headers});
   }
 
+  public getAllByLectureId(idLecture:number){
+    return this.http.get(this.baseUrl,{headers: this.headers})
+  }
+
   public add(body){
     return this.http.post(this.baseUrl, body, {headers: this.headers});
   }

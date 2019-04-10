@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ForumService } from '../_services/forum.service';
-import { MessageService } from '../_services/message.service';
 
 @Component({
   selector: 'app-forum',
@@ -9,18 +8,21 @@ import { MessageService } from '../_services/message.service';
 })
 export class ForumComponent implements OnInit {
 
-  messages: any[]=[];
+  @Input() idLecture:number;
+  messages: any[]=[{
+    "userName":"Ушастый",
+    "text":"Привет привет Винни. Не называй меня ушастым. Я – толстый!"
+  }];
 
-  constructor(private forumService:ForumService,
-    private messageService:MessageService) { }
+  constructor(private forumService:ForumService) { }
 
   ngOnInit() {
     this.getMessages();
   }
 
   getMessages(){
-    this.forumService.get(this.messageService.IDLecture)
-      .subscribe();
+    this.forumService.getAllByLectureId(this.idLecture)
+      .subscribe((data:any)=>this.messages=data);
   }
 
 }
