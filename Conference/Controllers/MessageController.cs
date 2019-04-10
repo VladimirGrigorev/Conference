@@ -22,9 +22,9 @@ namespace Conference.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAllByLectureId(int idLecture)
+        public IActionResult GetAllByLectureId(int id)
         {
-            return Ok(_messageService.GetAllByLectureId(idLecture));
+            return Ok(_messageService.GetAllByLectureId(id));
         }
     }
 }

@@ -28,7 +28,10 @@ namespace ConfService.Mapper
                 //.ForMember(fileDto => fileDto.LectureId,
                 //    a => a.MapFrom(file => file.LectureId))
                 .ReverseMap();
-            CreateMap<Message, MessageDto>().ReverseMap();
+            CreateMap<Message, MessageDto>()
+                .ForMember(messageDto => messageDto.UserName,
+                    a=> a.MapFrom(message => message.User.Name)) //todo null check?
+                .ReverseMap();
         }
     }
 }

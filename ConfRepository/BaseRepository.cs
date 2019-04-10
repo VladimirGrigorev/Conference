@@ -32,7 +32,7 @@ namespace ConfRepository
             return Set.Find(id);
         }
 
-        public IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().Where(predicate);
         }
