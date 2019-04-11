@@ -13,6 +13,7 @@ import { AddSectionComponent } from './add-section/add-section.component';
 import { AddLectureComponent } from './add-lecture/add-lecture.component';
 import { LectureComponent } from './lecture/lecture.component';
 import { ForumComponent } from './forum/forum.component';
+import { FilesComponent } from './files/files.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ForumComponent } from './forum/forum.component';
       AddSectionComponent,
       AddLectureComponent,
       LectureComponent,
-      ForumComponent
+      ForumComponent,
+      FilesComponent
    ],
    imports: [
       BrowserModule,
