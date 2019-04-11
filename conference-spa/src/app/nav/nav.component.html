@@ -8,21 +8,22 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Главная <span class="sr-only"></span></a>
       </li>
+      <div *ngIf="!loggedIn()">
       <li class="nav-item">
-        <a class="nav-link" (click)="registerToggle()">  Регистрация  </a>
+        <a class="nav-link" (click)="registerToggle()"> Регистрация </a>
       </li>
+      </div>
+      <div *ngIf="loggedIn()">
+        <li>
+            <a class="nav-link" (click)="logout()"> <i class="fa-sign-out"></i>Выйти</a>
+        </li>
+      </div>
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown">
       <a class="dropdown-toggle text-light">
         Welcome
       </a>
-    
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#"> <i class="fa fa-user"></i>Информация</a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#"> <i class="fa-sign-out"></i>Выйти</a>
-      </div>
     </div>
 
 
@@ -36,6 +37,6 @@
   </div>
 </nav>
 
-<div *ngIf="registerMode">
+<div *ngIf="registerMode&&regComponent">
   <app-home></app-home>
 </div>
