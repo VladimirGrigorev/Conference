@@ -9,12 +9,10 @@ import {User} from 'src/app/user';
 export class AuthService {
 
   baseUrl = 'http://localhost:5000/api/auth/';
-  
 constructor(private http: HttpClient) { }
 
 
-signin(model: any) { // авторизация
-    //const body = {email: user.email, password: user.passhash};
+signin(model: any) { 
   return this.http.post(this.baseUrl + 'signin', model)
   .pipe(
     map((response: any) =>
