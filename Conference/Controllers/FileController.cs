@@ -84,10 +84,10 @@ namespace Conference.Controllers
 
 
 
-        [HttpGet("lectures/{lectureId}/files")]
-        public IActionResult GetAllByLectureId(int lectureId)
+        [HttpGet("lectures/{id}/files")]
+        public IActionResult GetAllByLectureId(int id)
         {
-            return Ok(_fileService.GetAllByLectureId(lectureId));
+            return Ok(_fileService.GetAllByLectureId(id));
         }
     }
 }

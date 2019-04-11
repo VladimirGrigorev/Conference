@@ -15,7 +15,7 @@ export class FileService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(lectureId: number): Observable<ConfFile[]>{
-    return this.httpClient.get<ConfFile[]>(`${this.lecturesUrl}/${Number}/files`);
+    return this.httpClient.get<ConfFile[]>(`${this.lecturesUrl}/${lectureId}/files`);
   }
 
   upload(lectureId: number, file) {
@@ -23,7 +23,7 @@ export class FileService {
     //for (let file of files)
     formData.append(file.name, file);
 
-    return this.httpClient.post(`${this.lecturesUrl}/${Number}/files`, formData);
+    return this.httpClient.post(`${this.lecturesUrl}/${lectureId}/files`, formData);
 
     // const uploadReq = new HttpRequest('POST', `http://localhost:5000/api/lectures/1/files`, formData, {
     //   reportProgress: true,

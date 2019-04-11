@@ -2,12 +2,13 @@
     <div class="jumbotron text-center">
         <h2>{{lecture?.topic}}</h2>
         <p>{{lecture?.info}}</p>
-    <app-files [lectureId]="id"></app-files>
+    
 
         <p>
             <a class="btn btn-outline-secondary" (click)="goBack()" role="button">Go back</a>
         </p>
     </div>
 
-    <app-forum [idLecture]="id"></app-forum>
+    <app-files [lectureId]="id"></app-files>
+    <app-forum [idLecture]="id"></app-forum>    
 </div>

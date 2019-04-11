@@ -6,7 +6,7 @@ export const SIGNUP_ENDPOINT = AUTH_ENDPOINT + '/signup';
 
 export const CONFERENCES_ENDPOINT = DOMAIN + '/conferences';
 export const LECTURES_ENDPOINT = DOMAIN + '/lectures';
-export const SECTIONS_ENDPOINT = DOMAIN + '/section'
-export const FORUM_ENDPOINT = DOMAIN + '';
+export const SECTIONS_ENDPOINT = DOMAIN + '/section';
 
-export const FILES_ENDPOINT = DOMAIN + '/files'export const FORUM_ENDPOINT = DOMAIN + '/message';
+export const FILES_ENDPOINT = DOMAIN + '/files';
+export const FORUM_ENDPOINT = DOMAIN + '/message';

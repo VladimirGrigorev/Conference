@@ -56,7 +56,7 @@ export class FilesComponent implements OnInit {
   show(currFile : ConfFile)
   {
     this.fileService.download(currFile.id)
-      .subscribe(res=>{ this.showFile(res, currFile.name)});
+      .subscribe(res=>{ this.downloadConfFile(res, currFile.name)});
 
     // let filename: string = 'Otchet.doc';
 
@@ -79,8 +79,11 @@ export class FilesComponent implements OnInit {
   //   window.open(url);
   // }
 
-  private showFile(blob: any, filename: string)
+  private downloadConfFile(blob: any, filename: string)
   { 
+    if(!blob && !filename)
+      return;
+
     // It is necessary to create a new blob object with mime-type 
     // explicitly set otherwise only Chrome works like it should
     let newBlob = new Blob([blob]);//, { type: "application/vnd.ms-word" });
@@ -105,8 +108,5 @@ export class FilesComponent implements OnInit {
       // For Firefox it is necessary to delay revoking the ObjectURL
       window.URL.revokeObjectURL(data);
     }, 100);
-  }
-
-  
-
+  }  
 }
