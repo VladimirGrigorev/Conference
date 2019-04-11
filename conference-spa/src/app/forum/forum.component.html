@@ -4,7 +4,7 @@
     <label for="message">Добавить комментарий</label>
     <div class="row">
       <input id="message" class="form-control col-xl-11" type="text" [formControl]="text" >
-      <button id="send" type="button" [disabled]="!text.valid" class="btn col-xl-1 add-message">
+      <button id="send" type="button" [disabled]="!text.valid" (click)="addMessage()" class="btn col-xl-1 add-message">
           <img  src="https://img.icons8.com/material-outlined/24/000000/send-comment.png">
       </button>
     </div>

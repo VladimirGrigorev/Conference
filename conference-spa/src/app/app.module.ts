@@ -4,7 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthService } from './_services/auth.service';
-import { HttpClient, HttpClientModule} from 'node_modules/@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from 'node_modules/@angular/common/http';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import {ErrorInterceptorProvider } from './_services/error.interceptor';
+import {TokenHttpRequestInterceptor } from './_services/token-http-request.interceptor';
 import { ConferencesComponent } from './conferences/conferences.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
@@ -19,14 +23,14 @@ import { ForumComponent } from './forum/forum.component';
    declarations: [
       AppComponent,
       NavComponent,
+      RegisterComponent,
       ConferencesComponent,
       ConferenceDetailComponent,
       AddConferenceComponent,
       AddSectionComponent,
       AddLectureComponent,
       LectureComponent,
-      ForumComponent
-   ],
+      ForumComponent   ],
    imports: [
       BrowserModule,
       HttpClientModule,
@@ -35,7 +39,14 @@ import { ForumComponent } from './forum/forum.component';
       ReactiveFormsModule,
    ],
    providers: [
-      AuthService
+      AuthService,
+      ErrorInterceptorProvider,
+      {
+         provide: HTTP_INTERCEPTORS,
+         useClass: TokenHttpRequestInterceptor,
+         multi: true
+       }
+      
    ],
    bootstrap: [
       AppComponent

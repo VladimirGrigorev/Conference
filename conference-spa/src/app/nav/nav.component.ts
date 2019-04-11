@@ -9,6 +9,8 @@ import { AuthService } from '../_services/auth.service';
 export class NavComponent implements OnInit {
 
   model: any = {};
+  registerMode = false;
+  regComponent  = true;
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -18,9 +20,28 @@ export class NavComponent implements OnInit {
   {
     this.authService.signin(this.model).subscribe(next => {
         console.log('success');
+        this.regComponent = !this.regComponent;
+        
     }, error => {
-      console.log('failed biiig way');
+      console.log(error);
     }
     );
   }
+  loggedIn()
+  {
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+  logout()
+  {
+      localStorage.removeItem('token');
+      console.log('Logged out');
+      this.registerMode = !this.registerMode;
+
+  }
+
+  registerToggle() {
+    this.registerMode = !this.registerMode;
+  }
+
 }

@@ -5,13 +5,15 @@ import { ConferencesComponent } from './conferences/conferences.component';
 import { ConferenceDetailComponent } from './conference-detail/conference-detail.component';
 import { AddConferenceComponent } from './add-conference/add-conference.component';
 import { LectureComponent } from './lecture/lecture.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: 'conferences', component: ConferencesComponent },
   { path: '', redirectTo:'conferences', pathMatch:'full'},
   { path: 'conferences/add-conf', component: AddConferenceComponent},
   { path: 'conferences/:id', component: ConferenceDetailComponent},
-  { path: 'lectures/:id', component: LectureComponent}]
+  { path: 'lectures/:id', component: LectureComponent},
+  { path: 'signup', component: RegisterComponent }]
 
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],

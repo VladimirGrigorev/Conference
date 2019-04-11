@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ForumService } from '../_services/forum.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { Message } from '../message';
 
 
 @Component({
@@ -32,11 +33,16 @@ export class ForumComponent implements OnInit {
   }
 
   addMessage(){
-    console.log(this.text);
-    /*this.forumService.add(text)
-      .subscribe();*/
+    let body = new Message;
+    body.text=this.text.value;
+    body.lectureId = this.idLecture;
+
+    this.forumService.add(body)
+      .subscribe(res=>{
+        this.getMessages();
+        this.text.reset();
+      });
+
+    
   }
-
-
-
 }

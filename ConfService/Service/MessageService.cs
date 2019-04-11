@@ -27,13 +27,14 @@ namespace ConfService.Service
         public IEnumerable<MessageDto> GetAll()
         {
             return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetAll());
-        }
+        }*/
 
         public int Add(MessageDto messageDto)
         {
             var message = _mapper.Map<Message>(messageDto);
+            message.User = null;
             return _messageRepository.Add(message);
-        }*/
+        }
 
         public IEnumerable<MessageDto> GetAllByLectureId(int idLecture)
         {

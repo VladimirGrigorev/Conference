@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Conference.Filter;
 using ConfService.Dto;
 using ConfService.Interface;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Conference.Controllers
 {
@@ -25,6 +27,15 @@ namespace Conference.Controllers
         public IActionResult GetAllByLectureId(int id)
         {
             return Ok(_messageService.GetAllByLectureId(id));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Add([FromBody]MessageDto message)
+        {
+            var idS = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            message.UserId = Convert.ToInt32(idS);
+            return Ok(_messageService.Add(message));
         }
     }
 }
