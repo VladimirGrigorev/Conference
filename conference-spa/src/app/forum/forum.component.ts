@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ForumService } from '../_services/forum.service';
-import { MessageService } from '../_services/message.service';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-forum',
@@ -9,18 +11,32 @@ import { MessageService } from '../_services/message.service';
 })
 export class ForumComponent implements OnInit {
 
+  @Input() idLecture:number;
+
+  text = new FormControl('');
   messages: any[]=[];
 
-  constructor(private forumService:ForumService,
-    private messageService:MessageService) { }
+  constructor(private forumService:ForumService) { }
 
   ngOnInit() {
     this.getMessages();
   }
 
   getMessages(){
-    this.forumService.get(this.messageService.IDLecture)
-      .subscribe();
+    this.forumService.getAllByLectureId(this.idLecture)
+      .subscribe((data:any)=>this.messages=data);
   }
+
+  isEmpty():boolean{
+    return this.messages.length===0;
+  }
+
+  addMessage(){
+    console.log(this.text);
+    /*this.forumService.add(text)
+      .subscribe();*/
+  }
+
+
 
 }

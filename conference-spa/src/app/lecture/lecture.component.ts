@@ -4,7 +4,7 @@ import { LecturesService } from '../_services/lectures.service';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { p } from '@angular/core/src/render3';
-import { MessageService } from '../_services/message.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-lecture',
@@ -13,25 +13,28 @@ import { MessageService } from '../_services/message.service';
 })
 export class LectureComponent implements OnInit {
 
-  id: number;
+  private id:number;
   lecture = new Lecture();
 
   constructor(private lecturesService: LecturesService,
     private route: ActivatedRoute,
-    private messageService:MessageService) { }
+    private location: Location) { }
 
   ngOnInit() {
-    this.getLecture();    
+    this.getLecture();
+    
   }
 
   getLecture(){
     this.route.paramMap.pipe(
       switchMap(params => {
         this.id = +params.get('id');
-        this.messageService.addIDLecture(this.id);
         return this.lecturesService.get(this.id);
       })
     ).subscribe(lec=> this.lecture = lec) ;    
   }
 
+  goBack(){
+    this.location.back();
+  }
 }

@@ -1,0 +1,48 @@
+.rowTable{
+    margin-bottom: 0.5rem;
+    border-color: #6c757d;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+#addMessage{
+    margin-bottom: 30px;
+}
+
+#send{
+    display: block;
+    padding: 0;
+    border-color: #6c757d;
+    border: 1px solid;
+}
+
+.row{
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.add-message{
+    filter:invert(65%);
+}
+
+.add-message:hover{
+    filter:invert(100%);
+    background-color: #777;
+}
+
+.nameUser{
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 1.2rem;
+}
+
+.separator{
+    width: 100%;
+    height: 3px;
+    background: #6c757d;
+    margin-bottom: 25px;
+    margin-top: -10px;
+    border-radius: 0.25rem;
+}

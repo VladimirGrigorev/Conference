@@ -9,4 +9,4 @@ export const LECTURES_ENDPOINT = DOMAIN + '/lectures';
 export const SECTIONS_ENDPOINT = DOMAIN + '/section'
 export const FORUM_ENDPOINT = DOMAIN + '';
 
-export const FILES_ENDPOINT = DOMAIN + '/files'
+export const FILES_ENDPOINT = DOMAIN + '/files'export const FORUM_ENDPOINT = DOMAIN + '/message';

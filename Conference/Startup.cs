@@ -82,6 +82,8 @@ namespace Conference
             services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
             services.AddScoped<ILectureRepository, LectureRepository>();
             services.AddScoped<ILectureService, LectureService>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IUserRepository, UserRepository>();
