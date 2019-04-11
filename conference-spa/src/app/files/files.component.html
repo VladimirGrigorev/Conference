@@ -1,0 +1,32 @@
+<!-- <h1>File Upload</h1>
+<input #file type="file" multiple (change)="upload(file.files)" />
+<button (click)="show()">Show</button> -->
+
+<div class="album">
+  <div class="container">
+    <div class="row">
+        <div *ngIf="true" >
+          <div class="card mb-1 mr-1" style="height:93%; ">
+            <div class="card-body box-shadow " style="position:relative; " >
+              <p class="text-center">Загрузить файл</p>
+              <input class="btn" #file type="file" multiple (change)="upload(file.files)"/>
+              <!-- <a class="add-conf-a text-center"  (click)="upload()" > -->
+                <!-- <img class="add-conf-img rounded-circle " src="https://img.icons8.com/material-rounded/48/000000/plus-math.png"> -->
+              <!-- </a> -->
+            </div>
+          </div>
+        </div>
+      <div *ngFor="let c of files">
+        <div class="card mb-1 mr-1">
+          <div class="card-body box-shadow text-center">
+            <p>{{c.name}}</p>
+            <p>
+              <a class="btn btn-outline-secondary" role="button" (click)="show(c)">Открыть</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

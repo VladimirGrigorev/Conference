@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using ConfService.Dto;
 using Microsoft.AspNetCore.Http;
-using File = ConfModel.Model.File;
 
-namespace ConfRepository.Interface
+namespace ConfService.Interface
 {
-    public interface IFileRepository : IRepository<File>
+    public interface IFileService
     {
+        IEnumerable<FileDto> GetAllByLectureId(int idLecture);
         int Upload(IFormFile file, int lectureId);
         (Stream fileStream, string contentType, string fileDownloadName) Download(int id);
     }

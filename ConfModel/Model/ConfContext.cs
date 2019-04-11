@@ -27,6 +27,9 @@ namespace ConfModel.Model
             builder.Entity<User>()
                 .Property(r => r.IsGlobalAdmin)
                 .HasConversion(new BoolToZeroOneConverter<Int16>());
+            builder.Entity<File>()
+                .Property(f => f.Private)
+                .HasConversion(new BoolToZeroOneConverter<Int16>());
         }
 
     }
