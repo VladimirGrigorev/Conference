@@ -23,7 +23,7 @@ export class ForumService {
   }
 
   public getAllByLectureId(idLecture:number){
-    return this.http.get(this.baseUrl,{headers: this.headers})
+    return this.http.get(this.baseUrl+'/'+idLecture ,{headers: this.headers})
   }
 
   public add(body){

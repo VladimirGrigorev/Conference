@@ -1,6 +1,13 @@
 <div class="container">
-    <h2>{{lecture?.topic}}</h2>
-    <p>{{lecture?.info}}</p>
+    <div class="jumbotron text-center">
+        <h2>{{lecture?.topic}}</h2>
+        <p>{{lecture?.info}}</p>
 
-    <app-forum [idLecture]="lecture.id"></app-forum>
+
+        <p>
+            <a class="btn btn-outline-secondary" (click)="goBack()" role="button">Go back</a>
+        </p>
+    </div>
+
+    <app-forum [idLecture]="id"></app-forum>
 </div>
