@@ -47,7 +47,7 @@ namespace Conference.Controllers
             var userId = _userService.Add(userDto);
             return Ok(userId);
         }
-
+        
         [HttpPost("auth/signin")]
         public IActionResult SignIn([FromBody] UserAuthDto userAuthDto)
         {
