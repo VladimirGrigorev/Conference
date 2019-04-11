@@ -13,6 +13,7 @@ import { MessageService } from '../_services/message.service';
 })
 export class LectureComponent implements OnInit {
 
+  id: number;
   lecture = new Lecture();
 
   constructor(private lecturesService: LecturesService,
@@ -26,9 +27,9 @@ export class LectureComponent implements OnInit {
   getLecture(){
     this.route.paramMap.pipe(
       switchMap(params => {
-        let id = +params.get('id');
-        this.messageService.addIDLecture(id);
-        return this.lecturesService.get(id);
+        this.id = +params.get('id');
+        this.messageService.addIDLecture(this.id);
+        return this.lecturesService.get(this.id);
       })
     ).subscribe(lec=> this.lecture = lec) ;    
   }

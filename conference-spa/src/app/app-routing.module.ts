@@ -12,8 +12,8 @@ const routes: Routes = [
   { path: '', redirectTo:'conferences', pathMatch:'full'},
   { path: 'conferences/add-conf', component: AddConferenceComponent},
   { path: 'conferences/:id', component: ConferenceDetailComponent},
-  { path: 'lectures/:id', component: LectureComponent},
-  { path: 'file', component: FilesComponent }
+  { path: 'lectures/:id', component: LectureComponent}//,
+  //{ path: 'file', component: FilesComponent }
 ]
 
 @NgModule({

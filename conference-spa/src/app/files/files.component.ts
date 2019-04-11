@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
+import { ConfFile } from '../conf-file';
+import { FileService } from '../_services/file.service';
 
 @Component({
   selector: 'app-files',
@@ -8,49 +10,67 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/c
 })
 export class FilesComponent implements OnInit {
 
-  public progress: number;
-  public message: string;
-  constructor(private http: HttpClient) { }
+  // public progress: number;
+  // public message: string;
 
-  ngOnInit() {
+  @Input()
+  lectureId: number;
+
+  files: ConfFile[];
+
+  constructor(private fileService: FileService,
+    private http: HttpClient) { }
+
+  ngOnInit(){
+    this.getFiles();  
+  }
+
+  getFiles(){
+    this.fileService.getAll(this.lectureId).subscribe(files=> this.files = files);
   }
 
   upload(files) {
     if (files.length === 0)
       return;
 
-    const formData = new FormData();
+    this.fileService.upload(this.lectureId, files[0])
+      .subscribe( resp=> this.getFiles());
 
-    for (let file of files)
-      formData.append(file.name, file);
+    // const formData = new FormData();
 
-    const uploadReq = new HttpRequest('POST', `http://localhost:5000/api/lectures/1/files`, formData, {
-      reportProgress: true,
-    });
+    // for (let file of files)
+    //   formData.append(file.name, file);
 
-    this.http.request(uploadReq).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress)
-        this.progress = Math.round(100 * event.loaded / event.total);
-      else if (event.type === HttpEventType.Response)
-        this.message = event.body.toString();
-    });
+    // const uploadReq = new HttpRequest('POST', `http://localhost:5000/api/lectures/1/files`, formData, {
+    //   reportProgress: true,
+    // });
+
+    // this.http.request(uploadReq).subscribe(event => {
+    //   if (event.type === HttpEventType.UploadProgress)
+    //     this.progress = Math.round(100 * event.loaded / event.total);
+    //   else if (event.type === HttpEventType.Response)
+    //     this.message = event.body.toString();
+    // });
   }
 
-  showDocument()
+  show(currFile : ConfFile)
   {
-    let filename: string = 'Otchet.doc';
+    this.fileService.download(currFile.id)
+      .subscribe(res=>{ this.showFile(res, currFile.name)});
 
-    this.http.get( 'http://localhost:5000/api/files/1'
-    //, this.getAuthHeader(false, true)
-    , { responseType: 'blob' as 'json' }
-      ).subscribe(res=>{
-        this.showFile(res, filename)
-      })
+    // let filename: string = 'Otchet.doc';
 
-    // this.downloadService.getFile(filename).then((result: any) =>
-    // {
-    //   this.showFile(result._body, filename);
-    // });
+    // this.http.get( 'http://localhost:5000/api/files/1'
+    // //, this.getAuthHeader(false, true)
+    // , { responseType: 'blob' as 'json' }
+    //   ).subscribe(res=>{
+    //     this.showFile(res, filename)
+    //   })
+
+    // // this.downloadService.getFile(filename).then((result: any) =>
+    // // {
+    // //   this.showFile(result._body, filename);
+    // // });
   }
 
   // downloadFile(data: Response) {
@@ -64,7 +84,6 @@ export class FilesComponent implements OnInit {
     // It is necessary to create a new blob object with mime-type 
     // explicitly set otherwise only Chrome works like it should
     let newBlob = new Blob([blob]);//, { type: "application/vnd.ms-word" });
-    console.log(newBlob.type);
     // IE doesn't allow using a blob object directly as link href 
     // instead it is necessary to use msSaveOrOpenBlob
     if (window.navigator && window.navigator.msSaveOrOpenBlob)
