@@ -21,8 +21,8 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown">
-      <a class="dropdown-toggle text-light">
-        Welcome
+      <a class=" text-light">
+        {{nameUser}}
       </a>
     </div>
 
@@ -32,7 +32,7 @@
       placeholder="Email" required [(ngModel)]="model.email">
       <input class="form-control mr-sm-2" type="password" name="passhash" 
       placeholder="Password" required [(ngModel)]="model.passhash">
-      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Войти</button>
     </form>
   </div>
 </nav>

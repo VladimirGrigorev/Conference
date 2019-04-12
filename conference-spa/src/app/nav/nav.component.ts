@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
+
 
 @Component({
   selector: 'app-nav',
@@ -8,10 +10,13 @@ import { AuthService } from '../_services/auth.service';
 })
 export class NavComponent implements OnInit {
 
+  nameUser:any;
+
   model: any = {};
   registerMode = false;
   regComponent  = true;
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+    private userService:UserService) { }
 
   ngOnInit() {
   }
@@ -21,7 +26,9 @@ export class NavComponent implements OnInit {
     this.authService.signin(this.model).subscribe(next => {
         console.log('success');
         this.regComponent = !this.regComponent;
-        
+        this.nameUser = this.userService.getName().subscribe();
+        console.log(this.nameUser);
+            
     }, error => {
       console.log(error);
     }
