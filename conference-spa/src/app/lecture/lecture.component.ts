@@ -37,4 +37,8 @@ export class LectureComponent implements OnInit {
   goBack(){
     this.location.back();
   }
+
+  addSchedule(){
+    
+  }
 }

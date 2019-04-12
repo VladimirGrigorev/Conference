@@ -2,7 +2,10 @@
     <div class="jumbotron text-center">
         <h2>{{lecture?.topic}}</h2>
         <p>{{lecture?.info}}</p>
-    
+        
+        <p>
+            <a class="btn btn-outline-secondary" role="button" (click)="addSchedule()">Добавить в расписание</a>
+        </p>
 
         <p>
             <a class="btn btn-outline-secondary" (click)="goBack()" role="button">Назад</a>

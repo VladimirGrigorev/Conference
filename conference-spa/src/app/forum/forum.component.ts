@@ -3,6 +3,7 @@ import { ForumService } from '../_services/forum.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Message } from '../message';
+import { AuthService } from '../_services/auth.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class ForumComponent implements OnInit {
   text = new FormControl('');
   messages: any[]=[];
 
-  constructor(private forumService:ForumService) { }
+  constructor(private forumService:ForumService,
+    private authService:AuthService) { }
 
   ngOnInit() {
     this.getMessages();
@@ -44,5 +46,9 @@ export class ForumComponent implements OnInit {
       });
 
     
+  }
+
+  isAuthenticated(){
+    return this.authService.isAuthenticated();
   }
 }

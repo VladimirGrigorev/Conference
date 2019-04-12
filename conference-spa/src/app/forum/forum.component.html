@@ -1,6 +1,6 @@
 <div class="comments">
   <h4>Комментарии</h4>
-  <div id="addMessage">
+  <div id="addMessage" *ngIf="isAuthenticated()">
     <label for="message">Добавить комментарий</label>
     <div class="row">
       <input id="message" class="form-control col-xl-11" type="text" [formControl]="text" >
@@ -8,6 +8,9 @@
           <img  src="https://img.icons8.com/material-outlined/24/000000/send-comment.png">
       </button>
     </div>
+  </div>
+  <div *ngIf="!isAuthenticated()">
+    <p>Войдите, чтобы оставить комментарий</p>
   </div>
 
   <div class="separator"></div>

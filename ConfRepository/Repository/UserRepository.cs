@@ -22,7 +22,7 @@ namespace ConfRepository.Repository
 
         public User GetFirstOrDefaultWithRoles(Expression<Func<User, bool>> ex)
         {
-            //this._context.RoleInLectures.Add(new RoleInLecture() {LectureId = 1, UserId = 4, Role = Role.Speaker});
+            //this._context.RoleInLectures.Add(new RoleInLecture() {LectureId = 1, UserId = 8, Role = Role.Speaker});
             //this._context.SaveChanges();
             return Set.Include(a => a.RoleInLectures).FirstOrDefault(ex);
         }
