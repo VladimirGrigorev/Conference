@@ -29,8 +29,8 @@ export class AddConferenceComponent implements OnInit {
     name: ['', Validators.required],
     info: [''],
     location: [''],
-    dateTimeStart: [''],
-    dateTimeFinish: [''],
+    dateTimeStartConference: [''],
+    dateTimeFinishConference: [''],
   });
   
 
