@@ -18,6 +18,7 @@ import { AddLectureComponent } from './add-lecture/add-lecture.component';
 import { LectureComponent } from './lecture/lecture.component';
 import { ForumComponent } from './forum/forum.component';
 import { FilesComponent } from './files/files.component';
+import { ScheduleComponent } from './schedule/schedule.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { FilesComponent } from './files/files.component';
       AddLectureComponent,
       LectureComponent,
       ForumComponent,
-      FilesComponent
+      FilesComponent,
+      ScheduleComponent
    ],
    imports: [
       BrowserModule,

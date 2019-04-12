@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
+import { getTypeNameForDebugging } from '@angular/core/src/change_detection/differs/iterable_differs';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { UserService } from '../_services/user.service';
 })
 export class NavComponent implements OnInit {
 
-  nameUser:any;
+  nameUser:any = {};
 
   model: any = {};
   registerMode = false;
@@ -19,6 +20,7 @@ export class NavComponent implements OnInit {
     private userService:UserService) { }
 
   ngOnInit() {
+    this.getName();
   }
 
   login()
@@ -26,11 +28,10 @@ export class NavComponent implements OnInit {
     this.authService.signin(this.model).subscribe(next => {
         console.log('success');
         this.regComponent = !this.regComponent;
-        this.nameUser = this.userService.getName().subscribe();
-        console.log(this.nameUser);
+        this.getName();        
             
     }, error => {
-      console.log(error);
+      console.log(error); 
     }
     );
   }
@@ -49,6 +50,11 @@ export class NavComponent implements OnInit {
 
   registerToggle() {
     this.registerMode = !this.registerMode;
+  }
+
+  getName(){
+    this.userService.getName()
+      .subscribe((data:any)=>this.nameUser=data);
   }
 
 }

@@ -38,7 +38,7 @@ namespace Conference.Controllers
             //var idS = User.Identity.Name;
             var user = _userService.Get(Convert.ToInt32(idS));
             
-            return Ok(user.Name);
+            return Ok(new { name = user.Name });
         }
 
         [HttpPost("auth/signup")]
