@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
@@ -41,12 +42,13 @@ namespace ConfService.Service
                 throw new UserWithThisEmailExistsException();
 
             user = _mapper.Map<User>(userDto);
+            //user.IsGlobalAdmin = true;
             return _userRepository.Add(user);
         }
 
         public TokenDto Authenticate(UserAuthDto userDto)
         {
-            var user = _userRepository.GetFirstOrDefault(
+            var user = _userRepository.GetFirstOrDefaultWithRoles(
                 x => x.Email == userDto.Email && x.PassHash == userDto.PassHash);
 
             if(user == null)
@@ -55,7 +57,11 @@ namespace ConfService.Service
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtSettings.LifetimeSeconds);
             var tokenDto = new TokenDto()
             {
-                ExpirationTime = expirationTime
+                ExpirationTime = expirationTime,
+                IsGlobalAdmin = user.IsGlobalAdmin,
+                PresentedLectures = user.RoleInLectures
+                    .Where(l=>l.Role == Role.Speaker)
+                    .Select(l=>l.LectureId).ToList()
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

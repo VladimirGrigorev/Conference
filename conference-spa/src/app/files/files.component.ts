@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/common/http';
 import { ConfFile } from '../conf-file';
 import { FileService } from '../_services/file.service';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-files',
@@ -19,6 +20,7 @@ export class FilesComponent implements OnInit {
   files: ConfFile[];
 
   constructor(private fileService: FileService,
+    private authService: AuthService,
     private http: HttpClient) { }
 
   ngOnInit(){
@@ -108,5 +110,9 @@ export class FilesComponent implements OnInit {
       // For Firefox it is necessary to delay revoking the ObjectURL
       window.URL.revokeObjectURL(data);
     }, 100);
-  }  
+  }
+
+  isAddDisplayed(){
+    return this.authService.isSpeaker(this.lectureId);
+  }
 }
