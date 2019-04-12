@@ -5,8 +5,8 @@
 <div class="album">
   <div class="container">
     <div class="row">
-        <div *ngIf="true" >
-          <div class="card mb-1 mr-1" style="height:93%; ">
+        <div *ngIf="isAddDisplayed()" >
+          <div class="card mb-1 mr-1" style="height:93%;">
             <div class="card-body box-shadow " style="position:relative; " >
               <p class="text-center">Загрузить файл</p>
               <input class="btn" #file type="file" multiple (change)="upload(file.files)"/>
