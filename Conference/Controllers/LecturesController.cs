@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Conference.Controllers
 {
-    [Route("api/lectures")]
+    [Route("api")]
     [ApiController]
     [ValidateModel]
     public class LecturesController : ControllerBase
@@ -24,18 +24,34 @@ namespace Conference.Controllers
             _lectureService = service;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("lectures/{id}")]
         public IActionResult Get(int id)
         {
             return Ok(_lectureService.Get(id));
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("lectures")]
         public IActionResult Add([FromBody]LectureDto conference)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Ok(_lectureService.Add(Convert.ToInt32(userId), conference));
+        }
+        
+        [Authorize]
+        [HttpGet("my/lectures")]
+        public IActionResult GetUserSubscribedLectures()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok(_lectureService.GetUserSubscribedLectures(Convert.ToInt32(userId)));
+        }
+
+        [Authorize]
+        [HttpPost("my/lectures/{id}")]
+        public IActionResult AddListenerToLectures(int id)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Ok(_lectureService.AddListener(Convert.ToInt32(userId), id));
         }
 
         //[HttpGet]

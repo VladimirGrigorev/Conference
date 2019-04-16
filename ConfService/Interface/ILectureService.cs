@@ -7,5 +7,7 @@ namespace ConfService.Interface
     {
         LectureDto Get(int id);
         int Add(int userId, LectureDto lectureDto);
+        IEnumerable<LectureDto> GetUserSubscribedLectures(int userId);
+        int AddListener(int userId, int lectureId);
     }
 }

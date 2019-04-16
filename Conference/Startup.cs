@@ -88,6 +88,7 @@ namespace Conference
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleInLectureRepository, RoleInLectureRepository>();
             services.AddDbContext<ConfContext>
                 (options => options.UseMySQL(Configuration.GetConnectionString("db")));
         }

@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
 using ConfModel.Model;
 using ConfRepository.Interface;
 using ConfService.Dto;
@@ -13,16 +15,19 @@ namespace ConfService.Service
         private readonly ILectureRepository _lectureRepository;
         private readonly IAdminOfConferenceRepository _adminOfConferenceRepository;
         private readonly ISectionRepository _sectionRepository;
+        private readonly IRoleInLectureRepository _roleInLectureRepository;
 
         public LectureService(ILectureRepository lectureRepository,
             IAdminOfConferenceRepository adminOfConferenceRepository, 
             ISectionRepository sectionRepository,
+            IRoleInLectureRepository roleInLectureRepository,
             IMapper mapper)
         {
             _mapper = mapper;
             _lectureRepository = lectureRepository;
             _adminOfConferenceRepository = adminOfConferenceRepository;
             _sectionRepository = sectionRepository;
+            _roleInLectureRepository = roleInLectureRepository;
         }
 
         public LectureDto Get(int id)
@@ -50,6 +55,17 @@ namespace ConfService.Service
                 && _adminOfConferenceRepository.IsAdminOfConf(userId, sect.ConferenceId))
                 return true;
             return false;
+        }
+        
+        public IEnumerable<LectureDto> GetUserSubscribedLectures(int userId)
+        {
+            return _mapper.Map<IEnumerable<LectureDto>>(_lectureRepository.GetWhere(l =>
+                l.RoleInLectures.Any(r => r.UserId == userId)));
+        }
+
+        public int AddListener(int userId, int lectureId)
+        {
+            return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId});
         }
     }
 }
