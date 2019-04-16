@@ -17,15 +17,16 @@
             <h2>{{c.name}}</h2>
             <p>{{c.info}}</p>
             <p>{{c.location}}</p>
-            <p>{{c.dateTimeStart}}</p>
-            <p>{{c.dateTimeFinish}}</p>
+            <p>{{c.dateTimeStartConference}}</p>
+            <p>{{c.dateTimeFinishConference}}</p>
             <!--<button type="button" *ngIf="isDisplayed(c.id)" class="btn btn-outline-secondary">
                 <span class="glyphicon glyphicon-pencil"></span>
-            </button>-->
+            </button>
 
             <a href="#"  *ngIf="isDisplayed(c.id)" class="buttonEdit btn btn-outline-secondary ">
               <img src="https://img.icons8.com/small/32/000000/edit.png">
             </a>
+            -->
 
             <p>
               <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/{{c.id}}">Details</a>
