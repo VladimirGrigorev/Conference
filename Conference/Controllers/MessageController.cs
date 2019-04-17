@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Conference.Controllers
 {
     [Route("api/[controller]")]
+    [ValidateModel]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -33,8 +34,7 @@ namespace Conference.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]MessageDto message)
         {
-            var idS = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            message.UserId = Convert.ToInt32(idS);
+            message.UserId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(_messageService.Add(message));
         }
     }

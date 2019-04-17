@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Conference.Filter;
 using ConfService.Dto;
 using ConfService.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,9 +31,11 @@ namespace Conference.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Add([FromBody]ConferenceDto conference)
         {
-            return Ok(_conferenceService.Add(conference));
+            var id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(_conferenceService.Add(id, conference));
         }
 
         [HttpGet]

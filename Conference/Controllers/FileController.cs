@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
+using System.Security.Claims;
 using ConfService.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Conference.Controllers
@@ -25,6 +27,7 @@ namespace Conference.Controllers
             //_hostingEnvironment = hostingEnvironment;
         }
 
+        [Authorize]
         [HttpPost, DisableRequestSizeLimit]
         [Route("lectures/{lectureId}/files")]
         public ActionResult Upload(int lectureId)
@@ -62,8 +65,8 @@ namespace Conference.Controllers
             //    throw ex;
             //    //return ("Upload Failed: " + ex.Message);
             //}
-
-            return Ok(_fileService.Upload(Request?.Form?.Files[0], lectureId));
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(_fileService.Upload(userId, Request?.Form?.Files[0], lectureId));
         }
         [Route("files/{id}")]
         public IActionResult Download(int id)
