@@ -109,7 +109,7 @@ export class FilesComponent implements OnInit {
     {
       // For Firefox it is necessary to delay revoking the ObjectURL
       window.URL.revokeObjectURL(data);
-    }, 100);
+    }, 200);
   }
 
   isAddDisplayed(){
