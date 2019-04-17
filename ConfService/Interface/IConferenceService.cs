@@ -7,6 +7,6 @@ namespace ConfService.Interface
     {
         ConferenceDto Get(int id);
         IEnumerable<ConferenceDto> GetAll();
-        int Add(ConferenceDto conferenceDto);
+        int Add(int userId, ConferenceDto conferenceDto);
     }
 }

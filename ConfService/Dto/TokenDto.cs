@@ -11,5 +11,6 @@ namespace ConfService.Dto
 
         public bool IsGlobalAdmin { get; set; }
         public ICollection<int> PresentedLectures { get; set; }
+        public ICollection<int> SubscribedLectures { get; set; }
     }
 }

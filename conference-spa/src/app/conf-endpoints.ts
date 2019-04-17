@@ -11,3 +11,4 @@ export const SECTIONS_ENDPOINT = DOMAIN + '/section';
 export const FILES_ENDPOINT = DOMAIN + '/files';
 export const FORUM_ENDPOINT = DOMAIN + '/message';
 export const USER_ENDPOINT = DOMAIN + '/user';
+export const SCHEDULE_ENDPOINT = DOMAIN + '/my/lectures';

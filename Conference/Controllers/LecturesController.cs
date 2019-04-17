@@ -47,8 +47,8 @@ namespace Conference.Controllers
         }
 
         [Authorize]
-        [HttpPost("my/lectures/{id}")]
-        public IActionResult AddListenerToLectures(int id)
+        [HttpPost("my/lectures")]
+        public IActionResult AddListenerToLectures([FromBody]int id)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return Ok(_lectureService.AddListener(Convert.ToInt32(userId), id));

@@ -5,7 +5,7 @@
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item ">
         <a class="nav-link" href="#">Главная <span class="sr-only"></span></a>
       </li>
       <div *ngIf="loggedIn()">
@@ -26,9 +26,9 @@
     </ul>
 
     <div *ngIf="loggedIn()" class="dropdown">
-      <a class=" text-light">
+      <p class=" text-light name">
         {{nameUser.name}}
-      </a>
+      </p>
     </div>
 
 
