@@ -53,6 +53,9 @@ export class LectureComponent implements OnInit {
   }
 
   removeSchedule(){
+    this.scheduleService.removeLecture(this.id)
+      .subscribe(res=>
+         this.authService.deleteListener(this.id));
   }
 
   isListener(){

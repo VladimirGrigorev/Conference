@@ -105,19 +105,27 @@ signin(model: any) {
   }
 
   isListener(lectureId: number){
-    if(this.subscribedLectures === undefined){
-      let maybeLectures = localStorage.getItem(this.subscribedLecturesKey);
-      if (maybeLectures){
-        this.subscribedLectures =  JSON.parse(maybeLectures)        
-      }
-      else{
-        this.subscribedLectures = [];
-      }
-    }
+    this.initSubscribedLectures();
     return this.subscribedLectures.includes(lectureId);
   }
 
   addListener(lectureId:number){
+    this.initSubscribedLectures();
+    this.subscribedLectures.push(lectureId);
+    localStorage.setItem(this.subscribedLecturesKey,JSON.stringify(this.subscribedLectures));
+  }
+
+  deleteListener(id:number){
+    this.initSubscribedLectures();
+    let index = this.subscribedLectures.indexOf(id);
+    if(index>-1)
+    {
+      this.subscribedLectures.splice(index,1);
+      localStorage.setItem(this.subscribedLecturesKey,JSON.stringify(this.subscribedLectures));
+    }
+  }
+
+  initSubscribedLectures(){
     if(this.subscribedLectures === undefined){
       let maybeLectures = localStorage.getItem(this.subscribedLecturesKey);
       if (maybeLectures){
@@ -127,8 +135,6 @@ signin(model: any) {
         this.subscribedLectures = [];
       }
     }
-    this.subscribedLectures.push(lectureId);
-    localStorage.setItem(this.subscribedLecturesKey,JSON.stringify(this.subscribedLectures));
   }
 
 }

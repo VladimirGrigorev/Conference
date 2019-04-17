@@ -54,6 +54,15 @@ namespace Conference.Controllers
             return Ok(_lectureService.AddListener(Convert.ToInt32(userId), id));
         }
 
+        [Authorize]
+        [HttpDelete("my/lectures/{id}")]
+        public IActionResult DeleteListenerFromLectures(int id)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            _lectureService.DeleteListener(Convert.ToInt32(userId), id);
+            return Ok();
+        }
+
         //[HttpGet]
         //public IActionResult GetAll()
         //{

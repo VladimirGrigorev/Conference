@@ -65,7 +65,16 @@ namespace ConfService.Service
 
         public int AddListener(int userId, int lectureId)
         {
-            return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId, Role=Role.Listener});
+            if(!_roleInLectureRepository.Any(r => r.LectureId == lectureId && r.UserId == userId && r.Role == Role.Listener))
+                return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId, Role=Role.Listener});
+            return 0;
+        }
+
+        public void DeleteListener(int userId, int lectureId)
+        {
+            if (_roleInLectureRepository.GetFirstOrDefault(r => r.LectureId == lectureId
+                 && r.UserId == userId && r.Role == Role.Listener) is RoleInLecture role)
+                _roleInLectureRepository.Delete(role);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace ConfRepository.Interface
     public interface IRoleInLectureRepository : IRepository<RoleInLecture>
     {
         bool Any(Expression<Func<RoleInLecture, bool>> expression);
+        void Delete(RoleInLecture roleInLecture);
     }
 }

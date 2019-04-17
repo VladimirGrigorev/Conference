@@ -16,5 +16,11 @@ namespace ConfRepository.Repository
         {
             return Set.Any(expression);
         }
+
+        public void Delete(RoleInLecture roleInLecture)
+        {
+            Set.Remove(roleInLecture);
+            _context.SaveChanges();
+        }
     }
 }
