@@ -60,12 +60,12 @@ namespace ConfService.Service
         public IEnumerable<LectureDto> GetUserSubscribedLectures(int userId)
         {
             return _mapper.Map<IEnumerable<LectureDto>>(_lectureRepository.GetWhere(l =>
-                l.RoleInLectures.Any(r => r.UserId == userId)));
+                l.RoleInLectures.Any(r => r.UserId == userId && r.Role==Role.Listener)));
         }
 
         public int AddListener(int userId, int lectureId)
         {
-            return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId});
+            return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId, Role=Role.Listener});
         }
     }
 }

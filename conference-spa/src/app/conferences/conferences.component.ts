@@ -25,7 +25,7 @@ export class ConferencesComponent implements OnInit {
   }
 
   isAddDisplayed():boolean{
-    return this.authService.isAdmin();
+    return this.authService.isAuthenticated()&&this.authService.isAdmin();
   }
 
   isDisplayed(id:number):boolean{

@@ -61,7 +61,10 @@ namespace ConfService.Service
                 IsGlobalAdmin = user.IsGlobalAdmin,
                 PresentedLectures = user.RoleInLectures
                     .Where(l=>l.Role == Role.Speaker)
-                    .Select(l=>l.LectureId).ToList()
+                    .Select(l=>l.LectureId).ToList(),
+                SubscribedLectures = user.RoleInLectures
+                    .Where(l => l.Role == Role.Listener)
+                    .Select(l => l.LectureId).ToList()
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();

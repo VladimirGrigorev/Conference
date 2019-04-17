@@ -1,4 +1,4 @@
-<div class="container">
+
 <form #registerFrom="ngForm" (ngSubmit)="register()" class="form-signin" >
   <br>
   <h2 class="text-center" style="padding: 5%">Регистрация</h2>
@@ -22,8 +22,7 @@
     <button class="btn btn-success" type="submit">Регистрация</button>
     <button class="btn btn-default" type="button" routerLink="/conferences" (click)="cancel()">К списку конференций</button>
   </div>
-  <div *ngIf="errorFlag" class="Error" >
+  <div *ngIf="errorFlag" class="Error text-center" >
           <p>{{errorMessage}}</p>
   </div>
 </form>
-</div>

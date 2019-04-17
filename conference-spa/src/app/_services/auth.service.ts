@@ -19,6 +19,9 @@ export class AuthService {
   private isGlobalAdmin: boolean;
   private isGlobalAdminKey = 'admin';
 
+  private subscribedLectures:number[];
+  private subscribedLecturesKey = 'subscribedLectures';
+
   constructor(private http: HttpClient) { }
 
 signin(model: any) { 
@@ -34,6 +37,10 @@ signin(model: any) {
             let l =  userResponse.presentedLectures;
             localStorage.setItem(this.lecturesKey, JSON.stringify(l) );
             this.lectures = l;
+
+            let sL =  userResponse.subscribedLectures;
+            localStorage.setItem(this.subscribedLecturesKey, JSON.stringify(sL) );
+            this.subscribedLectures = sL;
 
             let a =  userResponse.isGlobalAdmin;
             localStorage.setItem(this.isGlobalAdminKey, JSON.stringify(a) );
@@ -95,6 +102,33 @@ signin(model: any) {
       }
     }
     return this.lectures.includes(lectureId);
+  }
+
+  isListener(lectureId: number){
+    if(this.subscribedLectures === undefined){
+      let maybeLectures = localStorage.getItem(this.subscribedLecturesKey);
+      if (maybeLectures){
+        this.subscribedLectures =  JSON.parse(maybeLectures)        
+      }
+      else{
+        this.subscribedLectures = [];
+      }
+    }
+    return this.subscribedLectures.includes(lectureId);
+  }
+
+  addListener(lectureId:number){
+    if(this.subscribedLectures === undefined){
+      let maybeLectures = localStorage.getItem(this.subscribedLecturesKey);
+      if (maybeLectures){
+        this.subscribedLectures =  JSON.parse(maybeLectures)        
+      }
+      else{
+        this.subscribedLectures = [];
+      }
+    }
+    this.subscribedLectures.push(lectureId);
+    localStorage.setItem(this.subscribedLecturesKey,JSON.stringify(this.subscribedLectures));
   }
 
 }

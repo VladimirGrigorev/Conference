@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ScheduleService } from '../_services/schedule.service';
 
 @Component({
   selector: 'app-schedule',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScheduleComponent implements OnInit {
 
-  constructor() { }
+  lectures:Array<any> = [];
+  constructor(private scheduleService:ScheduleService) { }
 
   ngOnInit() {
+    this.getLectures();
+  }
+
+  getLectures(){
+    this.scheduleService.get()
+      .subscribe((data:any)=>
+        {this.lectures=data;
+         
+        });
   }
 
 }

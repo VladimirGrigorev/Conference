@@ -39,5 +39,6 @@ namespace Conference.Controllers
         {
             return Ok(_conferenceService.GetAll());
         }
+        
     }
 }

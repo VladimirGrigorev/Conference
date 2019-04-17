@@ -3,8 +3,12 @@
         <h2>{{lecture?.topic}}</h2>
         <p>{{lecture?.info}}</p>
         
-        <p>
+        <p *ngIf="!isListener()">
             <a class="btn btn-outline-secondary" role="button" (click)="addSchedule()">Добавить в расписание</a>
+        </p>
+
+        <p *ngIf="isListener()">
+            <a class="btn btn-outline-secondary" role="button" (click)="removeSchedule()">Убрать из расписания</a>
         </p>
 
         <p>
