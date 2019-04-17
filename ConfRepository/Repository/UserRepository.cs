@@ -15,11 +15,6 @@ namespace ConfRepository.Repository
         {
         }
         
-        public User GetFirstOrDefault(Expression<Func<User, bool>> ex)
-        {
-           return  Set.FirstOrDefault(ex);
-        }
-
         public User GetFirstOrDefaultWithRoles(Expression<Func<User, bool>> ex)
         {
             //this._context.RoleInLectures.Add(new RoleInLecture() {LectureId = 1, UserId = 4, Role = Role.Speaker});

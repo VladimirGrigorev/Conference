@@ -55,5 +55,10 @@ namespace ConfRepository
             Set.Remove(new T(){Id = id});
             _context.SaveChanges();
         }
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>> ex)
+        {
+            return Set.FirstOrDefault(ex);
+        }
     }
 }
