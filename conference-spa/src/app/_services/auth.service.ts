@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {User} from 'src/app/user';
+import { CONFERENCES_ENDPOINT, DOMAIN } from '../conf-endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,8 @@ export class AuthService {
   private isGlobalAdmin: boolean;
   private isGlobalAdminKey = 'admin';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } 
+
 
 signin(model: any) { 
   return this.http.post(this.baseUrl + 'signin', model)
@@ -97,5 +99,9 @@ signin(model: any) {
     return this.lectures.includes(lectureId);
   }
 
+  logout() {
+    localStorage.clear();
+    return this.http.get(DOMAIN);
+  }
 }
 
