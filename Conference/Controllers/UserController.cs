@@ -29,6 +29,12 @@ namespace Conference.Controllers
             var employees = new ConfModel.Model.User() { Name = "Alex" };
             return employees;
         }
+        
+        [HttpGet("users")]
+        public IActionResult GetUserByEmail([FromQuery(Name = "email")]string email)
+        {
+            return Ok(_userService.GetUserByEmail(email));
+        }
 
         [Authorize]
         [HttpGet("user/myname")]

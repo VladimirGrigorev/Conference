@@ -8,7 +8,7 @@ namespace ConfRepository.Interface
 {
     public interface IUserRepository : IRepository<User>
     {
-        User GetFirstOrDefault(Expression<Func<User, bool>> ex);
+        //User GetFirstOrDefault(Expression<Func<User, bool>> ex);
         User GetFirstOrDefaultWithRoles(Expression<Func<User, bool>> ex);
     }
 }
