@@ -11,5 +11,6 @@ namespace ConfRepository.Interface
     {
         int Upload(IFormFile file, int lectureId);
         (Stream fileStream, string contentType, string fileDownloadName) Download(int id);
+        void Delete(File file);
     }
 }

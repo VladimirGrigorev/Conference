@@ -28,8 +28,7 @@ namespace Conference.Controllers
         }
 
         [Authorize]
-        [HttpPost, DisableRequestSizeLimit]
-        [Route("lectures/{lectureId}/files")]
+        [HttpPost("lectures/{lectureId}/files"), DisableRequestSizeLimit]
         public ActionResult Upload(int lectureId)
         {
             //try
@@ -68,7 +67,8 @@ namespace Conference.Controllers
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(_fileService.Upload(userId, Request?.Form?.Files[0], lectureId));
         }
-        [Route("files/{id}")]
+
+        [HttpGet("files/{id}")]
         public IActionResult Download(int id)
         {
             //if (filename == null)
@@ -85,7 +85,14 @@ namespace Conference.Controllers
             // memory, mimeType, Path.GetFileName(path));
         }
 
-
+        [Authorize]
+        [HttpDelete("files/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _fileService.Delete(userId, id);
+            return Ok();
+        }
 
         [HttpGet("lectures/{id}/files")]
         public IActionResult GetAllByLectureId(int id)

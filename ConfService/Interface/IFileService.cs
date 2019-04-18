@@ -10,5 +10,6 @@ namespace ConfService.Interface
         IEnumerable<FileDto> GetAllByLectureId(int idLecture);
         int Upload(int userId, IFormFile file, int lectureId);
         (Stream fileStream, string contentType, string fileDownloadName) Download(int id);
+        void Delete(int userId, int id);
     }
 }
