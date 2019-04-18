@@ -10,6 +10,7 @@ namespace ConfService.Mapper
         public Profiles()
         {
             CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserInfoDto>().ReverseMap();
             CreateMap<Conference, ConferenceDto>()
                 //.ForMember(conferenceDto => conferenceDto.Sections,
                 //a => a.MapFrom(conf => conf.Sections))

@@ -35,6 +35,16 @@ namespace ConfService.Service
             return _mapper.Map<UserDto>(_userRepository.Get(id));
         }
 
+        public UserInfoDto GetUserByEmail(string email)
+        {
+            if (_userRepository.GetFirstOrDefault(u => u.Email == email) is User user)
+            {
+                return _mapper.Map<UserInfoDto>(user);
+            }
+
+            throw new UserNotFoundException();
+        }
+
         public int Add(UserDto userDto)
         {
             var user = _userRepository.GetFirstOrDefault(x => x.Email == userDto.Email);
