@@ -19,8 +19,10 @@
   </div>
   <div *ngFor="let m of messages" class="rowTable">
     <div class="container">
-      <div class="nameUser">{{m.userName}}</div>
-      <div class="">{{m.dateTimeSent}}</div>
+      <!-- <div class="row"> -->
+        <div class="nameUser">{{m.userName}}</div>
+        <div class="float-right">{{m.dateTimeSent | date:'dd.MM.yyyy HH:mm'}}</div>
+      <!-- </div> -->
       <p>{{m.text}}</p>
       
     </div>
