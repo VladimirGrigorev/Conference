@@ -5,13 +5,68 @@
 
 .rowTable{
     margin-bottom: 0.5rem;
-    border-color: #6c757d;
+    
     border: 1px solid;
+    border-color: #ced4da;
     border-radius: 0.25rem;
     margin-left: 0;
     margin-right: 0;
+    padding-top: 10px;
 }
 
 #formLecture{
     display: none;
+}
+
+.conferenceForm{
+
+}
+
+.marg{
+    margin-left: 15px;
+}
+
+.marg-bottom{
+    margin-bottom: 30px;
+}
+
+.add{
+    margin: auto;
+    filter:invert(65%);
+    border: 0.3px solid #333;
+    margin-top:7px;
+    
+}
+
+
+.addLect{
+    margin-top:1px;
+}
+
+.add:hover{
+    filter:invert(100%);
+    background-color: #777;
+
+}
+
+.add-a{
+    bottom: 2.25rem;
+    left:0;
+    display: block;
+    
+}
+
+
+.rowTableColor{
+    margin-bottom: 0.5rem;
+    background-color: rgba(206, 212, 218,0.3);;
+    border-radius: 0.25rem;
+    margin-left: 0;
+    margin-right: 0;
+
+    padding-top: 10px;
+}
+
+.float{
+    float: right;
 }

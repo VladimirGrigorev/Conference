@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Создание конференции</h2>
-  <form [formGroup]="conferenceForm" (ngSubmit)="onSubmit()">
+  <form id="conferenceForm" [formGroup]="conferenceForm" class="marg-bottom" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Название конференции:</label>
       <input id="name" class="form-control" type="text" formControlName="name" required>
@@ -24,12 +24,50 @@
     <!--<button type="submit" [disabled]="!conferenceForm.valid" (click)="save()">Сохранить</button>-->
     <!--button type="submit">Добавить секции</button>-->
 
+  </form>
 
+  <div class="marg-bottom">
+    <div class="row mb-3">
+      <h2 class="col-xl-3 col-md-3 col-sm-9 ">Администраторы</h2>
+      <a id="addAdmin" class=" marg add-a" type="button" (click)="addAdmin()" >
+        <img class="add  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+      </a>
+    </div>
+    <div *ngFor="let a of listAdmins; let j=index" class="rowTable row">
+      <div class="col-12 col-md-8 ">
+        <h4>{{a.email}}</h4>
+      </div>
+
+        <div class="col-6 col-md-4 ">
+          <div class="row">
+            <!-- <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
+            <!--<button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>-->
+            <button type="button" class="btn  btn-outline-secondary float" (click)="deleteAdmin(j)">Удалить</button>
+        </div>
+        </div>
+    </div>
+
+
+    <form id="adminForm" [formGroup] = "adminForm" style="display:none; " (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email администратора: </label>
+        <input id="email" class="form-control" type="text" formControlName="email" required>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!adminForm.valid" (click)="saveAdmin()">Сохранить</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="closeAdmin()">Отменить</button>
+      </div>
+    </form>
+  </div>
 
     <!--------------------------------SECTIONS!!------------------------------>
+    <div class="marg-bottom">
     <div class="row">
-        <h2 class="col-md-2 col-3">Секции</h2>
-        <button id="addSection" class="btn btn-outline-secondary " type="button" (click)="addSection()" *ngIf="!opened">Добавить секцию</button>
+        <h2 class="col-md-2 col-sm-5 col-xl-2">Секции</h2>
+        <a id="addSection" class=" marg add-a" type="button" (click)="addSection()" >
+          <img class="add  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+        </a>
       </div>
       <div *ngFor="let s of listSections; let i=index" [attr.data-index]="i" class="rowTable row">
           <div class="col-12 col-md-8 ">
@@ -37,34 +75,43 @@
             <p>{{s.info}}</p>
           </div>
       
-          <div class="col-6 col-md-4 btn-group">
+          <div class="col-6 col-md-4">
             <!-- <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
+            <div class="row">
             <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="lectures(i)">Лекции</button>
             <button attr.id="hide_{{i}}" class="btn btn-outline-secondary " type="button" (click)="hideLectures(i)" 
               style="display:none;">Скрыть лекции</button>
+            <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="deleteSection(i)">Удалить</button> 
+          </div>
           </div>
       
           <div  attr.id="compLectures_{{i}}" style="width:100%; display: none;">
             <!------------------------------------------LECTURE!!!-------------------------------------------------->
 
-            <div class="container">
+            <div class="container marg-bottom">
                 <div class="row">
                     <h3 class="col-md-2 col-3">Лекции</h3>
-                    <button id="addLecture{{i}}" class="btn btn-outline-secondary " type="button" (click)="addLecture(i)" >Добавить лекцию</button>
-                    
+                    <!-- <button id="addLecture{{i}}" class="btn btn-outline-secondary " type="button" (click)="addLecture(i)" >Добавить лекцию</button> -->
+                    <a id="addLecture{{i}}" class=" marg add-a" type="button" (click)="addLecture(i)" >
+                        <img class="add addLect  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+                      </a>
                   </div>
-                  <div *ngFor="let s of listSections[i].lectures" class="rowTable row">
+                  <div *ngFor="let s of listSections[i].lectures; let si=index" class="rowTableColor row">
                       <div class="col-12 col-md-8 ">
                         <h4>{{s.topic}}</h4>
                         <p>{{s.info}}</p>
                       </div>
                   
-                        <div class="col-6 col-md-4 btn-group">
-                          <!-- <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
-                          <!--<button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>-->
+                        <!-- <div class="col-6 col-md-4 btn-group">
+                          <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>   
+                          <button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>
+                        </div> -->
+                        <div class="col-6 col-md-4">
+                          <div class="row">
+                            <button attr.id="lecture_{{si}}" type="button" class="btn  btn-outline-secondary" (click)="deleteLecture(i,si)">Удалить</button>  
+                          </div>
                         </div>
-                  
-                  </div>
+                    </div>
                   <form id="formLecture{{i}}" [formGroup]="lectureForm" (ngSubmit)="onSubmit()" style="display:none;">
                     <div class="form-group">
                       <label for="name">Тема лекции: </label>
@@ -105,9 +152,9 @@
 
 
       </form>
-
-      <button type="button" class="btn btn-outline-secondary" (click)="save()" 
+    </div>
+      <button type="button" class="btn btn-outline-secondary btn-lg" (click)="save()" 
         [disabled]="!conferenceForm.valid && !sectionForm.valid && !lectureForm.valid">Сохранить</button>
 
-  </form>
+
 </div>

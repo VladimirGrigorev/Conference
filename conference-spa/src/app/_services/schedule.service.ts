@@ -17,7 +17,7 @@ export class ScheduleService {
 
   removeLecture(id:number){
     return this.http.delete(this.baseUrl+'/'+id);
-  }
+  } 
 
   addLecture(id:number){
     return this.http.post(this.baseUrl,id);

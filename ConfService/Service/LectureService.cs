@@ -64,8 +64,8 @@ namespace ConfService.Service
         }
 
         public int AddListener(int userId, int lectureId)
-        {
-            if(!_roleInLectureRepository.Any(r => r.LectureId == lectureId && r.UserId == userId && r.Role == Role.Listener))
+        {//ToDo Change provider to pomelo; change FirstOfDefault to Any
+            if (_roleInLectureRepository.GetFirstOrDefault(r => r.LectureId == lectureId && r.UserId == userId && r.Role == Role.Listener) == null)
                 return _roleInLectureRepository.Add(new RoleInLecture() {LectureId = lectureId, UserId = userId, Role=Role.Listener});
             return 0;
         }

@@ -13,6 +13,7 @@ export class AddConferenceComponent implements OnInit {
 
   currentConference: any;
   listSections:Section[]=[];
+  listAdmins:any[] = [];
 
   lectureForm=this.fb.group({
     topic:['', Validators.required],
@@ -33,6 +34,9 @@ export class AddConferenceComponent implements OnInit {
     dateTimeFinishConference: [''],
   });
   
+  adminForm= this.fb.group({
+    email:['']
+  });
 
   constructor(
     private conferenceService:ConferencesService, 
@@ -41,19 +45,24 @@ export class AddConferenceComponent implements OnInit {
   }
 
   ngOnInit() {
-    document.getElementById('formSection').style.display='none';
+    this.hideById('formSection');
+    // document.getElementById('formSection').style.display='none';
   }
 
   addSection(){
     this.sectionForm.reset(); 
-    document.getElementById('formSection').style.display='block';
-    document.getElementById('addSection').style.display='none';
+    this.blockById('formSection');
+    this.hideById('addSection');
+    // document.getElementById('formSection').style.display='block';
+    // document.getElementById('addSection').style.display='none';
   }
 
   addLecture(i:number){
     this.lectureForm.reset(); 
-    document.getElementById('addLecture'+i).style.display='none';
-    document.getElementById('formLecture'+i).style.display='block';
+    this.blockById('formLecture'+i);
+    this.hideById('addLecture'+i);
+    // document.getElementById('addLecture'+i).style.display='none';
+    // document.getElementById('formLecture'+i).style.display='block';
   }
 
   onSubmit(){
@@ -61,21 +70,25 @@ export class AddConferenceComponent implements OnInit {
 
   saveSection(){   
     this.listSections.push(this.sectionForm.value);
-    console.log(this.listSections);
-    document.getElementById('formSection').style.display='none';
-    document.getElementById('addSection').style.display='block';
+    this.blockById('addSection');
+    this.hideById('formSection');
+    // document.getElementById('formSection').style.display='none';
+    // document.getElementById('addSection').style.display='block';
 
   }
 
   close(){
-    document.getElementById('formSection').style.display='none';
-    document.getElementById('addSection').style.display='block';
+    this.blockById('addSection');
+    this.hideById('formSection');
+    // document.getElementById('formSection').style.display='none';
+    // document.getElementById('addSection').style.display='block';
   }
 
   closeLecture(i:number){
-    console.log(i);
-    document.getElementById('formLecture'+i).style.display='none';
-    document.getElementById('addLecture'+i).style.display='block';
+    this.blockById('addLecture'+i);
+    this.hideById('formLecture'+i);
+    // document.getElementById('formLecture'+i).style.display='none';
+    // document.getElementById('addLecture'+i).style.display='block';
   }
 
   save(){
@@ -89,28 +102,74 @@ export class AddConferenceComponent implements OnInit {
   }
 
   lectures(i:number){
-    document.getElementById('lectures_'+i).style.display='none';
-    document.getElementById('hide_'+i).style.display='block';
-    document.getElementById('compLectures_'+i).style.display='block';
+    this.blockById('hide_'+i);
+    this.blockById('compLectures_'+i);
+    this.hideById('lectures_'+i);
+    // document.getElementById('lectures_'+i).style.display='none';
+    // document.getElementById('hide_'+i).style.display='block';
+    // document.getElementById('compLectures_'+i).style.display='block';
   }
 
   saveLecture(i:number){
-    console.log(i);
-    console.log(this.listSections);
-    console.log(this.listSections[i].lectures);
     if(this.listSections[i].lectures == undefined)
       this.listSections[i].lectures =[];
     this.listSections[i].lectures.push(this.lectureForm.value);
-    console.log(this.listSections);
-    document.getElementById('formLecture'+i).style.display='none';
-    document.getElementById('addLecture'+i).style.display='block';
+    this.blockById('addLecture'+i);
+    this.hideById('formLecture'+i);
+    // document.getElementById('formLecture'+i).style.display='none';
+    // document.getElementById('addLecture'+i).style.display='block';
     this.lectureForm.reset(); 
   }
 
   hideLectures(i:number){
-    document.getElementById('lectures_'+i).style.display='block';
-    document.getElementById('hide_'+i).style.display='none';
-    document.getElementById('compLectures_'+i).style.display='none';
+    this.blockById('lectures_'+i);
+    this.hideById('hide_'+i);
+    this.hideById('compLectures_'+i);
+    // document.getElementById('lectures_'+i).style.display='block';
+    // document.getElementById('hide_'+i).style.display='none';
+    // document.getElementById('compLectures_'+i).style.display='none';
   }
 
+  saveAdmin(){
+    this.listAdmins.push(this.adminForm.value);
+    this.blockById('addAdmin');
+    this.hideById('adminForm');
+    // document.getElementById('adminForm').style.display='none';
+    // document.getElementById('addAdmin').style.display='block';
+  }
+
+  closeAdmin(){
+    this.blockById('addAdmin');
+    this.hideById('adminForm');
+    // document.getElementById('adminForm').style.display='none';
+    // document.getElementById('addAdmin').style.display='block';
+  }
+
+  addAdmin(){
+    this.adminForm.reset(); 
+    this.blockById('adminForm');
+    this.hideById('addAdmin');
+    //document.getElementById('adminForm').style.display='block';
+    //document.getElementById('addAdmin').style.display='none';
+  }
+
+  deleteAdmin(j){
+    this.listAdmins.splice(j,1);
+  }
+
+  hideById(id){
+    document.getElementById(id).style.display='none';
+  }
+
+  blockById(id){
+    document.getElementById(id).style.display='block';
+  }
+
+  deleteSection(i){
+    this.listSections.splice(i,1);
+  }
+
+  deleteLecture(i,si){
+    this.listSections[i].lectures.splice(si,1);
+  }
 }

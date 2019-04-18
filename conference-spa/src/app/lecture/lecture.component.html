@@ -4,15 +4,15 @@
         <p>{{lecture?.info}}</p>
         
         <p *ngIf="!isListener()">
-            <a class="btn btn-outline-secondary" role="button" (click)="addSchedule()">Добавить в расписание</a>
+            <button class="btn btn-outline-secondary" type="button" (click)="addSchedule()">Добавить в расписание</button>
         </p>
 
         <p *ngIf="isListener()">
-            <a class="btn btn-outline-secondary" role="button" (click)="removeSchedule()">Убрать из расписания</a>
+            <button class="btn btn-outline-secondary" type="button" (click)="removeSchedule()">Убрать из расписания</button>
         </p>
 
         <p>
-            <a class="btn btn-outline-secondary" (click)="goBack()" role="button">Назад</a>
+            <button class="btn btn-outline-secondary" type="button" (click)="goBack()">Назад</button>
         </p>
     </div>
 
