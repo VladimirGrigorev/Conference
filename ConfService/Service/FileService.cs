@@ -7,6 +7,7 @@ using ConfService.Dto;
 using ConfService.Interface;
 using ConfService.ServiceException;
 using Microsoft.AspNetCore.Http;
+using File = System.IO.File;
 
 namespace ConfService.Service
 {
@@ -40,8 +41,8 @@ namespace ConfService.Service
 
         private bool CheckUserPermission(int userId, int lectureId)
         {
-            return _roleInLectureRepository.Any(r =>
-                r.UserId == userId && r.LectureId == lectureId && r.Role == Role.Speaker);
+            return _roleInLectureRepository.GetFirstOrDefault(r =>
+                r.UserId == userId && r.LectureId == lectureId && r.Role == Role.Speaker) != null;
         }
 
         public (Stream fileStream, string contentType, string fileDownloadName) Download(int id)
@@ -49,6 +50,15 @@ namespace ConfService.Service
             return _fileRepository.Download(id);
         }
 
-
+        public void Delete(int userId, int id)
+        {
+            if (_fileRepository.Get(id) is ConfModel.Model.File file 
+                &&  CheckUserPermission(userId, file.LectureId))
+            {
+                _fileRepository.Delete(file);
+                return;
+            }
+            throw new NotEnoughRightsException();
+        }
     }
 }

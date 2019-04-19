@@ -17,8 +17,8 @@
             <h2>{{c.name}}</h2>
             <p>{{c.info}}</p>
             <p>{{c.location}}</p>
-            <p>{{c.dateTimeStartConference}}</p>
-            <p>{{c.dateTimeFinishConference}}</p>
+            <p>{{c.dateTimeStartConference | date:'dd.MM.yy'}} - {{c.dateTimeFinishConference | date:'dd.MM.yy'}}</p>
+            <!-- <p></p> -->
             <!--<button type="button" *ngIf="isDisplayed(c.id)" class="btn btn-outline-secondary">
                 <span class="glyphicon glyphicon-pencil"></span>
             </button>
@@ -29,7 +29,7 @@
             -->
 
             <p>
-              <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/{{c.id}}">Details</a>
+              <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/{{c.id}}">Подробнее</a>
             </p>
           </div>
         </div>

@@ -6,6 +6,7 @@ using System.Text;
 using ConfModel.Model;
 using ConfRepository.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 using File = ConfModel.Model.File;
 
@@ -50,6 +51,14 @@ namespace ConfRepository.Repository
         {
             fileName = ContentDispositionHeaderValue.Parse(contentDisposition).FileName.Trim('"');
             return string.IsNullOrEmpty(fileName);
+        }
+
+        public void Delete(File file)
+        {
+            Set.Remove(file);
+            _context.SaveChanges();
+            var path = Path.Combine(GetSavePath(), file.Name);
+            System.IO.File.Delete(path);
         }
 
         public (Stream fileStream, string contentType, string fileDownloadName) Download(int id)

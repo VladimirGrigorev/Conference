@@ -50,7 +50,7 @@ namespace ConfRepository
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             Set.Remove(new T(){Id = id});
             _context.SaveChanges();

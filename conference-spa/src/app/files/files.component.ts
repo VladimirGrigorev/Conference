@@ -31,6 +31,11 @@ export class FilesComponent implements OnInit {
     this.fileService.getAll(this.lectureId).subscribe(files=> this.files = files);
   }
 
+  delete(id:number) {
+    this.fileService.delete(id)
+      .subscribe( resp=> this.getFiles());
+  }
+
   upload(files) {
     if (files.length === 0)
       return;
