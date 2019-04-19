@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using ConfModel.Model;
 using ConfRepository.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConfRepository.Repository
 {
@@ -14,9 +15,11 @@ namespace ConfRepository.Repository
         {
         }
         
-        public User GetFirstOrDefault(Expression<Func<User, bool>> ex)
+        public User GetFirstOrDefaultWithRoles(Expression<Func<User, bool>> ex)
         {
-           return  Set.FirstOrDefault(ex);
+            //this._context.RoleInLectures.Add(new RoleInLecture() {LectureId = 1, UserId = 8, Role = Role.Speaker});
+            //this._context.SaveChanges();
+            return Set.Include(a => a.RoleInLectures).FirstOrDefault(ex);
         }
     }
 }

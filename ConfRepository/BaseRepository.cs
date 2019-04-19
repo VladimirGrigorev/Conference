@@ -32,7 +32,7 @@ namespace ConfRepository
             return Set.Find(id);
         }
 
-        public IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
+        public virtual IEnumerable<T> GetWhere(Expression<Func<T, bool>> predicate)
         {
             return _context.Set<T>().Where(predicate);
         }
@@ -50,10 +50,15 @@ namespace ConfRepository
             _context.SaveChanges();
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             Set.Remove(new T(){Id = id});
             _context.SaveChanges();
+        }
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>> ex)
+        {
+            return Set.FirstOrDefault(ex);
         }
     }
 }

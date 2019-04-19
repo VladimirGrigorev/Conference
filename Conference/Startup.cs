@@ -78,8 +78,17 @@ namespace Conference
             services.AddAutoMapper();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceService, ConferenceService>();
+            services.AddScoped<ISectionRepository, SectionRepository>();
+            services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
+            services.AddScoped<ILectureRepository, LectureRepository>();
+            services.AddScoped<ILectureService, LectureService>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+            services.AddScoped<IFileRepository, FileRepository>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleInLectureRepository, RoleInLectureRepository>();
             services.AddDbContext<ConfContext>
                 (options => options.UseMySQL(Configuration.GetConnectionString("db")));
         }

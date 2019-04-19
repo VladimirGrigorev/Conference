@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <a class="navbar-brand conference" routerLink="/conferences">Conference</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" routerLink="/conferences">Главная <span class="sr-only"></span></a>
+      </li>
+      <div *ngIf="loggedIn()">
+        <li>
+          <a class="nav-link" routerLink="/schedule">Личное расписание</a>
+        </li>
+      </div>
+      <div *ngIf="!loggedIn()">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/signup" (click)="registerToggle()"> Регистрация </a>
+      </li>
+      </div>
+      <div *ngIf="loggedIn()">
+        <li>
+            <a class="nav-link" (click)="logout()" routerLink="/conferences"> <i class="fa-sign-out"></i>Выйти</a>
+        </li>
+      </div>
+    </ul>
+
+    <div *ngIf="loggedIn()" class="dropdown">
+      <p class=" text-light name">
+        {{nameUser.name}}
+      </p>
+    </div>
+
+
+    <form *ngIf="!loggedIn()"  #loginForm="ngForm" class="form-inline my-2 my-lg-0" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" name="email" 
+      placeholder="Email" required [(ngModel)]="model.email">
+      <input class="form-control mr-sm-2" type="password" name="passhash" 
+      placeholder="Password" required [(ngModel)]="model.passhash">
+      <button [disabled]="!loginForm.valid" class="btn btn-success my-2 my-sm-0" type="submit">Войти</button>
+    </form>
+  </div>
+</nav>
+
+<!-- <div *ngIf="registerMode&&regComponent">
+  <app-home></app-home>
+</div> -->

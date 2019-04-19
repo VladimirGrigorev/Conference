@@ -1,0 +1,36 @@
+<div *ngIf="conference">
+  <div class="jumbotron text-center">
+    <div class="container">
+      <h2 class="jumbotron-heading">{{conference.name}}</h2>
+      <p class="lead text-muted">{{conference.info}}</p>
+      <p class="lead text-muted">Место проведения: {{conference.location}}</p>
+      <p class="lead text-muted">Даты проведения:</p>
+      <p class="lead text-muted">{{conference.dateTimeStartConference | date:'dd.MM.yyyy'}} - {{conference.dateTimeFinishConference | date:'dd.MM.yyyy'}}</p>
+      
+
+      <p>
+        <a class="btn btn-outline-secondary" routerLink="/conferences" role="button">К конференциям</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Секции</h2>
+    <div *ngFor="let s of conference.sections" class="rowTable container">
+      <h4>{{s.name}}</h4>
+      <p>{{s.info}}</p>
+      <div class="container">
+        <h4>Лекции</h4>
+        <div *ngFor="let l of s.lectures" class="container">
+          <a routerLink="/lectures/{{l.id}}" class="topic">
+            <h5>{{l.topic}}</h5>
+          </a>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+
+</div>

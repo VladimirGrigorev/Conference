@@ -29,6 +29,12 @@ namespace Conference.Controllers
             var employees = new ConfModel.Model.User() { Name = "Alex" };
             return employees;
         }
+        
+        [HttpGet("users")]
+        public IActionResult GetUserByEmail([FromQuery(Name = "email")]string email)
+        {
+            return Ok(_userService.GetUserByEmail(email));
+        }
 
         [Authorize]
         [HttpGet("user/myname")]
@@ -38,7 +44,7 @@ namespace Conference.Controllers
             //var idS = User.Identity.Name;
             var user = _userService.Get(Convert.ToInt32(idS));
             
-            return Ok(user.Name);
+            return Ok(new { name = user.Name });
         }
 
         [HttpPost("auth/signup")]
@@ -47,7 +53,7 @@ namespace Conference.Controllers
             var userId = _userService.Add(userDto);
             return Ok(userId);
         }
-
+        
         [HttpPost("auth/signin")]
         public IActionResult SignIn([FromBody] UserAuthDto userAuthDto)
         {

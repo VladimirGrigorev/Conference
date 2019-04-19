@@ -13,5 +13,6 @@ namespace ConfRepository
         int Add(T entity);
         void Update(T entity);
         void Delete(int id);
+        T GetFirstOrDefault(Expression<Func<T, bool>> ex);
     }
 }

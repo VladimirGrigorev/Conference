@@ -22,4 +22,15 @@ namespace ConfService.Dto
     
         //public bool IsGlobalAdmin { get; set; }
     }
+
+    public class UserInfoDto
+    {
+        public int Id { get; set; }
+        [StringLength(200)]
+        public string Name { get; set; }
+        [Required]
+        [EmailAddress]
+        [StringLength(50)]
+        public string Email { get; set; }
+    }
 }

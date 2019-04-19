@@ -1,0 +1,14 @@
+.Error{
+    color: #D8000C;
+    background-color: #FFD2D2;
+    margin:10px 22px;
+    font-size: 1em;;
+    vertical-align:middle;
+}
+
+.form-signin{
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}

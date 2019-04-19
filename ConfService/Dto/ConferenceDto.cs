@@ -16,11 +16,13 @@ namespace ConfService.Dto
         [StringLength(500)]
         public string Location { get; set; }
         [DataType(DataType.DateTime)]
-        public DateTime DateTimeStart { get; set; }
+        public DateTime DateTimeStartConference { get; set; }
         [DataType(DataType.DateTime)]
-        public DateTime DateTimeFinish { get; set; }
+        public DateTime DateTimeFinishConference { get; set; }
         
         public ICollection<SectionDto> Sections { get; set; } = new List<SectionDto>();
+
+        public ICollection<UserInfoDto> Admins { get; set; } = new List<UserInfoDto>();
 
     }
 }

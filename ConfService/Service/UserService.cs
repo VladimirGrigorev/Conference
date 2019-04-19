@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
 using AutoMapper;
@@ -33,6 +35,16 @@ namespace ConfService.Service
             return _mapper.Map<UserDto>(_userRepository.Get(id));
         }
 
+        public UserInfoDto GetUserByEmail(string email)
+        {
+            if (_userRepository.GetFirstOrDefault(u => u.Email == email) is User user)
+            {
+                return _mapper.Map<UserInfoDto>(user);
+            }
+
+            throw new UserNotFoundException();
+        }
+
         public int Add(UserDto userDto)
         {
             var user = _userRepository.GetFirstOrDefault(x => x.Email == userDto.Email);
@@ -40,21 +52,29 @@ namespace ConfService.Service
                 throw new UserWithThisEmailExistsException();
 
             user = _mapper.Map<User>(userDto);
+            //user.IsGlobalAdmin = true;
             return _userRepository.Add(user);
         }
 
         public TokenDto Authenticate(UserAuthDto userDto)
         {
-            var user = _userRepository.GetFirstOrDefault(
+            var user = _userRepository.GetFirstOrDefaultWithRoles(
                 x => x.Email == userDto.Email && x.PassHash == userDto.PassHash);
 
             if(user == null)
-                throw new UnauthorizedAccessException();
+                throw new AuthenticationException();
 
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtSettings.LifetimeSeconds);
             var tokenDto = new TokenDto()
             {
-                ExpirationTime = expirationTime
+                ExpirationTime = expirationTime,
+                IsGlobalAdmin = user.IsGlobalAdmin,
+                PresentedLectures = user.RoleInLectures
+                    .Where(l=>l.Role == Role.Speaker)
+                    .Select(l=>l.LectureId).ToList(),
+                SubscribedLectures = user.RoleInLectures
+                    .Where(l => l.Role == Role.Listener)
+                    .Select(l => l.LectureId).ToList()
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -77,5 +97,6 @@ namespace ConfService.Service
 
             return tokenDto;
         }
+
     }
 }
