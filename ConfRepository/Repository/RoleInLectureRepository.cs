@@ -12,10 +12,10 @@ namespace ConfRepository.Repository
     {
         public RoleInLectureRepository(ConfContext confContext) : base(confContext){}
 
-        public bool Any(Expression<Func<RoleInLecture, bool>> expression)
-        {
-            return Set.Any(expression);
-        }
+        //public bool Any(Expression<Func<RoleInLecture, bool>> expression)
+        //{
+        //    return Set.Any(expression);
+        //}
 
         public void Delete(RoleInLecture roleInLecture)
         {

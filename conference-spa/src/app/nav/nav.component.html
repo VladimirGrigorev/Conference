@@ -20,7 +20,7 @@
       </div>
       <div *ngIf="loggedIn()">
         <li>
-            <a class="nav-link" (click)="logout()"> <i class="fa-sign-out"></i>Выйти</a>
+            <a class="nav-link" (click)="logout()" routerLink="/conferences"> <i class="fa-sign-out"></i>Выйти</a>
         </li>
       </div>
     </ul>

@@ -32,6 +32,7 @@ export class NavComponent implements OnInit {
             
     }, error => {
       console.log(error); 
+      localStorage.clear();
     }
     );
   }
@@ -42,9 +43,14 @@ export class NavComponent implements OnInit {
   }
   logout()
   {
-      localStorage.removeItem('token');
-      console.log('Logged out');
-      this.registerMode = !this.registerMode;
+    this.authService.logout();
+    // .subscribe(next => {
+    //   console.log('success logout');
+    //   this.registerMode = !this.registerMode;
+    //   }, error => {
+    //    console.log(error);
+    //   }
+    //);
 
   }
 
@@ -54,7 +60,7 @@ export class NavComponent implements OnInit {
 
   getName(){
     this.userService.getName()
-      .subscribe((data:any)=>this.nameUser=data);
+      .subscribe((data: any) => this.nameUser = data);
   }
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {User} from 'src/app/user';
+import { CONFERENCES_ENDPOINT, DOMAIN } from '../conf-endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -104,6 +105,14 @@ signin(model: any) {
     return this.lectures.includes(lectureId);
   }
 
+  logout() {
+    localStorage.clear();
+    this.token = null;
+    this.lectures = [];
+    this.isGlobalAdmin = false;
+    this.subscribedLectures = [];  
+    //return this.http.get(DOMAIN);
+  }
   isListener(lectureId: number){
     this.initSubscribedLectures();
     return this.subscribedLectures.includes(lectureId);
