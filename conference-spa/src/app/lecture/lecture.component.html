@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="jumbotron text-center">
+        <h2>{{lecture?.topic}}</h2>
+        <p>{{lecture?.info}}</p>
+        
+        <p *ngIf="isAuthenticated() && !isListener()">
+            <button class="btn btn-outline-secondary" type="button" (click)="addSchedule()">Добавить в расписание</button>
+        </p>
+
+        <p *ngIf="isAuthenticated && isListener()">
+            <button class="btn btn-outline-secondary" type="button" (click)="removeSchedule()">Убрать из расписания</button>
+        </p>
+
+        <p>
+            <button class="btn btn-outline-secondary" type="button" (click)="goBack()">Назад</button>
+        </p>
+    </div>
+
+    <app-files [lectureId]="id"></app-files>
+    <app-forum [idLecture]="id"></app-forum>    
+</div>
