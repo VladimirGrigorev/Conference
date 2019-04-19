@@ -1,4 +1,5 @@
 ﻿using System.Dynamic;
+using System.Linq;
 using AutoMapper;
 using ConfModel.Model;
 using ConfService.Dto;
@@ -21,10 +22,14 @@ namespace ConfService.Mapper
                 //.ForMember(sectionDto => sectionDto.Lectures,
                 //    a => a.MapFrom(sect => sect.Lectures))
                 .ReverseMap();
+            CreateMap<LectureDto, Lecture>()
+                .ForMember(l => l.RoleInLectures,
+                    a => a.MapFrom(ld => ld.Speakers.Select(s => new RoleInLecture() {UserId = s.Id, Role = Role.Speaker})));
             CreateMap<Lecture, LectureDto>()
                 //.ForMember(lectureDto => lectureDto.SectionId,
-                //    a => a.MapFrom(lect => lect.SectionId))
-                .ReverseMap();
+                //    a => a.MapFrom(lect => lect..SectionId))
+                //.ReverseMap()
+                ;
             CreateMap<File, FileDto>()
                 //.ForMember(fileDto => fileDto.LectureId,
                 //    a => a.MapFrom(file => file.LectureId))
