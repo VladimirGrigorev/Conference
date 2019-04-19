@@ -22,6 +22,8 @@ export class AddConferenceComponent implements OnInit {
   errorMessage:string;
   errorFlag:boolean;
   
+  errorMessageSave:string;
+  errorFlagSave:boolean;
 
   lectureForm=this.fb.group({
     topic:['', Validators.required],
@@ -111,6 +113,10 @@ export class AddConferenceComponent implements OnInit {
     this.conferenceService.add(this.currentConference)
       .subscribe(res=>{
         this.router.navigate(['/conferences'])
+      },
+      error=>{
+        this.errorMessageSave = error;
+        this.errorFlagSave=true;
       });
   }
 

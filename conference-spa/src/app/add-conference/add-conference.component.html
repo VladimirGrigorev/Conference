@@ -209,8 +209,11 @@
 
       </form>
     </div>
+    <div class="row ml-0" >
       <button type="button" class="btn btn-outline-secondary btn-lg" (click)="save()" 
         [disabled]="!conferenceForm.valid && !sectionForm.valid && !lectureForm.valid">Сохранить</button>
+      <p class="ml-3 mt-3" *ngIf="errorFlagSave">{{errorMessageSave}}</p>
+    </div>
 
 
 </div>

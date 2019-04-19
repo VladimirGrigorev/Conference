@@ -38,7 +38,7 @@ namespace ConfService.Service
             if (CheckUserPermission(userId))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
-                foreach (var admin in conferenceDto.Admins.GroupBy(s => s.Id).FirstOrDefault())
+                foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
                 {
                     conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
                 }
