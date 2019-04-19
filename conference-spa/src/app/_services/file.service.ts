@@ -37,6 +37,10 @@ export class FileService {
     // });
   }
 
+  delete(id:number){
+    return this.httpClient.delete( `${this.filesUrl}/${id}`);
+  }
+
   download(id:number){
     return this.httpClient.get( `${this.filesUrl}/${id}`,
      { responseType: 'blob' as 'json' });

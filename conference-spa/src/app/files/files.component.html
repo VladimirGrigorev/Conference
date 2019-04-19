@@ -21,7 +21,8 @@
           <div class="card-body box-shadow text-center">
             <p>{{c.name}}</p>
             <p>
-              <a class="btn btn-outline-secondary" role="button" (click)="show(c)">Открыть</a>
+              <a class="btn btn-outline-secondary mr-1" role="button" (click)="show(c)">Открыть</a>
+              <a *ngIf="isAddDisplayed()" class="btn btn-outline-secondary" role="button" (click)="delete(c.id)">X</a>
             </p>
           </div>
         </div>
