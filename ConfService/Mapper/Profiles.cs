@@ -24,7 +24,7 @@ namespace ConfService.Mapper
                 .ReverseMap();
             CreateMap<LectureDto, Lecture>()
                 .ForMember(l => l.RoleInLectures,
-                    a => a.MapFrom(ld => ld.Speakers.Select(s => new RoleInLecture() {UserId = s.Id, Role = Role.Speaker})));
+                    a => a.MapFrom(ld => ld.Speakers.GroupBy(s=>s.Id).FirstOrDefault().Select(s => new RoleInLecture() {UserId = s.Id, Role = Role.Speaker})));
             CreateMap<Lecture, LectureDto>()
                 //.ForMember(lectureDto => lectureDto.SectionId,
                 //    a => a.MapFrom(lect => lect..SectionId))
