@@ -26,7 +26,6 @@ namespace ConfService.Dto
     public class UserInfoDto
     {
         public int Id { get; set; }
-        [Required]
         [StringLength(200)]
         public string Name { get; set; }
         [Required]

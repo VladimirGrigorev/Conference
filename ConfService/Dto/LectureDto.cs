@@ -26,5 +26,7 @@ namespace ConfService.Dto
         public DateTime DateTimeCloseChat { get; set; }
         
         public ICollection<FileDto> Files { get; set; } = new List<FileDto>();
+
+        public ICollection<UserInfoDto> Speakers { get; set; } = new List<UserInfoDto>();
     }
 }

@@ -91,8 +91,6 @@ export class FilesComponent implements OnInit {
     if(!blob && !filename)
       return;
 
-    // It is necessary to create a new blob object with mime-type 
-    // explicitly set otherwise only Chrome works like it should
     let newBlob = new Blob([blob]);//, { type: "application/vnd.ms-word" });
     // IE doesn't allow using a blob object directly as link href 
     // instead it is necessary to use msSaveOrOpenBlob
@@ -102,19 +100,20 @@ export class FilesComponent implements OnInit {
       return;
     }
 
-    // For other browsers: 
-    // Create a link pointing to the ObjectURL containing the blob.
+    // For other browsers
     let data = window.URL.createObjectURL(newBlob);
-    //window.open(data);
     let link = document.createElement('a');
     link.href = data;
     link.download = filename;
-    link.click();
-    setTimeout(() =>
-    {
-      // For Firefox it is necessary to delay revoking the ObjectURL
-      window.URL.revokeObjectURL(data);
-    }, 200);
+    link.dispatchEvent(new MouseEvent(`click`, {bubbles: true, cancelable: true, view: window}));
+    //link.click();    
+    // setTimeout(() =>
+    // {
+    //   // For Firefox it is necessary to delay revoking the ObjectURL
+    //   window.URL.revokeObjectURL(data);
+    // }, 200);
+
+    
   }
 
   isAddDisplayed(){
