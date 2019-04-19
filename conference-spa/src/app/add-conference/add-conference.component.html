@@ -26,7 +26,7 @@
 
   </form>
 
-  <div class="marg-bottom">
+  <!-- <div class="marg-bottom">
     <div class="row mb-3">
       <h2 class="col-xl-3 col-md-3 col-sm-9 ">Администраторы</h2>
       <a id="addAdmin" class=" marg add-a" (click)="addAdmin()" >
@@ -40,8 +40,6 @@
 
         <div class="col-6 col-md-4 ">
           <div class="row">
-            <!-- <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
-            <!--<button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>-->
             <button type="button" class="btn  btn-outline-secondary float" (click)="deleteAdmin(j)">Удалить</button>
         </div>
         </div>
@@ -62,7 +60,7 @@
         {{errorMessage}}
       </p>
     </form>
-  </div>
+  </div> -->
 
     <!--------------------------------SECTIONS!!------------------------------>
     <div class="marg-bottom">
@@ -80,11 +78,12 @@
       
           <div class="col-6 col-md-4">
             <!-- <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
-            <div class="row">
-            <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="lectures(i)">Лекции</button>
-            <button attr.id="hide_{{i}}" class="btn btn-outline-secondary " type="button" (click)="hideLectures(i)" 
+            <div class="row-reverse">
+              <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button>
+              <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="lectures(i)">Лекции</button>
+              <button attr.id="hide_{{i}}" class="btn btn-outline-secondary float-right" type="button" (click)="hideLectures(i)" 
               style="display:none;">Скрыть лекции</button>
-            <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="deleteSection(i)">Удалить</button> 
+             
           </div>
           </div>
       
@@ -110,11 +109,12 @@
                           <button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>
                         </div> -->
                         <div class="col-6 col-md-4">
-                          <div class="row">
-                            <button attr.id="speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary" (click)="speakers(i,si)"> Лекторы</button>
-                            <button attr.id="hide_speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary" (click)="hideSpeakers(i,si)"
+                          <div class="row-reverse">
+                            <button attr.id="lecture_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteLecture(i,si)">Удалить</button> 
+                            <button attr.id="speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="speakers(i,si)"> Лекторы</button>
+                            <button attr.id="hide_speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="hideSpeakers(i,si)"
                               style="display:none;"> Скрыть лекторов</button>
-                            <button attr.id="lecture_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary" (click)="deleteLecture(i,si)">Удалить</button>  
+                             
                           </div>
                         </div>
 
@@ -137,8 +137,8 @@
 
 
                               <div class="col-6 col-md-4">
-                                <div class="row">
-                                  <button attr.id="deleteSpeaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary" (click)="deleteSpeaker(i,si,spi)">Удалить</button>  
+                                <div class="row-reverse ">
+                                  <button attr.id="deleteSpeaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSpeaker(i,si,spi)">Удалить</button>  
                                 </div>
                               </div>
         
@@ -151,7 +151,7 @@
                               </div>
 
                               <div class="btn-group">
-                                <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!speakerForm.valid" (click)="saveSpeaker(i,si)">Сохранить</button>
+                                <button type="button" class="btn btn-outline-secondary " type="submit" [disabled]="!speakerForm.valid" (click)="saveSpeaker(i,si)">Сохранить</button>
                                 <button type="button" class="btn btn-outline-secondary" (click)="closeSpeaker(i,si)">Отменить</button>
                               </div>
 
@@ -179,7 +179,7 @@
                     </div>
                     <div class="form-group">
                         <label for="info">Дата и время начала лекции: </label>
-                        <input id="dateLecture" class="form-control" type="text" formControlName="dateTimeStart">
+                        <input id="dateLecture" class="form-control" type="datetime-local" formControlName="dateTimeStart">
                       </div>
                     <div class="btn-group">
                       <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!lectureForm.valid" (click)="saveLecture(i)">Сохранить</button>
