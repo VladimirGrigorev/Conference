@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { Section } from '../section';
 import { UserService } from '../_services/user.service';
 import { error } from '@angular/compiler/src/util';
+import { UserInfo } from '../userInfo';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-conference',
@@ -144,7 +146,7 @@ export class AddConferenceComponent implements OnInit {
   saveAdmin(){
     this.userService.getUserByEmail(this.adminForm.value.email)
       .subscribe(res=>{
-        this.listAdmins.push(this.adminForm.value);
+        this.listAdmins.push(this.adminForm.value.email);
         this.blockById('addAdmin');
         this.hideById('adminForm');
       },
@@ -193,22 +195,50 @@ export class AddConferenceComponent implements OnInit {
     this.listSections[i].lectures.splice(si,1);
   }
 
-  addSpeaker(si){//i,idLecture
+  addSpeaker(i,si){//i,idLecture
     //this.listSections[i].lectures[idLecture].speakers.push();
     this.speakerForm.reset(); 
-    this.blockById('speakerForm');
-    this.hideById('addSpeaker'+si);
-    this.blockById('hide_speaker_'+si);
+    this.blockById('formSpeaker'+i+'_'+si);
+    this.hideById('addSpeaker'+i+'_'+si);
+    this.blockById('hide_speaker_'+i+'_'+si);
   }
 
-  speakers(i:number){
-    //this.blockById('hide_'+i);
-    this.blockById('compSpeakers_'+i);
-    //this.hideById('lectures_'+i);
+  speakers(i,si){
+    this.hideById('speaker_'+i+'_'+si);
+    this.blockById('compSpeakers_'+i+'_'+si);
+    this.blockById('hide_speaker_'+i+'_'+si);
   }
 
-  hideSpeakers(i){
-    this.hideById('hide_speaker_'+i);
-    this.blockById('speaker_'+i);
+  hideSpeakers(i,si){
+    this.hideById('compSpeakers_'+i+'_'+si);
+    this.blockById('speaker_'+i+'_'+si);
+    this.hideById('hide_speaker_'+i+'_'+si);
+    // this.hideById('hide_speaker_'+i);
+    // this.blockById('speaker_'+i);
+  }
+
+  saveSpeaker(i,si){
+    if(this.listSections[i].lectures[si].speakers == undefined)
+      this.listSections[i].lectures[si].speakers =[];
+
+    this.userService.getUserByEmail(this.speakerForm.value.email)
+    .subscribe((res :any) =>{
+      this.listSections[i].lectures[si].speakers.push(res.body);
+      this.blockById('addSpeaker'+i+'_'+si);
+      this.hideById('formSpeaker'+i+'_'+si);
+    },
+    error=>{
+      this.errorMessage = error;
+      this.errorFlag=true;
+    });
+  }
+
+  closeSpeaker(i,si){
+    this.blockById('addSpeaker'+i+'_'+si);
+    this.hideById('formSpeaker'+i+'_'+si);
+  }
+
+  deleteSpeaker(i,si,spi){
+    this.listSections[i].lectures[si].speakers.splice(spi,1);
   }
 }

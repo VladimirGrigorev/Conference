@@ -70,3 +70,7 @@
 .float{
     float: right;
 }
+
+a{
+    cursor: pointer;
+}
