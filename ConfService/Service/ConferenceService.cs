@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using AutoMapper;
 using ConfModel.Model;
@@ -37,6 +38,10 @@ namespace ConfService.Service
             if (CheckUserPermission(userId))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
+                foreach (var admin in conferenceDto.Admins)
+                {
+                    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
+                }
                 return _conferenceRepository.Add(conference);
             }
 

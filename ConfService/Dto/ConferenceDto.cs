@@ -22,5 +22,7 @@ namespace ConfService.Dto
         
         public ICollection<SectionDto> Sections { get; set; } = new List<SectionDto>();
 
+        public ICollection<UserInfoDto> Admins { get; set; } = new List<UserInfoDto>();
+
     }
 }
