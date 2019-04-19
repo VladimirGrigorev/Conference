@@ -8,6 +8,7 @@ using ConfRepository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 using File = ConfModel.Model.File;
+using System.Linq;
 
 namespace ConfRepository.Repository
 {

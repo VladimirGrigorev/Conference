@@ -3,6 +3,8 @@ import { ConferencesService } from '../_services/conferences.service';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Section } from '../section';
+import { UserService } from '../_services/user.service';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-add-conference',
@@ -14,6 +16,10 @@ export class AddConferenceComponent implements OnInit {
   currentConference: any;
   listSections:Section[]=[];
   listAdmins:any[] = [];
+
+  errorMessage:string;
+  errorFlag:boolean;
+  
 
   lectureForm=this.fb.group({
     topic:['', Validators.required],
@@ -38,10 +44,15 @@ export class AddConferenceComponent implements OnInit {
     email:['']
   });
 
+  speakerForm= this.fb.group({
+    email:['']
+  });
+
   constructor(
     private conferenceService:ConferencesService, 
     private router:Router,
-    private fb:FormBuilder) { 
+    private fb:FormBuilder,
+    private userService:UserService) { 
   }
 
   ngOnInit() {
@@ -131,9 +142,18 @@ export class AddConferenceComponent implements OnInit {
   }
 
   saveAdmin(){
-    this.listAdmins.push(this.adminForm.value);
-    this.blockById('addAdmin');
-    this.hideById('adminForm');
+    this.userService.getUserByEmail(this.adminForm.value.email)
+      .subscribe(res=>{
+        this.listAdmins.push(this.adminForm.value);
+        this.blockById('addAdmin');
+        this.hideById('adminForm');
+      },
+      error=>{
+        this.errorMessage = error;
+        this.errorFlag=true;
+      });
+    
+   
     // document.getElementById('adminForm').style.display='none';
     // document.getElementById('addAdmin').style.display='block';
   }
@@ -171,5 +191,24 @@ export class AddConferenceComponent implements OnInit {
 
   deleteLecture(i,si){
     this.listSections[i].lectures.splice(si,1);
+  }
+
+  addSpeaker(si){//i,idLecture
+    //this.listSections[i].lectures[idLecture].speakers.push();
+    this.speakerForm.reset(); 
+    this.blockById('speakerForm');
+    this.hideById('addSpeaker'+si);
+    this.blockById('hide_speaker_'+si);
+  }
+
+  speakers(i:number){
+    //this.blockById('hide_'+i);
+    this.blockById('compSpeakers_'+i);
+    //this.hideById('lectures_'+i);
+  }
+
+  hideSpeakers(i){
+    this.hideById('hide_speaker_'+i);
+    this.blockById('speaker_'+i);
   }
 }
