@@ -28,7 +28,9 @@ export class NavComponent implements OnInit {
     this.authService.signin(this.model).subscribe(next => {
         console.log('success');
         this.regComponent = !this.regComponent;
-        this.getName();        
+        this.getName();    
+        this.model.email = "";
+        this.model.passhash = ""; 
             
     }, error => {
       console.log(error); 

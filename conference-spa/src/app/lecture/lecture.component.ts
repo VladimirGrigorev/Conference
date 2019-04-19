@@ -61,4 +61,8 @@ export class LectureComponent implements OnInit {
   isListener(){
     return this.authService.isListener(this.id);
   }
+
+  isAuthenticated(){
+    return this.authService.isAuthenticated();
+  }
 }
