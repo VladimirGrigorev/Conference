@@ -44,7 +44,7 @@ namespace ConfRepository
             return entityEntry.Entity.Id;
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Set.Update(entity);
             _context.SaveChanges();

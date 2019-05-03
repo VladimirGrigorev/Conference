@@ -43,6 +43,13 @@ namespace Conference.Controllers
         {
             return Ok(_conferenceService.GetAll());
         }
-        
+
+        [HttpPut]
+        public IActionResult Update([FromBody]ConferenceDto conference)
+        {
+            var id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _conferenceService.Update(id, conference);
+            return Ok();
+        }
     }
 }
