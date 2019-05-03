@@ -17,6 +17,6 @@ namespace ConfRepository.Repository
         {
             return Set.Include(c => c.Sections).ThenInclude(s=> s.Lectures).FirstOrDefault(c=>c.Id == id);
             //return Set.Find(id);
-        }
+        }       
     }
 }
