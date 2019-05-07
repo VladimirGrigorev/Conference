@@ -29,6 +29,6 @@ export class ConferencesComponent implements OnInit {
   }
 
   isDisplayed(id:number):boolean{
-    return false;
+    return id==8;
   }
 }

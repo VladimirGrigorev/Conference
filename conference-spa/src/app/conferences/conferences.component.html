@@ -19,14 +19,14 @@
             <p>{{c.location}}</p>
             <p>{{c.dateTimeStartConference | date:'dd.MM.yy'}} - {{c.dateTimeFinishConference | date:'dd.MM.yy'}}</p>
             <!-- <p></p> -->
-            <!--<button type="button" *ngIf="isDisplayed(c.id)" class="btn btn-outline-secondary">
+            <!-- <button type="button" *ngIf="isDisplayed(c.id)" routerLink="/conferences/add-conf" class="btn btn-outline-secondary">
                 <span class="glyphicon glyphicon-pencil"></span>
-            </button>
+            </button> -->
 
-            <a href="#"  *ngIf="isDisplayed(c.id)" class="buttonEdit btn btn-outline-secondary ">
+            <a href="#"  *ngIf="isDisplayed(c.id)" routerLink="/conferences/update/{{c.id}}" class="buttonEdit btn btn-outline-secondary ">
               <img src="https://img.icons8.com/small/32/000000/edit.png">
             </a>
-            -->
+           
 
             <p>
               <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/{{c.id}}">Подробнее</a>

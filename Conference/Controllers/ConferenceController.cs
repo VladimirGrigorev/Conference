@@ -45,6 +45,7 @@ namespace Conference.Controllers
         }
 
         [HttpPut]
+        [Authorize]
         public IActionResult Update([FromBody]ConferenceDto conference)
         {
             var id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
