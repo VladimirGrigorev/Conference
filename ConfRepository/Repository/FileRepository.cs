@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Text;
@@ -41,11 +42,32 @@ namespace ConfRepository.Repository
                 {
                     file.CopyTo(stream);
                 }
-                
+
+                CheckFile(fullPath);
+
                 return this.Add(new File() {Name = file.FileName, LectureId = lectureId, Size = file.Length});
             }
 
             throw new Exception("Bad file");
+        }
+
+        private void CheckFile(string fullPath)
+        {
+            string batchFileLocation = @"B:\CSharp\conf\conference\conf-util\check.bat";
+
+            Process p = new Process();
+            p.StartInfo.FileName = batchFileLocation;
+            p.StartInfo.WorkingDirectory = Path.GetDirectoryName(batchFileLocation);
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.Arguments = fullPath;
+            p.StartInfo.RedirectStandardOutput = true;
+            // Run the process and wait for it to complete
+            //var oo = p.StandardOutput;
+            p.Start();
+            var outp = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            string output = p.StandardOutput.ReadToEnd();
+            Console.WriteLine(output);
         }
 
         protected bool IsNullOrEmptyFileName(string contentDisposition, out string fileName)
