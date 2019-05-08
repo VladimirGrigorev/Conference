@@ -15,7 +15,13 @@ namespace ConfRepository.Repository
 
         public override Conference Get(int id)
         {
-            return Set.Include(c => c.Sections).ThenInclude(s=> s.Lectures).FirstOrDefault(c=>c.Id == id);
+            return Set.Include(c => c.AdminOfConferences).ThenInclude(a=>a.User)
+                    //.Include(c => c.Sections).ThenInclude(s => s.AdminOfSections)
+                    .Include(c => c.Sections).ThenInclude(s => s.Lectures)
+                    .ThenInclude(l => l.RoleInLectures)
+                    .ThenInclude(r=>r.User)
+                    .FirstOrDefault(c => c.Id == id)
+                ;
             //return Set.Find(id);
         }
 

@@ -19,7 +19,7 @@ namespace ConfRepository.Repository
         {
             //this._context.RoleInLectures.Add(new RoleInLecture() {LectureId = 1, UserId = 8, Role = Role.Speaker});
             //this._context.SaveChanges();
-            return Set.Include(a => a.RoleInLectures).FirstOrDefault(ex);
+            return Set.Include(a => a.RoleInLectures).Include(a=>a.AdminOfConferences).FirstOrDefault(ex);
         }
     }
 }

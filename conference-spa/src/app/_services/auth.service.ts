@@ -23,6 +23,9 @@ export class AuthService {
   private subscribedLectures:number[];
   private subscribedLecturesKey = 'subscribedLectures';
 
+  private adminnedConferences:number[];
+  private adminnedConferencesKey = 'adminnedConferences';
+
   constructor(private http: HttpClient) { }
 
 signin(model: any) { 
@@ -42,6 +45,10 @@ signin(model: any) {
             let sL =  userResponse.subscribedLectures;
             localStorage.setItem(this.subscribedLecturesKey, JSON.stringify(sL) );
             this.subscribedLectures = sL;
+
+            let aC =  userResponse.adminnedConferences;
+            localStorage.setItem(this.adminnedConferencesKey, JSON.stringify(aC) );
+            this.adminnedConferences = aC;
 
             let a =  userResponse.isGlobalAdmin;
             localStorage.setItem(this.isGlobalAdminKey, JSON.stringify(a) );
@@ -105,12 +112,26 @@ signin(model: any) {
     return this.lectures.includes(lectureId);
   }
 
+  isConfAdmin(confId: number){
+    if(this.adminnedConferences === undefined){
+      let maybeConfs = localStorage.getItem(this.adminnedConferencesKey);
+      if (maybeConfs){
+        this.adminnedConferences =  JSON.parse(maybeConfs)        
+      }
+      else{
+        this.adminnedConferences = [];
+      }
+    }
+    return this.adminnedConferences.includes(confId);
+  }
+
   logout() {
     localStorage.clear();
     this.token = null;
     this.lectures = [];
     this.isGlobalAdmin = false;
-    this.subscribedLectures = [];  
+    this.subscribedLectures = []; 
+    this.adminnedConferences = [];
     //return this.http.get(DOMAIN);
   }
   isListener(lectureId: number){
