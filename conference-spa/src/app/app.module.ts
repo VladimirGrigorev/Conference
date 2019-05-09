@@ -19,6 +19,7 @@ import { LectureComponent } from './lecture/lecture.component';
 import { ForumComponent } from './forum/forum.component';
 import { FilesComponent } from './files/files.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ScheduleComponent } from './schedule/schedule.component';
       LectureComponent,
       ForumComponent,
       FilesComponent,
-      ScheduleComponent
+      ScheduleComponent,
+      FileUploadComponent
    ],
    imports: [
       BrowserModule,
@@ -45,7 +47,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider,
+      //ErrorInterceptorProvider,
       {
          provide: HTTP_INTERCEPTORS,
          useClass: TokenHttpRequestInterceptor,

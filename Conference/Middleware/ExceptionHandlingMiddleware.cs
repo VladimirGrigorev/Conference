@@ -40,7 +40,15 @@ namespace Conference.Middleware
 
             object obj = null;
             if (ex is ConfException cex)
+            {
+                code = HttpStatusCode.BadRequest;
                 obj = cex.Body;
+            }
+            else if (ex is ObjectException oex)
+            {
+                code = HttpStatusCode.BadRequest;
+                obj = oex.Body;
+            }
             else if (ex is UserWithThisEmailExistsException)
             {
                 code = HttpStatusCode.BadRequest;
