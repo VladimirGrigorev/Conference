@@ -109,10 +109,12 @@ namespace ConfService.Service
             }
             catch (Exception ex)
             {
-                DeleteFile(output);
                 return false;
             }
-
+            finally
+            {
+                DeleteFile(output);
+            }
             return true;
         }
 
@@ -140,8 +142,10 @@ namespace ConfService.Service
         {
             var checkStatus = new CheckedStatus();
 
-            XmlDocument xDoc = new XmlDocument();
-            xDoc.Load(filename);
+           
+           XmlDocument xDoc = new XmlDocument();
+           //var encodeName = XmlConvert.EncodeName(File.ReadAllText(filename));
+           xDoc.Load(filename);//(filename);
 
             XmlElement xRoot = xDoc.DocumentElement;
             var result = xRoot.GetAttribute("Result"); //.Attributes.GetNamedItem();

@@ -342,6 +342,12 @@ Sub Check()
         ParagraphText = Paragraph.Range.Text
         If Len(ParagraphText) > ParagraphFirstLen Then
             ParagraphText = Left(ParagraphText, ParagraphFirstLen) & "..."
+            ParagraphText = Replace(ParagraphText, "<", " ")
+            ParagraphText = Replace(ParagraphText, ">", " ")
+            ParagraphText = Replace(ParagraphText, Chr(1), " ")
+            ParagraphText = Replace(ParagraphText, Chr(10), " ")
+            ParagraphText = Replace(ParagraphText, Chr(13), " ")
+            ParagraphText = Replace(ParagraphText, Chr(09), " ")
         End If
 
         If Contains(Styles, Paragraph.Style) Then

@@ -20,7 +20,9 @@ import { ForumComponent } from './forum/forum.component';
 import { FilesComponent } from './files/files.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-
+import { ModalComponent } from './modal/modal.component';
+import { ModalFileUploadComponent } from './modal-file-upload/modal-file-upload.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
    declarations: [
@@ -36,7 +38,9 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
       ForumComponent,
       FilesComponent,
       ScheduleComponent,
-      FileUploadComponent
+      FileUploadComponent,
+      ModalComponent,
+      ModalFileUploadComponent
    ],
    imports: [
       BrowserModule,
@@ -44,6 +48,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
       FormsModule,
       AppRoutingModule,
       ReactiveFormsModule,
+      NgbModule.forRoot()
    ],
    providers: [
       AuthService,
@@ -52,11 +57,15 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
          provide: HTTP_INTERCEPTORS,
          useClass: TokenHttpRequestInterceptor,
          multi: true
-       }
+       },
+       NgbActiveModal
       
    ],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   entryComponents: [
+      ModalFileUploadComponent
+    ]
 })
 export class AppModule { }
