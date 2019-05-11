@@ -38,14 +38,26 @@ namespace ConfService.Service
             if (CheckUserPermission(userId))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
-                foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
-                {
-                    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
-                }
+                //foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
+                //{
+                //    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
+                //}
                 return _conferenceRepository.Add(conference);
             }
 
             throw new NotEnoughRightsException();
+        }
+
+        public void Update(int userId, ConferenceDto conferenceDto)
+        {
+            if (CheckUserPermission(userId))
+            {
+                var conference = _mapper.Map<Conference>(conferenceDto);
+                
+                _conferenceRepository.Update(conference);
+            }
+            else
+                throw new NotEnoughRightsException();
         }
 
         private bool CheckUserPermission(int userId)

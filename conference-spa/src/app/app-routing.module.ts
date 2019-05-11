@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'conferences', component: ConferencesComponent },
   { path: '', redirectTo:'conferences', pathMatch:'full'},
   { path: 'conferences/add-conf', component: AddConferenceComponent},
+  { path: 'conferences/update/:id', component: AddConferenceComponent},
   { path: 'conferences/:id', component: ConferenceDetailComponent},
   { path: 'lectures/:id', component: LectureComponent},  
   { path: 'signup', component: RegisterComponent },

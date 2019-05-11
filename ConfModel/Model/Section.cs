@@ -20,5 +20,18 @@ namespace ConfModel.Model
         public Conference Conference{ get; set; }
 
         public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
+
+        //public ICollection<AdminOfSection> AdminOfSections { get; set; } = new List<AdminOfSection>();
+    }
+
+    public class AdminOfSection : IId
+    {
+        public int Id { get; set; }
+
+        public int UserId { get; set; }
+        public User User { get; set; }
+
+        public int SectionId { get; set; }
+        public Section Section { get; set; }
     }
 }
