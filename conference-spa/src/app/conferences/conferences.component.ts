@@ -11,7 +11,8 @@ export class ConferencesComponent implements OnInit {
 
   conferences: Array<any>;
 
-  constructor(private conferencesService: ConferencesService, private authService: AuthService) { 
+  constructor(private conferencesService: ConferencesService,
+    private authService: AuthService) { 
     
   }
 
@@ -28,7 +29,7 @@ export class ConferencesComponent implements OnInit {
     return this.authService.isAuthenticated()&&this.authService.isAdmin();
   }
 
-  isDisplayed(id:number):boolean{
-    return false;
+  isEditDisplayed(id:number):boolean{
+    return this.authService.isConfAdmin(id);
   }
 }
