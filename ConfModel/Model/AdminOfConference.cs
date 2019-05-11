@@ -11,7 +11,7 @@ namespace ConfModel.Model
         public int Id { get; set; }
 
         public int UserId { get; set; }
-        public User User;
+        public User User { get; set; }
 
         public int ConferenceId { get; set; }
         public Conference Conference { get; set; }
