@@ -38,10 +38,10 @@ namespace ConfService.Service
             if (CheckUserPermission(userId))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
-                foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
-                {
-                    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
-                }
+                //foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
+                //{
+                //    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id});
+                //}
                 return _conferenceRepository.Add(conference);
             }
 
@@ -53,11 +53,7 @@ namespace ConfService.Service
             if (CheckUserPermission(userId))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
-                foreach (var admin in conferenceDto.Admins)//.GroupBy(s => s.Id).FirstOrDefault()
-                {
-                    conference.AdminOfConferences.Add(new AdminOfConference() { UserId = admin.Id });
-                }
-
+                
                 _conferenceRepository.Update(conference);
             }
             else
