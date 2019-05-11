@@ -86,6 +86,7 @@ export class AddConferenceComponent implements OnInit {
       .subscribe(c =>
         { this.currentConference = c;
           this.listSections = this.currentConference.sections;
+          this.listAdmins = this.currentConference.admins;
           this.fillForms();
           this.update = true;
           console.log(this.currentConference);
@@ -129,7 +130,7 @@ export class AddConferenceComponent implements OnInit {
     
     this.currentConference = this.conferenceForm.value;
     this.currentConference.sections = this.listSections;
-    this.currentConference.admins = this.listAdmins;
+    this.currentConference.admins= this.listAdmins;
     console.log(this.currentConference);
     if(this.update){
       this.currentConference.id=this.id;

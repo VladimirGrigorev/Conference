@@ -33,8 +33,7 @@
         <img class="add  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
       </a>
     </div>
-    <div *ngFor="let a of listAdmins; let ai=index" class="rowTable row">
-
+    <div *ngFor="let a of listAdmins; let ai=index"  [attr.data-index]="ai"  class="rowTable row">
 
         <div class="col-12 col-md-8 ">
           <h4>{{a.name}}</h4>
