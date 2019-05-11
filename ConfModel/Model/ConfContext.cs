@@ -16,6 +16,7 @@ namespace ConfModel.Model
         public DbSet<Lecture> Lectures { get; set; }
         public DbSet<RoleInLecture> RoleInLectures { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Application> Applications { get; set; }
         public DbSet<File> Files { get; set; }
         public DbSet<Section> Sections { get; set; }
         public DbSet<Conference> Conferences { get; set; }
@@ -26,9 +27,6 @@ namespace ConfModel.Model
             base.OnModelCreating(builder);
             builder.Entity<User>()
                 .Property(r => r.IsGlobalAdmin)
-                .HasConversion(new BoolToZeroOneConverter<Int16>());
-            builder.Entity<File>()
-                .Property(f => f.Private)
                 .HasConversion(new BoolToZeroOneConverter<Int16>());
         }
 

@@ -25,9 +25,9 @@ namespace Conference.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetAllByLectureId(int id)
+        public IActionResult GetAllByApplicationId(int id)
         {
-            return Ok(_messageService.GetAllByLectureId(id));
+            return Ok(_messageService.GetAllByApplicationId(id));
         }
 
         [Authorize]

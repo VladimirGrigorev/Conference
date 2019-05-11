@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Query.ExpressionTranslators.Internal;
 using File = ConfModel.Model.File;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ConfRepository.Repository
 {
@@ -22,6 +23,11 @@ namespace ConfRepository.Repository
         {
             Set.Remove(file);
             _context.SaveChanges();
+        }
+
+        public File GetWithApplication(int id)
+        {
+            return Set.Include(f => f.Application).FirstOrDefault(f => f.Id == id);
         }
         
     }

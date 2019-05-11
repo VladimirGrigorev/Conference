@@ -36,9 +36,9 @@ namespace ConfService.Service
             return _messageRepository.Add(message);
         }
 
-        public IEnumerable<MessageDto> GetAllByLectureId(int idLecture)
+        public IEnumerable<MessageDto> GetAllByApplicationId(int applicationId)
         {
-            return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetWhere(x => x.LectureId==idLecture));
+            return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetWhere(x => x.ApplicationId == applicationId));
         }
     }
 }

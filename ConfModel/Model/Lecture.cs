@@ -30,9 +30,9 @@ namespace ConfModel.Model
 
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
 
-        public ICollection<File> Files { get; set; } = new List<File>();
+        //public ICollection<File> Files { get; set; } = new List<File>();
 
-        public ICollection<Message> Messages { get; set; } = new List<Message>();
+        //public ICollection<LecMessage> Messages { get; set; } = new List<LecMessage>();
 
     }
 }

@@ -24,6 +24,8 @@ namespace ConfModel.Model
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
+
         public ICollection<RoleInLecture> RoleInLectures { get; set; } = new List<RoleInLecture>();
 
         public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();

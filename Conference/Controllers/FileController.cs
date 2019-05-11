@@ -97,7 +97,7 @@ namespace Conference.Controllers
         [HttpGet("lectures/{id}/files")]
         public IActionResult GetAllByLectureId(int id)
         {
-            return Ok(_fileService.GetAllByLectureId(id));
+            return Ok(_fileService.GetAllByApplicationId(id));
         }
     }
 }

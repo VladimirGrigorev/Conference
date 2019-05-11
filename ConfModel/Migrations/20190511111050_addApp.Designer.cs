@@ -3,14 +3,16 @@ using System;
 using ConfModel.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ConfModel.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    partial class ConfContextModelSnapshot : ModelSnapshot
+    [Migration("20190511111050_addApp")]
+    partial class addApp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

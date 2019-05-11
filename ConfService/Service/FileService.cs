@@ -18,35 +18,35 @@ namespace ConfService.Service
     public class FileService: IFileService
     {
         private readonly IFileRepository _fileRepository;
-        private readonly IRoleInLectureRepository _roleInLectureRepository;
         private readonly IMapper _mapper;
+        private readonly IApplicationRepository _applicationRepository;
 
         protected const string FolderName = "Upload";
 
-        public FileService(IFileRepository fileRepository, IRoleInLectureRepository roleInLectureRepository, IMapper mapper)
+        public FileService(IFileRepository fileRepository, IMapper mapper, IApplicationRepository applicationRepository)
         {
             _fileRepository = fileRepository;
-            _roleInLectureRepository = roleInLectureRepository;
             _mapper = mapper;
+            _applicationRepository = applicationRepository;
         }
 
-        public IEnumerable<FileDto> GetAllByLectureId(int idLecture)
+        public IEnumerable<FileDto> GetAllByApplicationId(int applicationId)
         {
-            return _mapper.Map<IEnumerable<FileDto>>(_fileRepository.GetWhere(f => f.LectureId == idLecture));
+            return _mapper.Map<IEnumerable<FileDto>>(_fileRepository.GetWhere(f => f.ApplicationId == applicationId));
         }
 
         #region upload&check
-        public int Upload(int userId, IFormFile file, int lectureId)
+        public int Upload(int userId, IFormFile file, int applicationId)
         {
-            if (CheckUserPermission(userId, lectureId))
+            if (CheckUserPermission(userId, applicationId))
             {
-                return Upload(file, lectureId);
+                return Upload(file, applicationId);
             }
 
             throw new NotEnoughRightsException();
         }
 
-        public int Upload(IFormFile file, int lectureId)
+        public int Upload(IFormFile file, int applicationId)
         {
             string savePath = GetSavePath();
 
@@ -71,7 +71,7 @@ namespace ConfService.Service
                 {
                     if (checkStatus.IsOk)
                     {
-                        return _fileRepository.Add(new ConfModel.Model.File() { Name = file.FileName, LectureId = lectureId, Size = file.Length });
+                        return _fileRepository.Add(new ConfModel.Model.File() { Name = file.FileName, ApplicationId = applicationId, Size = file.Length });
                     }
 
                     DeleteFile(fullPath);
@@ -153,8 +153,7 @@ namespace ConfService.Service
             checkStatus.Result = result;
             if (result == "Ok")
                 return checkStatus;
-
-            // обход всех узлов в корневом элементе
+            
             foreach (XmlNode xnode in xRoot)
             {
                 var item = new Item();
@@ -187,8 +186,8 @@ namespace ConfService.Service
        
         public void Delete(int userId, int id)
         {
-            if (_fileRepository.Get(id) is ConfModel.Model.File file 
-                &&  CheckUserPermission(userId, file.LectureId))
+            if (_fileRepository.GetWithApplication(id) is ConfModel.Model.File file 
+                && CheckUserPermission(userId, file, file.Application))
             {
                 _fileRepository.Delete(file);
 
@@ -249,10 +248,14 @@ namespace ConfService.Service
             return string.IsNullOrEmpty(fileName);
         }
 
-        private bool CheckUserPermission(int userId, int lectureId)
+        private bool CheckUserPermission(int userId, ConfModel.Model.File file, Application app)
         {
-            return _roleInLectureRepository.GetFirstOrDefault(r =>
-                       r.UserId == userId && r.LectureId == lectureId && r.Role == Role.Speaker) != null;
+            return file.ApplicationId == app.Id && app.UserId == userId;
+        }
+
+        private bool CheckUserPermission(int userId, int applicationId)
+        {
+            return _applicationRepository.Get(applicationId)?.UserId == userId;
         }
     }
 }

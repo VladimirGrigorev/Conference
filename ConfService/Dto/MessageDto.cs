@@ -19,7 +19,7 @@ namespace ConfService.Dto
 
         public string UserName { get; set; }
 
-        public int LectureId { get; set; }
+        public int ApplicationId { get; set; }
     }
 
 }

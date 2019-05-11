@@ -13,12 +13,14 @@ namespace ConfModel.Model
 
         [StringLength(300)]
         public string Name { get; set; }
+        [StringLength(100)]
+        public string ContentType { get; set; }
+        [StringLength(200)]
+        public string TempName { get; set; }
 
         public double Size { get; set; }
-
-        public bool Private { get; set; }
-
-        public int LectureId { get; set; }
-        public Lecture Lecture { get; set; }
+        
+        public int ApplicationId { get; set; }
+        public Application Application { get; set; }
     }
 }
