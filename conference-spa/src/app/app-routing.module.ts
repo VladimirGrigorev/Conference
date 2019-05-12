@@ -8,6 +8,9 @@ import { LectureComponent } from './lecture/lecture.component';
 import { RegisterComponent } from './register/register.component';
 import { FilesComponent } from './files/files.component';
 import { ScheduleComponent } from './schedule/schedule.component';
+import { ApplicationsComponent } from './applications/applications.component';
+import { ApplicationComponent } from './application/application.component';
+
 const routes: Routes = [
   { path: 'conferences', component: ConferencesComponent },
   { path: '', redirectTo:'conferences', pathMatch:'full'},
@@ -15,8 +18,12 @@ const routes: Routes = [
   { path: 'conferences/update/:id', component: AddConferenceComponent},
   { path: 'conferences/:id', component: ConferenceDetailComponent},
   { path: 'lectures/:id', component: LectureComponent},  
+  { path: 'applications/:id', component: ApplicationComponent},
   { path: 'signup', component: RegisterComponent },
-  { path: 'schedule', component: ScheduleComponent}]
+  { path: 'schedule', component: ScheduleComponent},
+  { path: 'apps/my', component: ApplicationsComponent, data:{isMy : true}},
+  { path: 'apps/considered', component: ApplicationsComponent, data:{isMy : false}}
+]
 @NgModule({
   imports: [ RouterModule.forRoot(routes) ],
   exports: [ RouterModule ]

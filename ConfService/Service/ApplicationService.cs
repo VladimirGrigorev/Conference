@@ -41,7 +41,7 @@ namespace ConfService.Service
         public IEnumerable<ApplicationDto> GetMy(int userId)
         {
             return _mapper.Map<IEnumerable<ApplicationDto>>(_applicationRepository
-                .GetWhere(a => a.UserId == userId));
+                .GetWithSectionAndConferenceWhere(a => a.UserId == userId));
         }
 
         public IEnumerable<ApplicationDto> GetConsidered(int userId)

@@ -82,6 +82,8 @@ namespace Conference
             services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
             services.AddScoped<ILectureRepository, LectureRepository>();
             services.AddScoped<ILectureService, LectureService>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
+            services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IFileRepository, FileRepository>();
@@ -89,6 +91,7 @@ namespace Conference
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleInLectureRepository, RoleInLectureRepository>();
+            services.AddScoped<ISectionExpertRepository, SectionExpertRepository>();
             services.AddDbContext<ConfContext>
                 (options => options.UseMySQL(Configuration.GetConnectionString("db")));
         }

@@ -31,7 +31,7 @@ namespace ConfService.Dto
 
         public ApplicationStatus ApplicationStatus { get; set; }
 
-        public ICollection<FileDto> Files { get; set; } = new List<FileDto>();
+        //public ICollection<FileDto> Files { get; set; } = new List<FileDto>();
         
         //public ICollection<MessageDto> Messages { get; set; } = new List<MessageDto>();
     }

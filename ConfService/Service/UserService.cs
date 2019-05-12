@@ -69,6 +69,7 @@ namespace ConfService.Service
             {
                 ExpirationTime = expirationTime,
                 IsGlobalAdmin = user.IsGlobalAdmin,
+                UserId = user.Id,
                 AdminnedConferences = user.AdminOfConferences
                     .Select(a=>a.ConferenceId).ToList(),
                 PresentedLectures = user.RoleInLectures

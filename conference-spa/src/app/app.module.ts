@@ -23,6 +23,10 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { ModalComponent } from './modal/modal.component';
 import { ModalFileUploadComponent } from './modal-file-upload/modal-file-upload.component';
 import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApplicationsComponent } from './applications/applications.component';
+import { ApplicationComponent } from './application/application.component';
+import { ApplicationStatusComponent } from './application-status/application-status.component';
+import { AddApplicationComponent } from './add-application/add-application.component';
 
 @NgModule({
    declarations: [
@@ -40,7 +44,11 @@ import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
       ScheduleComponent,
       FileUploadComponent,
       ModalComponent,
-      ModalFileUploadComponent
+      ModalFileUploadComponent,
+      ApplicationsComponent,
+      ApplicationComponent,
+      ApplicationStatusComponent,
+      AddApplicationComponent
    ],
    imports: [
       BrowserModule,

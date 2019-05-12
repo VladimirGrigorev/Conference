@@ -26,6 +26,9 @@ export class AuthService {
   private adminnedConferences:number[];
   private adminnedConferencesKey = 'adminnedConferences';
 
+  private userId:number;
+  private userIdKey = 'userId';
+
   constructor(private http: HttpClient) { }
 
 signin(model: any) { 
@@ -49,6 +52,10 @@ signin(model: any) {
             let aC =  userResponse.adminnedConferences;
             localStorage.setItem(this.adminnedConferencesKey, JSON.stringify(aC) );
             this.adminnedConferences = aC;
+
+            let ui =  userResponse.userId;
+            localStorage.setItem(this.userIdKey, JSON.stringify(ui) );
+            this.userId = ui;
 
             let a =  userResponse.isGlobalAdmin;
             localStorage.setItem(this.isGlobalAdminKey, JSON.stringify(a) );
@@ -125,6 +132,19 @@ signin(model: any) {
     return this.adminnedConferences.includes(confId);
   }
 
+  isAuthor(authorId : number){
+    if(this.userId === undefined){
+      let maybeUserId = localStorage.getItem(this.userIdKey);
+      if (maybeUserId){
+        this.userId =  JSON.parse(maybeUserId)        
+      }
+      else{
+        this.userId = null;
+      }
+    }
+    return this.userId === authorId;
+  }
+
   logout() {
     localStorage.clear();
     this.token = null;
@@ -132,6 +152,7 @@ signin(model: any) {
     this.isGlobalAdmin = false;
     this.subscribedLectures = []; 
     this.adminnedConferences = [];
+    this.userId = null;
     //return this.http.get(DOMAIN);
   }
   isListener(lectureId: number){

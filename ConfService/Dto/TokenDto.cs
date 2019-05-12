@@ -8,7 +8,7 @@ namespace ConfService.Dto
     {
         public string Token { get; set; }
         public DateTime ExpirationTime { get; set; }
-
+        public int UserId { get; set; }
         public bool IsGlobalAdmin { get; set; }
         public ICollection<int> PresentedLectures { get; set; }
         public ICollection<int> SubscribedLectures { get; set; }

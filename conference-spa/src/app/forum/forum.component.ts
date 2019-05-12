@@ -37,7 +37,7 @@ export class ForumComponent implements OnInit {
   addMessage(){
     let body = new Message;
     body.text=this.text.value;
-    body.lectureId = this.idLecture;
+    body.applicationId = this.idLecture;
 
     this.forumService.add(body)
       .subscribe(res=>{

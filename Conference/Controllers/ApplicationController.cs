@@ -58,7 +58,7 @@ namespace Conference.Controllers
 
         [HttpPatch("{id}")]
         [Authorize]
-        public IActionResult GetConsidered(int id, [FromBody]ApplicationStatDto applicationStatDto)
+        public IActionResult SetStatus(int id, [FromBody]ApplicationStatDto applicationStatDto)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             _applicationService.SetStatus(userId, id, applicationStatDto);

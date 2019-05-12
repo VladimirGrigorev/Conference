@@ -1,23 +1,25 @@
 <div class="comments">
   <h4>Комментарии</h4>
-  <div id="addMessage" *ngIf="isAuthenticated()">
+  <div id="addMessage">
     <label for="message">Добавить комментарий</label>
     <div class="row">
-      <input id="message" class="form-control col-xl-10" type="text" [formControl]="text" >
+      <textarea class="form-control col-xl-10 rounded-0" id="message" [formControl]="text" rows="3"></textarea>
+      <!-- <input id="message" class="form-control col-xl-10" type="text" [formControl]="text" > -->
       <div class="row-reverse  col-xl-2" style="padding-right:0;">
         <button id="send" type="button" [disabled]="!text.valid" (click)="addMessage()" class="btn add-message " style="width:100%; height:100%;">
-            <img  src="https://img.icons8.com/material-outlined/24/000000/send-comment.png">
+            <!-- <img  src="https://img.icons8.com/material-outlined/24/000000/send-comment.png"> -->
+            <img src="https://img.icons8.com/ios-glyphs/24/000000/paper-plane.png">
         </button>
       </div>
     </div>
   </div>
-  <div *ngIf="!isAuthenticated()">
+  <!-- <div *ngIf="!isAuthenticated()">
     <p>Войдите, чтобы оставить комментарий</p>
-  </div>
+  </div> -->
 
   <div class="separator"></div>
   <div *ngIf="isEmpty()">
-    <p>Комментариев к данной лекции пока нет</p>
+    <p>Комментариев пока нет</p>
   </div>
   <div *ngFor="let m of messages" class="rowTable">
     <div class="container">
@@ -25,7 +27,7 @@
         <div class="nameUser">{{m.userName}}</div>
         <div class="float-right">{{m.dateTimeSent | date:'dd.MM.yyyy HH:mm'}}</div>
       <!-- </div> -->
-      <p>{{m.text}}</p>
+      <pre>{{m.text}}</pre>
       
     </div>
   </div>
