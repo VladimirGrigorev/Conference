@@ -27,7 +27,9 @@ namespace ConfModel.Model
 
         public int UserId { get; set; }
         public User User { get; set; }
-        
+
+        public ApplicationStatus ApplicationStatus { get; set; }
+
         public ICollection<File> Files { get; set; } = new List<File>();
         
         public ICollection<Message> Messages { get; set; } = new List<Message>();

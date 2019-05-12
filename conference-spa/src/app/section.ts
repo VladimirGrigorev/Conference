@@ -1,4 +1,5 @@
 import { Lecture } from "./lecture";
+import { UserInfo } from "./userInfo";
 
 export class Section{
     id:number;
@@ -6,4 +7,5 @@ export class Section{
     name:string;
     info:string;
     lectures:Lecture[]=[];
+    experts:UserInfo[]=[];
 }

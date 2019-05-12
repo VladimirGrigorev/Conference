@@ -21,5 +21,17 @@ namespace ConfRepository.Repository
             //this._context.SaveChanges();
             return Set.Include(a => a.RoleInLectures).Include(a=>a.AdminOfConferences).FirstOrDefault(ex);
         }
+
+        //public User GetIserWithConfsSecsApps(int id)
+        //{
+        //    return Set.Include(u => u.AdminOfConferences)
+        //        .ThenInclude(ad => ad.Conference)
+        //        .ThenInclude(c => c.Sections)
+        //        .ThenInclude(s => s.Applications)
+        //        .Include(u => u.SectionExperts)
+        //        .ThenInclude(se => se.Section)
+        //        .ThenInclude(s => s.Applications)
+        //        .FirstOrDefault(u => u.Id == id);
+        //}
     }
 }

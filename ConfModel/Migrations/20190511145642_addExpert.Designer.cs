@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConfModel.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190511111050_addApp")]
-    partial class addApp
+    [Migration("20190511145642_addExpert")]
+    partial class addExpert
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -203,6 +203,24 @@ namespace ConfModel.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("ConfModel.Model.SectionExpert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("SectionId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SectionExperts");
+                });
+
             modelBuilder.Entity("ConfModel.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -233,7 +251,7 @@ namespace ConfModel.Migrations
                         .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ConfModel.Model.User")
+                    b.HasOne("ConfModel.Model.User", "User")
                         .WithMany("AdminOfConferences")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -299,6 +317,19 @@ namespace ConfModel.Migrations
                     b.HasOne("ConfModel.Model.Conference", "Conference")
                         .WithMany("Sections")
                         .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.SectionExpert", b =>
+                {
+                    b.HasOne("ConfModel.Model.Section", "Section")
+                        .WithMany("SectionExperts")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany("SectionExperts")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

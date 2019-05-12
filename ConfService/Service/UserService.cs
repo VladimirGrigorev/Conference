@@ -88,7 +88,7 @@ namespace ConfService.Service
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.IsGlobalAdmin.ToString())
+                    new Claim(ClaimTypes.Role, user.IsGlobalAdmin.ToString()) 
                 }),
                 Expires = expirationTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

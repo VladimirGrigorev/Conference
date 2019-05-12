@@ -27,15 +27,27 @@ namespace ConfService.Mapper
                         {
                             Id = ad.UserId, Email = ad.User.Email, Name = ad.User.Name
                         })));
-                //.ForMember(conferenceDto => conferenceDto.Sections,
-                //a => a.MapFrom(conf => conf.Sections))
-                //.ReverseMap();
+
+            CreateMap<SectionDto, Section>()
+                .ForMember(s => s.SectionExperts,
+                    a => a.MapFrom(cd => cd.Experts
+                        .Select(se => new SectionExpert()
+                        {
+                            UserId = se.Id,
+                            SectionId = cd.Id
+                        })));
             CreateMap<Section, SectionDto>()
-                //.ForMember(sectionDto => sectionDto.ConferenceId,
-                //    a=>a.MapFrom(sect=> sect.ConferenceId))
-                //.ForMember(sectionDto => sectionDto.Lectures,
-                //    a => a.MapFrom(sect => sect.Lectures))
-                .ReverseMap();
+                .ForMember(sd => sd.Experts,
+                    a => a.MapFrom(c => c.SectionExperts
+                        .Select(ad => new UserInfoDto()
+                        {
+                            Id = ad.UserId,
+                            Email = ad.User.Email,
+                            Name = ad.User.Name
+                        })));
+            //.ForMember(conferenceDto => conferenceDto.Sections,
+            //a => a.MapFrom(conf => conf.Sections))
+            //.ReverseMap();
             CreateMap<LectureDto, Lecture>()
                 .ForMember(l => l.RoleInLectures,
                     a => a.MapFrom(ld => ld.Speakers/*.GroupBy(s=>s.Id).FirstOrDefault()*/
@@ -62,6 +74,14 @@ namespace ConfService.Mapper
                 .ForMember(messageDto => messageDto.UserName,
                     a=> a.MapFrom(message => message.User.Name)) //todo null check?
                 .ReverseMap();
+
+            CreateMap<Application, ApplicationDto>()
+                .ForMember(applicationDto => applicationDto.SectionName,
+                    a => a.MapFrom(application => application.Section.Name))
+                .ForMember(applicationDto => applicationDto.ConferenceName,
+                    a => a.MapFrom(application => application.Section.Conference.Name));
+
+            CreateMap<ApplicationDto, Application>();
         }
     }
 }

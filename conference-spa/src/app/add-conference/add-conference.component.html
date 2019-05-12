@@ -76,13 +76,77 @@
         </a>
       </div>
       <div *ngFor="let s of listSections; let i=index" [attr.data-index]="i" class="rowTable row">
-          <div class="col-12 col-md-8 ">
+          <div class="col-12 col-md-6 ">
             <h3>{{s.name}}</h3>
             <p>{{s.info}}</p>
           </div>
       
-          <div class="col-6 col-md-4">
-            <!-- <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button> -->
+
+
+
+          <div class="col-12 col-md-6">
+            <div class="row-reverse">
+              <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button>
+              <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="lectures(i)">Лекции</button>
+              <button attr.id="hide_{{i}}" class="btn btn-outline-secondary float-right" type="button" (click)="hideLectures(i)" 
+              style="display:none;">Скрыть лекции</button>
+              <!-- <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button> -->
+              <button attr.id="expert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="experts(i)"> Эксперты</button>
+              <button attr.id="hide_expert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="hideExperts(i)"
+                style="display:none;"> Скрыть экспертов</button>
+               
+            </div>
+          </div>
+
+          <div id="compExperts_{{i}}" style="width:100%; display: none;">
+          <!-------------------------------------------EXPERTS!---------------------------------------->
+
+          <div class="container marg-bottom">
+            <div class="row">
+              <h5 class="col-md-2 col-3">Эксперты</h5>
+              <a id="addExpert{{i}}" class=" marg add-a"  (click)="addExpert(i)" style="margin-top: -5px;">
+                  <img class="add addLect  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+                </a>
+            </div>
+
+            <div *ngFor="let sp of listSections[i].experts; let exi=index" [attr.data-index]="exi" class="rowTableColor row">
+              <div class="col-12 col-md-8 ">
+                  <h6>{{sp.name}}</h6>
+                  <p>{{sp.email}}</p>
+                </div>
+
+
+                <div class="col-6 col-md-4">
+                  <div class="row-reverse ">
+                    <button attr.id="deleteExpert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteExpert(i,exi)">Удалить</button>  
+                  </div>
+                </div>
+
+            </div>
+
+            <form id="formExpert{{i}}" [formGroup]="expertForm" (ngSubmit)="onSubmit()" style="display:none;">
+                <div class="form-group">
+                  <label for="emailExpert">Email: </label>
+                  <input id="emailExpert" class="form-control" type="text" formControlName="email" required>
+                </div>
+
+                <div class="btn-group">
+                  <button type="button" class="btn btn-outline-secondary " type="submit" [disabled]="!expertForm.valid" (click)="saveExpert(i)">Сохранить</button>
+                  <button type="button" class="btn btn-outline-secondary" (click)="closeExpert(i,i)">Отменить</button>
+                </div>
+
+                <p *ngIf="errorFlag">
+                  {{errorMessage}}
+                </p>
+              </form>
+            </div>
+          </div>
+
+
+
+
+          <!-- <div class="col-6 col-md-4">
+            <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
             <div class="row-reverse">
               <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button>
               <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="lectures(i)">Лекции</button>
@@ -90,7 +154,7 @@
               style="display:none;">Скрыть лекции</button>
              
           </div>
-          </div>
+          </div> -->
       
           <div  attr.id="compLectures_{{i}}" style="width:100%; display: none;">
             <!------------------------------------------LECTURE!!!-------------------------------------------------->
@@ -167,7 +231,7 @@
 
 
                         </div>
-                      </div>
+                        </div>
                     </div>
 
 

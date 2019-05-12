@@ -16,7 +16,7 @@ namespace ConfRepository.Repository
         public override Conference Get(int id)
         {
             return Set.Include(c => c.AdminOfConferences).ThenInclude(a=>a.User)
-                    //.Include(c => c.Sections).ThenInclude(s => s.AdminOfSections)
+                    .Include(c => c.Sections).ThenInclude(s => s.SectionExperts)
                     .Include(c => c.Sections).ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.RoleInLectures)
                     .ThenInclude(r=>r.User)
@@ -38,7 +38,7 @@ namespace ConfRepository.Repository
             
             //load old conference with all needed children
             var confDb = Set.Include(c => c.AdminOfConferences)
-                //.Include(c => c.Sections).ThenInclude(s => s.AdminOfSections)
+                .Include(c => c.Sections).ThenInclude(s => s.SectionExperts)
                 .Include(c => c.Sections).ThenInclude(s => s.Lectures)
                 .ThenInclude(l => l.RoleInLectures)
                 .FirstOrDefault(c => c.Id == entity.Id)

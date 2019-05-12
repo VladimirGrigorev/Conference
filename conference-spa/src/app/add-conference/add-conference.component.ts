@@ -53,6 +53,10 @@ export class AddConferenceComponent implements OnInit {
     email:['']
   });
 
+  expertForm= this.fb.group({
+    email:['']
+  });
+
   constructor(
     private conferenceService:ConferencesService, 
     private router:Router,
@@ -258,5 +262,51 @@ export class AddConferenceComponent implements OnInit {
 
   deleteSpeaker(i,si,spi){
     this.listSections[i].lectures[si].speakers.splice(spi,1);
+  }
+
+
+
+  addExpert(i){
+    this.expertForm.reset(); 
+    this.blockById('formExpert'+i);
+    this.hideById('addExpert'+i);
+    this.blockById('hide_expert_'+i);
+  }
+
+  experts(i){
+    this.hideById('expert_'+i);
+    this.blockById('compExperts_'+i);
+    this.blockById('hide_expert_'+i);
+  }
+
+  hideExperts(i){
+    this.hideById('compExperts_'+i);
+    this.blockById('expert_'+i);
+    this.hideById('hide_expert_'+i);
+  }
+
+  saveExpert(i){
+    if(this.listSections[i].experts == undefined)
+      this.listSections[i].experts =[];
+
+    this.userService.getUserByEmail(this.expertForm.value.email)
+    .subscribe((res :any) =>{
+      this.listSections[i].experts.push(res.body);
+      this.blockById('addExpert'+i);
+      this.hideById('formExpert'+i);
+    },
+    error=>{
+      this.errorMessage = error;
+      this.errorFlag=true;
+    });
+  }
+
+  closeExpert(i){
+    this.blockById('addExpert'+i);
+    this.hideById('formExpert'+i);
+  }
+
+  deleteExpert(i,exi){
+    this.listSections[i].experts.splice(exi,1);
   }
 }

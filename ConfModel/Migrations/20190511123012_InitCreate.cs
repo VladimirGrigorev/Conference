@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ConfModel.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,6 +89,36 @@ namespace ConfModel.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Applications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    Topic = table.Column<string>(maxLength: 300, nullable: true),
+                    Authors = table.Column<string>(maxLength: 300, nullable: true),
+                    Keywords = table.Column<string>(maxLength: 300, nullable: true),
+                    Info = table.Column<string>(maxLength: 8000, nullable: true),
+                    SectionId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Applications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Applications_Sections_SectionId",
+                        column: x => x.SectionId,
+                        principalTable: "Sections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Applications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Lectures",
                 columns: table => new
                 {
@@ -119,17 +149,18 @@ namespace ConfModel.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     Name = table.Column<string>(maxLength: 300, nullable: true),
+                    ContentType = table.Column<string>(maxLength: 100, nullable: true),
+                    TempName = table.Column<string>(maxLength: 200, nullable: true),
                     Size = table.Column<double>(nullable: false),
-                    Private = table.Column<short>(nullable: false),
-                    LectureId = table.Column<int>(nullable: false)
+                    ApplicationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Files", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Files_Lectures_LectureId",
-                        column: x => x.LectureId,
-                        principalTable: "Lectures",
+                        name: "FK_Files_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -143,15 +174,15 @@ namespace ConfModel.Migrations
                     Text = table.Column<string>(maxLength: 200, nullable: true),
                     DateTimeSent = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    LectureId = table.Column<int>(nullable: false)
+                    ApplicationId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_Lectures_LectureId",
-                        column: x => x.LectureId,
-                        principalTable: "Lectures",
+                        name: "FK_Messages_Applications_ApplicationId",
+                        column: x => x.ApplicationId,
+                        principalTable: "Applications",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -200,9 +231,19 @@ namespace ConfModel.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Files_LectureId",
+                name: "IX_Applications_SectionId",
+                table: "Applications",
+                column: "SectionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Applications_UserId",
+                table: "Applications",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Files_ApplicationId",
                 table: "Files",
-                column: "LectureId");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lectures_SectionId",
@@ -210,9 +251,9 @@ namespace ConfModel.Migrations
                 column: "SectionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_LectureId",
+                name: "IX_Messages_ApplicationId",
                 table: "Messages",
-                column: "LectureId");
+                column: "ApplicationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_UserId",
@@ -248,6 +289,9 @@ namespace ConfModel.Migrations
 
             migrationBuilder.DropTable(
                 name: "RoleInLectures");
+
+            migrationBuilder.DropTable(
+                name: "Applications");
 
             migrationBuilder.DropTable(
                 name: "Lectures");
