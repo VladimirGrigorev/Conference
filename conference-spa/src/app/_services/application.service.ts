@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { APPLICATION_ENDPOINT } from '../conf-endpoints';
 import { Observable } from 'rxjs';
-import { Application } from '../application';
+import { Application, ApplicationStatusInfo } from '../application';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -25,8 +25,12 @@ export class ApplicationService {
     return this.httpClient.get<Application>(`${this.applicationsUrl}/${id}`);
   }
 
-  add(body: Application){
-    return this.httpClient.post(this.applicationsUrl, body);
+  setStatus(id: number, appStatus: ApplicationStatusInfo){
+    return this.httpClient.patch(`${this.applicationsUrl}/${id}`, appStatus);
+  }
+
+  add(body: Application): Observable<Number>{
+    return this.httpClient.post<Number>(this.applicationsUrl, body);
   }
 
   delete(id:number){

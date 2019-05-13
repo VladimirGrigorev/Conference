@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Application } from '../application';
+import { Application, ApplicationStatusInfo } from '../application';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import {Location} from '@angular/common';
@@ -8,6 +8,7 @@ import { AuthService } from '../_services/auth.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalFileUploadComponent } from '../modal-file-upload/modal-file-upload.component';
 import { ApplicationService } from '../_services/application.service';
+import { ModalSetApplicationStatusComponent } from '../modal-set-application-status/modal-set-application-status.component';
 
 @Component({
   selector: 'app-application',
@@ -23,7 +24,8 @@ export class ApplicationComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private scheduleService: ScheduleService,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.get();
@@ -45,5 +47,20 @@ export class ApplicationComponent implements OnInit {
 
   isAppAuthor(){
     return this.authService.isAuthor(this.app.userId);
+  }
+
+  openModalSetStatus() {
+    const modalRef = this.modalService.open(ModalSetApplicationStatusComponent);
+    let app = new ApplicationStatusInfo();
+    app.applicationStatus = this.app.applicationStatus;    
+    modalRef.componentInstance.app = app;
+
+    modalRef.result.then(() => {
+        this.applicationService.setStatus(this.app.id, app)
+        .subscribe(()=>this.app.applicationStatus = app.applicationStatus)
+      }, () => {
+        alert(app.applicationStatus);
+        //alert("Dismissed");
+      });    
   }
 }

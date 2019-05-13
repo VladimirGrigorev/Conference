@@ -13,10 +13,16 @@ namespace ConfRepository.Repository
         public ConferenceRepository(ConfContext confContext) : base(confContext)
         {}
 
+        public override IEnumerable<Conference> GetAll()
+        {
+            return Set.Include(c=>c.Sections);
+        }
+
         public override Conference Get(int id)
         {
             return Set.Include(c => c.AdminOfConferences).ThenInclude(a=>a.User)
                     .Include(c => c.Sections).ThenInclude(s => s.SectionExperts)
+                    .ThenInclude(ex=>ex.User)
                     .Include(c => c.Sections).ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.RoleInLectures)
                     .ThenInclude(r=>r.User)

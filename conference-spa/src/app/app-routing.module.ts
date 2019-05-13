@@ -10,6 +10,7 @@ import { FilesComponent } from './files/files.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ApplicationsComponent } from './applications/applications.component';
 import { ApplicationComponent } from './application/application.component';
+import { AddApplicationComponent } from './add-application/add-application.component';
 
 const routes: Routes = [
   { path: 'conferences', component: ConferencesComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'conferences/update/:id', component: AddConferenceComponent},
   { path: 'conferences/:id', component: ConferenceDetailComponent},
   { path: 'lectures/:id', component: LectureComponent},  
+  { path: 'applications/add', component: AddApplicationComponent},
   { path: 'applications/:id', component: ApplicationComponent},
   { path: 'signup', component: RegisterComponent },
   { path: 'schedule', component: ScheduleComponent},

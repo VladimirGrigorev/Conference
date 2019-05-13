@@ -27,6 +27,8 @@ import { ApplicationsComponent } from './applications/applications.component';
 import { ApplicationComponent } from './application/application.component';
 import { ApplicationStatusComponent } from './application-status/application-status.component';
 import { AddApplicationComponent } from './add-application/add-application.component';
+import { SetApplicationStatusComponent } from './set-application-status/set-application-status.component';
+import { ModalSetApplicationStatusComponent } from './modal-set-application-status/modal-set-application-status.component';
 
 @NgModule({
    declarations: [
@@ -48,7 +50,9 @@ import { AddApplicationComponent } from './add-application/add-application.compo
       ApplicationsComponent,
       ApplicationComponent,
       ApplicationStatusComponent,
-      AddApplicationComponent
+      AddApplicationComponent,
+      SetApplicationStatusComponent,
+      ModalSetApplicationStatusComponent
    ],
    imports: [
       BrowserModule,
@@ -73,7 +77,8 @@ import { AddApplicationComponent } from './add-application/add-application.compo
       AppComponent
    ],
    entryComponents: [
-      ModalFileUploadComponent
+      ModalFileUploadComponent,
+      ModalSetApplicationStatusComponent
     ]
 })
 export class AppModule { }

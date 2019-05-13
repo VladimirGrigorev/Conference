@@ -1,33 +1,14 @@
 <div class="container">
-  
-  <a *ngIf="isMyApps" class="btn btn-outline-secondary mr-1" role="button" (click)="show(c)">Подать заявку</a>
+    
+  <a *ngIf="isMyApps" class="btn btn-outline-secondary mb-1" role="button" routerLink="/applications/add" (click)="show(c)">Подать заявку</a>
 
   <!-- <input type="text" placeholder="Find..." class="form-control mb" [(ngModel)]="filter" > -->
   <ul class="list-group">
     <li *ngFor="let app of applications" class="list-group-item clearfix">    
       <a  routerLink="/applications/{{app.id}}">{{app.topic}}</a>
       <!-- [ngClass]="{'bg-danger': isMyApps }" -->
-      <div class="float-right" [ngSwitch]="app.applicationStatus">
-        <b class="float-right p-1" *ngSwitchCase="this.applicationStatus.Pending">
-          На рассмотрении
-          <img src="https://img.icons8.com/color/45/000000/clock.png">          
-        </b>
-        <b class="float-right p-1 text-warning" *ngSwitchCase="this.applicationStatus.RejectedDesign">
-          Отклонено из-за оформления
-          <img src="https://img.icons8.com/flat_round/40/000000/file-delete.png">
-          <!-- <img src="https://img.icons8.com/color/30/000000/file-delete.png">           -->
-        </b>
-        <b class="float-right p-1 text-danger" *ngSwitchCase="this.applicationStatus.RejectedContent">
-          Отклонено из-за содержания
-          <!-- <img src="https://img.icons8.com/color/30/000000/close-window.png">           -->
-          <img src="https://img.icons8.com/flat_round/40/000000/delete-sign.png">
-        </b>
-        <b class="float-right p-1 text-success" *ngSwitchCase="this.applicationStatus.Accepted">
-          Принято
-          <!-- <img src="https://img.icons8.com/color/30/000000/checked-2.png">           -->
-          <img src="https://img.icons8.com/color/45/000000/checked.png">
-        </b>
-      </div>  
+      <app-application-status class="float-right" [appStatus]="app.applicationStatus"></app-application-status>
+
 
       <p class="mb-1">{{app.authors}}</p>
       <small>Конференция: {{app.conferenceName}}</small><br>

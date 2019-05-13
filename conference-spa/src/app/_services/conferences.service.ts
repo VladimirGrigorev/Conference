@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CONFERENCES_ENDPOINT } from '../conf-endpoints';
+import { Observable } from 'rxjs';
+import { Conference } from '../conference';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +33,10 @@ export class ConferencesService {
 
   public update(body){
     return this.http.put(this.baseUrl, body, {headers: this.headers})
+  }
+
+  public getAllWithSections(): Observable<Conference[]>{
+    return this.http.get<Conference[]>(this.baseUrl, {headers: this.headers});
   }
 }
 

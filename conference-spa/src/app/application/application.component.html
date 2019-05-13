@@ -3,12 +3,15 @@
 
   <h3>{{app.topic}}</h3>
   <!-- [ngClass]="{'bg-danger': isMyApps }" -->
+  <button *ngIf="!isAppAuthor()" class="float-right btn btn-outline-secondary m-1" role="button" (click)="openModalSetStatus()">Изменить</button>
   <app-application-status class="float-right" [appStatus]="app.applicationStatus"></app-application-status>
+  
+  
   
   <p class="mb-1">{{app.authors}}</p>
   <small>Конференция: {{app.conferenceName}}</small><br>
-  <small>Секция: {{app.sectionName}}</small>
-  <pre>{{app.info}}</pre>
+  <small>Секция: {{app.sectionName}}</small><br>
+  <small>Аннотация: </small><pre>{{app.info}}</pre>
 
   <app-files [lectureId]="id" [isAddDisplayed] = "isAppAuthor()"></app-files>
   <app-forum [idLecture]="id"></app-forum>    

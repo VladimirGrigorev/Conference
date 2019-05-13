@@ -125,8 +125,10 @@ export class FilesComponent implements OnInit {
     modalRef.componentInstance.lectureId = this.lectureId;
 
     modalRef.result.then(() => {
+        //alert("Closed");
         this.getFiles();
       }, () => {
+        //alert("Dismissed");
         this.getFiles();
       });    
   }

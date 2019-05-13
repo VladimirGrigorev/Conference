@@ -22,7 +22,7 @@ namespace ConfRepository
             _context = confContext;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return Set;
         }

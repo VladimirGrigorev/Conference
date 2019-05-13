@@ -17,3 +17,8 @@ export enum ApplicationStatus{
     RejectedContent,
     Accepted
 }
+
+export class ApplicationStatusInfo{
+    id:number;
+    applicationStatus: ApplicationStatus;
+}

@@ -1,0 +1,10 @@
+<div class="container">  
+  <form #appForm="ngForm">      
+    <div class="form-group">
+      <label for="section">Статус</label>
+      <select name="section" class="form-control" id="section" [(ngModel)]="app.applicationStatus" #section="ngModel" required>
+        <option [ngValue]="stat.status" *ngFor="let stat of statuses">{{stat.name}}</option>          
+      </select>
+    </div>
+  </form>
+</div> 

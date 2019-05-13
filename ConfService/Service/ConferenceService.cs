@@ -25,7 +25,8 @@ namespace ConfService.Service
         }
         public ConferenceDto Get(int id)
         {
-            return _mapper.Map<ConferenceDto>(_conferenceRepository.Get(id));
+            var conference = _conferenceRepository.Get(id);
+            return _mapper.Map<ConferenceDto>(conference);
         }
 
         public IEnumerable<ConferenceDto> GetAll()

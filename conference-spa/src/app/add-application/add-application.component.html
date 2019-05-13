@@ -1,37 +1,58 @@
-<div class="container">
-    <button type="button" routerLink="/articles" class="btn btn-default mb">Back to articles
-    </button>
-  
-    <form (ngSubmit)="onSubmit()" #articleForm="ngForm">
+<div class="container">  
+    <form (ngSubmit)="onSubmit()" #appForm="ngForm">
+      
       <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" name="title" class="form-control" id="title" [(ngModel)]="article.title" #title="ngModel" required >
-        <div [hidden]="title.valid || title.pristine"
+        <label for="authors">Авторы</label>
+        <input type="text" name="authors" class="form-control" id="authors" [(ngModel)]="app.authors" #authors="ngModel" required placeholder="Авторы доклада">
+        <div [hidden]="authors.valid || authors.pristine"
         class="alert alert-danger">
-        Title is required
+        Необходимо заполнить поле
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="topic">Наименование</label>
+        <input type="text" name="topic" class="form-control" id="topic" [(ngModel)]="app.topic" #topic="ngModel" required placeholder="Наименование доклада">
+        <div [hidden]="topic.valid || topic.pristine"
+        class="alert alert-danger">
+        Необходимо заполнить поле
         </div>
       </div>
   
       <div class="form-group">
-        <label for="content">Content</label>
-        <textarea type="text" name="content" class="form-control" id="content" [(ngModel)]="article.content" #content="ngModel" required >
+        <label for="keywords">Ключевые слова</label>
+        <input type="text" name="keywords" class="form-control" id="keywords" [(ngModel)]="app.keywords" #keywords="ngModel" required placeholder="Список ключевых слов">
+        <div [hidden]="keywords.valid || keywords.pristine"
+        class="alert alert-danger">
+        Необходимо заполнить поле
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="section">Секция</label>
+        <select name="section" class="form-control" id="section" [(ngModel)]="app.sectionId" #section="ngModel" required>
+          <optgroup *ngFor="let conf of conferences" label="{{conf.name}}">
+              <option [ngValue]="sect.id" *ngFor="let sect of conf.sections">{{sect.name}}</option>
+          </optgroup>
+        </select>
+        <div [hidden]="section.valid || section.pristine"
+        class="alert alert-danger">
+        Необходимо заполнить поле
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="info">Аннотация</label>
+        <textarea type="text" name="info" class="form-control rounded-0" id="info"  rows="3" [(ngModel)]="app.info" #info="ngModel" required placeholder="Описание заявки...">
         </textarea>
-        <div [hidden]="content.valid || content.pristine"
+        <div [hidden]="info.valid || info.pristine"
         class="alert alert-danger">
-        Content is required
+        Необходимо заполнить поле
         </div>
       </div>
   
-      <!-- <div class="form-group">
-        <label for="author">Author</label>
-        <input type="text" name="author" class="form-control" id="author" [(ngModel)]="article.author" #author="ngModel" required >
-        <div [hidden]="author.valid || author.pristine"
-        class="alert alert-danger">
-        Author is required
-        </div>
-      </div> -->
-  
-      <button type="submit" class="btn btn-success" [disabled]="!articleForm.form.valid">Submit</button>
+      <button class="btn btn-outline-secondary" type="submit" role="button" [disabled]="!appForm.form.valid">Подать заявку</button>
+      <!-- <button type="submit" class="btn btn-outline-secondary" [disabled]="!articleForm.form.valid">Submit</button> -->
   
     </form>
-  </div>
+  </div> 
