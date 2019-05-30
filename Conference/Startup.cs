@@ -78,6 +78,8 @@ namespace Conference
             services.AddAutoMapper();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceService, ConferenceService>();
+            services.AddScoped<IInfoPageRepository, InfoPageRepository>();
+            services.AddScoped<IInfoPageService, InfoPageService>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
             services.AddScoped<ILectureRepository, LectureRepository>();

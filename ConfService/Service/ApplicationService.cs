@@ -64,6 +64,7 @@ namespace ConfService.Service
             {
                 app.ApplicationStatus = applicationStatDto.ApplicationStatus;
                 _applicationRepository.SaveChanges();
+                return;
             }
 
             throw new NotEnoughRightsException();

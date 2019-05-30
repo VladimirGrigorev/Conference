@@ -28,5 +28,7 @@ namespace ConfModel.Model
         public ICollection<AdminOfConference> AdminOfConferences { get; set; } = new List<AdminOfConference>();
 
         public ICollection<Section> Sections { get; set; } = new List<Section>();
+
+        public ICollection<InfoPage> InfoPages { get; set; } = new List<InfoPage>();
     }
 }

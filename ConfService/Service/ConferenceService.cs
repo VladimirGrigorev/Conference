@@ -15,12 +15,17 @@ namespace ConfService.Service
     {
         protected readonly IConferenceRepository _conferenceRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IAdminOfConferenceRepository _adminOfConferenceRepository;
         protected readonly IMapper _mapper;
 
-        public ConferenceService(IConferenceRepository repositoy, IUserRepository userRepository, IMapper mapper)
+        public ConferenceService(IConferenceRepository repositoy,
+            IUserRepository userRepository,
+            IAdminOfConferenceRepository adminOfConferenceRepository,
+            IMapper mapper)
         {
             _conferenceRepository = repositoy;
             _userRepository = userRepository;
+            _adminOfConferenceRepository = adminOfConferenceRepository;
             _mapper = mapper;
         }
         public ConferenceDto Get(int id)
@@ -51,7 +56,7 @@ namespace ConfService.Service
 
         public void Update(int userId, ConferenceDto conferenceDto)
         {
-            if (CheckUserPermission(userId))
+            if (CheckUserUpdatePermission(userId, conferenceDto.Id))
             {
                 var conference = _mapper.Map<Conference>(conferenceDto);
                 
@@ -64,6 +69,12 @@ namespace ConfService.Service
         private bool CheckUserPermission(int userId)
         {
             return _userRepository.Get(userId)?.IsGlobalAdmin?? false;
+        }
+
+        private bool CheckUserUpdatePermission(int userId, int id)
+        {
+            return _adminOfConferenceRepository.GetFirstOrDefault(a => a.UserId == userId && a.ConferenceId == id) !=
+                   null;
         }
     }
 }

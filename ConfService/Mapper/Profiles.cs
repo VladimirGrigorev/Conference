@@ -82,6 +82,8 @@ namespace ConfService.Mapper
                     a => a.MapFrom(application => application.Section.Conference.Name));
 
             CreateMap<ApplicationDto, Application>();
+
+            CreateMap<InfoPage, InfoPageDto>().ReverseMap();
         }
     }
 }

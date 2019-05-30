@@ -22,6 +22,7 @@ namespace ConfModel.Model
         public DbSet<Conference> Conferences { get; set; }
         public DbSet<AdminOfConference> AdminOfConferences { get; set; }
         public DbSet<SectionExpert> SectionExperts { get; set; }
+        public DbSet<InfoPage> InfoPages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
