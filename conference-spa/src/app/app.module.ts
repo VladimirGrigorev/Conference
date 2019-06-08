@@ -29,6 +29,11 @@ import { ApplicationStatusComponent } from './application-status/application-sta
 import { AddApplicationComponent } from './add-application/add-application.component';
 import { SetApplicationStatusComponent } from './set-application-status/set-application-status.component';
 import { ModalSetApplicationStatusComponent } from './modal-set-application-status/modal-set-application-status.component';
+import { AddInfoPageComponent } from './add-info-page/add-info-page.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { InfoPageComponent } from './info-page/info-page.component';
+import { ConfMenuPagesComponent } from './conf-menu-pages/conf-menu-pages.component';
+import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.component';
 
 @NgModule({
    declarations: [
@@ -52,13 +57,18 @@ import { ModalSetApplicationStatusComponent } from './modal-set-application-stat
       ApplicationStatusComponent,
       AddApplicationComponent,
       SetApplicationStatusComponent,
-      ModalSetApplicationStatusComponent
+      ModalSetApplicationStatusComponent,
+      AddInfoPageComponent,
+      InfoPageComponent,
+      ConfMenuPagesComponent,
+      ConfInfoPagesComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       AppRoutingModule,
+      CKEditorModule,
       ReactiveFormsModule,
       NgbModule.forRoot()
    ],

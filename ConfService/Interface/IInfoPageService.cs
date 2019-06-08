@@ -1,4 +1,5 @@
-﻿using ConfService.Dto;
+﻿using System.Collections.Generic;
+using ConfService.Dto;
 
 namespace ConfService.Interface
 {
@@ -6,5 +7,6 @@ namespace ConfService.Interface
     {
         int Add(int userId, int conferenceId, InfoPageDto infoPageDto);
         InfoPageDto GetById(int id);
+        IEnumerable<InfoPageDto> GetAllByConferenceId(int confId);
     }
 }

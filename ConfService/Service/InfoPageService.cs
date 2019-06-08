@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Collections;
+using System.Collections.Generic;
+using AutoMapper;
 using ConfModel.Model;
 using ConfRepository.Interface;
 using ConfService.Dto;
@@ -39,6 +41,12 @@ namespace ConfService.Service
         public InfoPageDto GetById(int id)
         {
             return _mapper.Map<InfoPageDto>(_infoPageRepository.Get(id));
+        }
+
+        public IEnumerable<InfoPageDto> GetAllByConferenceId(int confId)
+        {
+            return _mapper.Map<IEnumerable<InfoPageDto>>(_infoPageRepository
+                .GetWithoutDataWhere(p=>p.ConferenceId == confId));
         }
 
         private bool CheckUserUpdatePermission(int userId, int conferenceId)

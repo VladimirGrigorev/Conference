@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@ckeditor/ckeditor5-angular": "^1.1.0",
+    "@ckeditor/ckeditor5-build-classic": "^12.1.0",
     "@ng-bootstrap/ng-bootstrap": "^4.1.2",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",

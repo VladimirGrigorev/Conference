@@ -30,6 +30,12 @@ namespace Conference.Controllers
             return Ok(_infoPageService.GetById(id));
         }
 
+        [HttpGet("conferences/{id}/pages")]
+        public IActionResult GetAllByConferenceId(int id)
+        {
+            return Ok(_infoPageService.GetAllByConferenceId(id));
+        }
+
         [HttpPost("conferences/{id}/pages")]
         [Authorize]
         public IActionResult Add(int id, [FromBody]InfoPageDto infoPage)

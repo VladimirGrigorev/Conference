@@ -14,3 +14,5 @@ export const USER_ENDPOINT = DOMAIN + '/user';
 export const SCHEDULE_ENDPOINT = DOMAIN + '/my/lectures';
 
 export const APPLICATION_ENDPOINT = DOMAIN + '/application';
+
+export const INFOPOST_ENDPOINT = DOMAIN + '/pages';
