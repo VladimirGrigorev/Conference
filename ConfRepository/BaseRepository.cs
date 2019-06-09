@@ -9,6 +9,7 @@ using ConfModel.Interface;
 
 namespace ConfRepository
 {
+    //todo rewrite to return List<T>
     public class BaseRepository<T> : IRepository<T> where T: class, IId, new()
     {
         protected readonly ConfContext _context;

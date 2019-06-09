@@ -15,6 +15,8 @@ namespace ConfService.Dto
 
         public double Size { get; set; }
 
+        public bool IsNew { get; set; }
+
         public int ApplicationId { get; set; }
     }
 }

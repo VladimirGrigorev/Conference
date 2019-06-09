@@ -79,7 +79,15 @@ namespace ConfService.Mapper
                 .ForMember(applicationDto => applicationDto.SectionName,
                     a => a.MapFrom(application => application.Section.Name))
                 .ForMember(applicationDto => applicationDto.ConferenceName,
-                    a => a.MapFrom(application => application.Section.Conference.Name));
+                    a => a.MapFrom(application => application.Section.Conference.Name))
+                //.ForMember(applicationDto=> applicationDto.IsNew, 
+                //    opt=> opt.MapFrom((a, b,c, d )=>
+                //    {
+                //        var userId = (int)d.Items["userId"];
+                //        //b.IsNew = a.ApplicationNotifications.Any(n => n.UserId == userId);
+                //        return a.ApplicationNotifications.Any(n => n.UserId == userId);
+                //    }))
+                ;
 
             CreateMap<ApplicationDto, Application>();
 

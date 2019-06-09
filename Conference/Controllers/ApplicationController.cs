@@ -65,6 +65,16 @@ namespace Conference.Controllers
             return Ok();
         }
 
+        //RemoveNotifications
+        [HttpDelete("{id}/notifications")]
+        [Authorize]
+        public IActionResult DeleteNotifications(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _applicationService.RemoveNotifications(userId, id);
+            return Ok();
+        }
+
         //[HttpPut]
         //[Authorize]
         //public IActionResult Update([FromBody]ConferenceDto conference)

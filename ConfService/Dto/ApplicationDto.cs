@@ -29,6 +29,8 @@ namespace ConfService.Dto
         public string SectionName { get; set; }
         public string ConferenceName { get; set; }
 
+        public bool IsNew { get; set; }
+
         public ApplicationStatus ApplicationStatus { get; set; }
 
         //public ICollection<FileDto> Files { get; set; } = new List<FileDto>();

@@ -7,9 +7,9 @@ namespace ConfRepository.Interface
 {
     public interface IApplicationRepository : IRepository<Application>
     {
-        Application GetWithSectionAndConference(int id);
+        Application GetWithNotificationsAndSectionAndConference(int id);
 
-        IEnumerable<Application> GetWithSectionAndConferenceWhere(Expression<Func<Application, bool>> predicate);
+        IEnumerable<Application> GetWithNotificationsAndSectionAndConferenceWhere(Expression<Func<Application, bool>> predicate);
 
         IEnumerable<Application> GetConsidered(int userId);
 

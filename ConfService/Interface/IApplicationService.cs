@@ -10,5 +10,6 @@ namespace ConfService.Interface
         IEnumerable<ApplicationDto> GetConsidered(int userId);
         int Add(int userId, ApplicationDto applicationDto);
         void SetStatus(int userId, int id, ApplicationStatDto applicationStatDto);
+        void RemoveNotifications(int userId, int id);
     }
 }

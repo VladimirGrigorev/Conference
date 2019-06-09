@@ -36,4 +36,8 @@ export class ApplicationService {
   delete(id:number){
     return this.httpClient.delete( `${this.applicationsUrl}/${id}`);
   }
+
+  deleteNotifications(id:number){
+    return this.httpClient.delete( `${this.applicationsUrl}/${id}/notifications`);
+  }
 }

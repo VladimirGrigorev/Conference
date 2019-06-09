@@ -1,7 +1,7 @@
 <div class="container">
   <button class="btn btn-outline-secondary" type="button" (click)="goBack()">Назад</button>
 
-  <h3>{{app.topic}}</h3>
+  <h3 [ngClass]="{'text-danger' : app.isNew}">{{app.topic}}</h3>
   <!-- [ngClass]="{'bg-danger': isMyApps }" -->
   <button *ngIf="!isAppAuthor()" class="float-right btn btn-outline-secondary m-1" role="button" (click)="openModalSetStatus()">Изменить</button>
   <app-application-status class="float-right" [appStatus]="app.applicationStatus"></app-application-status>

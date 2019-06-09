@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using ConfModel.Interface;
 
 namespace ConfModel.Model
@@ -28,10 +29,15 @@ namespace ConfModel.Model
         public int UserId { get; set; }
         public User User { get; set; }
 
+        [NotMapped]
+        public bool IsNew { get; set; }
+
         public ApplicationStatus ApplicationStatus { get; set; }
 
         public ICollection<File> Files { get; set; } = new List<File>();
         
         public ICollection<Message> Messages { get; set; } = new List<Message>();
+
+        public ICollection<ApplicationNotification> ApplicationNotifications { get; set; } = new List<ApplicationNotification>();
     }
 }

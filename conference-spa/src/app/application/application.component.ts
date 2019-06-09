@@ -9,6 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import { ModalFileUploadComponent } from '../modal-file-upload/modal-file-upload.component';
 import { ApplicationService } from '../_services/application.service';
 import { ModalSetApplicationStatusComponent } from '../modal-set-application-status/modal-set-application-status.component';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-application',
@@ -23,7 +24,6 @@ export class ApplicationComponent implements OnInit {
   constructor(private applicationService: ApplicationService,
     private route: ActivatedRoute,
     private location: Location,
-    private scheduleService: ScheduleService,
     private authService: AuthService,
     private modalService: NgbModal) { }
 
@@ -37,8 +37,15 @@ export class ApplicationComponent implements OnInit {
       switchMap(params => {
         this.id = +params.get('id');
         return this.applicationService.get(this.id);
+      }),
+      tap(ap=> this.app = ap),
+      //iif(this.app.isNew, ),
+      switchMap(ap=>{
+        if(this.app.isNew)
+          return this.applicationService.deleteNotifications(this.app.id)
+        return of();
       })
-    ).subscribe(ap=> this.app = ap) ;    
+    ).subscribe();
   }
 
   goBack(){

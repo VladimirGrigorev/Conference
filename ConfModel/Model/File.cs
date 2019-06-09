@@ -22,5 +22,7 @@ namespace ConfModel.Model
         
         public int ApplicationId { get; set; }
         public Application Application { get; set; }
+
+        public ICollection<FileNotification> FileNotifications { get; set; } = new List<FileNotification>();
     }
 }

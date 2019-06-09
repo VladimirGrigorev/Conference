@@ -6,6 +6,7 @@ export class Application{
     info  : string;
     sectionId : number;
     userId : number;
+    isNew: boolean;
     sectionName: string; 
     conferenceName: string;
     applicationStatus: ApplicationStatus;
