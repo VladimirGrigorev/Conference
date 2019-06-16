@@ -20,6 +20,8 @@ namespace ConfService.Dto
         public string UserName { get; set; }
 
         public int ApplicationId { get; set; }
+
+        public bool IsNew { get; set; }
     }
 
 }

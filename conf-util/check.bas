@@ -387,7 +387,7 @@ Sub Check()
         Set ErrorsAndWarnings = New Collection
         ErrorsAndWarnings.Add Array( _
             "Error", "Весь документ", _
-            "Шаблон оформления вообще не был использован!!!" _
+            "Шаблон оформления не был использован." _
         )
         Result = "Error"
     End If

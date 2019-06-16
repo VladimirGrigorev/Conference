@@ -29,6 +29,31 @@ namespace ConfRepository.Repository
         {
             return Set.Include(f => f.Application).FirstOrDefault(f => f.Id == id);
         }
-        
+
+        public IEnumerable<int> GetExpertIds()
+        {
+            return Set.Include(m => m.Application).ThenInclude(a => a.Section)
+                .ThenInclude(s => s.SectionExperts).SelectMany(m => m.Application.Section.SectionExperts.Select(e => e.UserId));
+        }
+
+        public IEnumerable<File> GetAll(int appId, int userId)
+        {
+            return Set.Where(f => f.ApplicationId == appId)
+                .Include(f => f.FileNotifications).Select(m => new FileIsNew()
+                {
+                    File = m,
+                    IsNew = m.FileNotifications.Any(n => n.UserId == userId)
+                }).ToList().Select(f =>
+                {
+                    f.File.IsNew = f.IsNew;
+                    return f.File;
+                });
+        }
+
+        private class FileIsNew
+        {
+            public File File { get; set; }
+            public bool IsNew { get; set; }
+        }
     }
 }

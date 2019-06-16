@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Conference.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ValidateModel]
     [ApiController]
     public class MessageController : ControllerBase
@@ -24,18 +24,28 @@ namespace Conference.Controllers
             _messageService = service;
         }
 
-        [HttpGet("{id}")]
+        [Authorize]
+        [HttpGet("message/{id}")]
         public IActionResult GetAllByApplicationId(int id)
         {
-            return Ok(_messageService.GetAllByApplicationId(id));
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(_messageService.GetAllByApplicationId(id, userId));
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("message")]
         public IActionResult Add([FromBody]MessageDto message)
         {
             message.UserId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             return Ok(_messageService.Add(message));
+        }
+
+        [Authorize]
+        [HttpDelete("application/{id}/messages/notifications")]
+        public IActionResult DeleteNotifications(int id)
+        {
+            _messageService.RemoveMessages(id);
+            return Ok();
         }
     }
 }

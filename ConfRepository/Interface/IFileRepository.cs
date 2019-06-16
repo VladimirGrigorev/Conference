@@ -10,7 +10,8 @@ namespace ConfRepository.Interface
     public interface IFileRepository : IRepository<File>
     {
         void Delete(File file);
-
+        IEnumerable<int> GetExpertIds();
         File GetWithApplication(int id);
+        IEnumerable<File> GetAll(int appId, int userId);
     }
 }

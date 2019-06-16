@@ -4,8 +4,7 @@
 
   <!-- <input type="text" placeholder="Find..." class="form-control mb" [(ngModel)]="filter" > -->
   <ul class="list-group">
-    <li *ngFor="let app of applications" class="list-group-item clearfix"
-    [ngClass]="{'border-danger' : app.isNew}">    
+    <li *ngFor="let app of applications" class="list-group-item clearfix" >    
       <a [ngClass]="{'text-danger' : app.isNew}" 
       routerLink="/applications/{{app.id}}" >{{app.topic}}</a>
       <!-- [ngClass]="{'bg-danger': isMyApps }" -->

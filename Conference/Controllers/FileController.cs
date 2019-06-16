@@ -97,7 +97,16 @@ namespace Conference.Controllers
         [HttpGet("lectures/{id}/files")]
         public IActionResult GetAllByLectureId(int id)
         {
-            return Ok(_fileService.GetAllByApplicationId(id));
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(_fileService.GetAllByApplicationId(userId, id));
+        }
+        
+        [Authorize]
+        [HttpDelete("applications/{id}/files/notifications")]
+        public IActionResult DeleteNotifications(int id)
+        {
+            _fileService.DeleteNotifications(id);
+            return Ok();
         }
     }
 }

@@ -3,4 +3,5 @@ export class Message{
     text:string;
     applicationId:number;
     dateTimeSent:string;
+    isNew:boolean;
 }

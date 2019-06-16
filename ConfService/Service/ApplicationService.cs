@@ -49,7 +49,7 @@ namespace ConfService.Service
         public IEnumerable<ApplicationDto> GetMy(int userId)
         {
             return _mapper.Map<IEnumerable <ApplicationDto>>(_applicationRepository
-                .GetWithNotificationsAndSectionAndConferenceWhere(a => a.UserId == userId));
+                .GetWithNotificationsAndSectionAndConferenceWhere(userId));
         }
 
         public IEnumerable<ApplicationDto> GetConsidered(int userId)
@@ -64,8 +64,7 @@ namespace ConfService.Service
             applicationDto.UserId = userId;
 
             var application = _mapper.Map<Application>(applicationDto);
-
-            //todo check if notification with these ids exists
+            
             foreach (var expertId in _sectionExpertRepository.GetExpertIds(applicationDto.SectionId))
             {
                 application.ApplicationNotifications.Add(new ApplicationNotification()

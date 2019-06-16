@@ -23,6 +23,8 @@ namespace ConfModel.Model
         public DbSet<AdminOfConference> AdminOfConferences { get; set; }
         public DbSet<SectionExpert> SectionExperts { get; set; }
         public DbSet<InfoPage> InfoPages { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
         public DbSet<ApplicationNotification> ApplicationNotifications { get; set; }
         public DbSet<MessageNotification> MessageNotifications { get; set; }
         public DbSet<FileNotification> FileNotifications { get; set; }

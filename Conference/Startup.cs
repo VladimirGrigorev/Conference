@@ -96,7 +96,7 @@ namespace Conference
             services.AddScoped<IRoleInLectureRepository, RoleInLectureRepository>();
             services.AddScoped<ISectionExpertRepository, SectionExpertRepository>();
             services.AddDbContext<ConfContext>
-                (options => options.UseMySQL(Configuration.GetConnectionString("db")));
+                (options => options.UseMySql(Configuration.GetConnectionString("db")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

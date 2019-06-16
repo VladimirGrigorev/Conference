@@ -15,17 +15,21 @@ namespace ConfRepository.Repository
         
         public Application GetWithNotificationsAndSectionAndConference(int id)
         {
-            return Set.Include(a => a.ApplicationNotifications)
-                .Include(a => a.Section).ThenInclude(s => s.Conference)
-                .FirstOrDefault(a => a.Id == id);
+            var queryable = Set.Include(a => a.Section).ThenInclude(s => s.Conference)
+                .Include(a => a.ApplicationNotifications)
+                .Select(a => new AppIsNew()
+                {
+                    App = a,
+                    IsNew = a.ApplicationNotifications.Any()
+                });
+            return FromAppIsNewToApplication(queryable.FirstOrDefault(a => a.App.Id == id));
         }
 
-        public IEnumerable<Application> GetWithNotificationsAndSectionAndConferenceWhere(Expression<Func<Application, bool>> predicate)
+        public IEnumerable<Application> GetWithNotificationsAndSectionAndConferenceWhere(int userId)
         {
-            return Set.Include(a=>a.ApplicationNotifications)
-                .Include(a => a.Section).ThenInclude(s => s.Conference).Where(predicate);
+            return GetApps(userId, true);
         }
-        
+
         //public IEnumerable<Application> GetConsidered(int userId)
         //{
         //     var apps = GetConsideredQuery(userId);
@@ -34,21 +38,7 @@ namespace ConfRepository.Repository
 
         public IEnumerable<Application> GetConsidered(int userId)
         {
-            return GetConsideredQuery(userId)
-                .Include(a => a.Messages).ThenInclude(m => m.MessageNotifications)
-                .Include(a => a.Files).ThenInclude(f => f.FileNotifications)
-                .Select(a => new
-                {
-                    app = a,
-                    isNew = a.ApplicationNotifications.Any() 
-                            || a.Messages.SelectMany(m => m.MessageNotifications).Any()
-                            || a.Files.SelectMany(m => m.FileNotifications).Any()
-                }).ToList()
-                .Select(pair=>
-                {
-                    pair.app.IsNew = pair.isNew;
-                    return pair.app;
-                });
+            return GetApps(userId, false);
         }
 
         public void SaveChanges()
@@ -56,9 +46,56 @@ namespace ConfRepository.Repository
             _context.SaveChanges();
         }
 
+        public void RemoveFileNotifications(int appId)
+        {
+            _context.RemoveRange(IncludeMessNotifFileNotif(Set).Where(a => a.Id == appId)
+                .SelectMany(a => a.Files.SelectMany(f => f.FileNotifications)));
+            _context.SaveChanges();
+        }
+
+        public void RemoveMessageNotifications(int appId)
+        {
+            _context.RemoveRange(IncludeMessNotifFileNotif(Set).Where(a => a.Id == appId)
+                .SelectMany(a => a.Messages.SelectMany(f => f.MessageNotifications)));
+            _context.SaveChanges();
+        }
+
+        private IEnumerable<Application> GetApps(int userId, bool isMy)
+        {
+            var q = isMy ? GetMyConfQuery(userId) : GetConsideredQuery(userId);
+            return SelectAppIsNew(q).ToList()
+                .Select(FromAppIsNewToApplication);
+        }
+
+        private static Application FromAppIsNewToApplication(AppIsNew appIsNew)
+        {
+            appIsNew.App.IsNew = appIsNew.IsNew;
+            return appIsNew.App;
+        }
+
+        private IQueryable<AppIsNew> SelectAppIsNew(IQueryable<Application> q)
+        {
+            return IncludeMessNotifFileNotif(q)
+                .Include(a => a.ApplicationNotifications)
+                .Select(a => new AppIsNew()
+                {
+                    App = a,
+                    IsNew = a.ApplicationNotifications.Any()
+                            || a.Messages.SelectMany(m => m.MessageNotifications).Any()
+                            || a.Files.SelectMany(m => m.FileNotifications).Any()
+                });
+        }
+
+        private IQueryable<Application> IncludeMessNotifFileNotif(IQueryable<Application> q)
+        {
+            return q
+                .Include(a => a.Messages).ThenInclude(m => m.MessageNotifications)
+                .Include(a => a.Files).ThenInclude(f => f.FileNotifications);
+        }
+
         private IQueryable<Application> GetConsideredQuery(int userId)
         {
-            return Set.Include(a => a.ApplicationNotifications)
+            return Set
                 .Include(a => a.Section).ThenInclude(s => s.SectionExperts)
                 .Include(a => a.Section).ThenInclude(s => s.Conference)
                 .ThenInclude(c => c.AdminOfConferences)
@@ -68,7 +105,18 @@ namespace ConfRepository.Repository
             //todo firstordefault to any
             //.Where(a => a.Section.SectionExperts.Any(se => se.UserId == userId))
         }
-        
 
+        private IQueryable<Application> GetMyConfQuery(int userId)
+        {
+            return Set
+                .Include(a => a.Section).ThenInclude(s => s.Conference).Where(s=> s.UserId == userId);
+        }
+
+        private class AppIsNew
+        {
+            public Application App { get; set; }
+            public bool IsNew { get; set; }
+        }
+        
     }
 }

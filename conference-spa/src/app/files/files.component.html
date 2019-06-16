@@ -6,7 +6,7 @@
 <ul class="list-group list-group-horizontal">
   <li class="list-group-item" *ngFor="let c of files">
       <!-- <p> -->
-        {{c.name}}
+      <div [ngClass]="{'text-danger' : c.isNew}">  {{c.name}}</div>
       <!-- </p> -->
       <!-- <p> -->
         <a class="btn btn-outline-secondary mr-1 btn-sm" role="button" (click)="show(c)">Открыть</a>

@@ -23,16 +23,23 @@ namespace ConfService.Service
 
         protected const string FolderName = "Upload";
 
-        public FileService(IFileRepository fileRepository, IMapper mapper, IApplicationRepository applicationRepository)
+        public FileService(IFileRepository fileRepository,
+            IApplicationRepository applicationRepository,
+            IMapper mapper)
         {
             _fileRepository = fileRepository;
             _mapper = mapper;
             _applicationRepository = applicationRepository;
         }
 
-        public IEnumerable<FileDto> GetAllByApplicationId(int applicationId)
+        public IEnumerable<FileDto> GetAllByApplicationId(int userId, int applicationId)
         {
-            return _mapper.Map<IEnumerable<FileDto>>(_fileRepository.GetWhere(f => f.ApplicationId == applicationId));
+            return _mapper.Map<IEnumerable<FileDto>>(_fileRepository.GetAll(applicationId, userId));
+        }
+
+        public void DeleteNotifications(int appId)
+        {
+            _applicationRepository.RemoveFileNotifications(appId);
         }
 
         #region upload&check
@@ -71,7 +78,17 @@ namespace ConfService.Service
                 {
                     if (checkStatus.IsOk)
                     {
-                        return _fileRepository.Add(new ConfModel.Model.File() { Name = file.FileName, ApplicationId = applicationId, Size = file.Length });
+                        var entity = new ConfModel.Model.File() { Name = file.FileName, ApplicationId = applicationId, Size = file.Length };
+
+                        foreach (var expertId in _fileRepository.GetExpertIds())
+                        {
+                            entity.FileNotifications.Add(new FileNotification()
+                            {
+                                UserId = expertId
+                            });
+                        }
+
+                        return _fileRepository.Add(entity);
                     }
 
                     DeleteFile(fullPath);

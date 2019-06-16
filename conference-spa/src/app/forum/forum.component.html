@@ -21,7 +21,7 @@
   <div *ngIf="isEmpty()">
     <p>Комментариев пока нет</p>
   </div>
-  <div *ngFor="let m of messages" class="rowTable">
+  <div *ngFor="let m of messages" class="rowTable" [ngClass]="{'border-danger' : m.isNew}">
     <div class="container">
       <!-- <div class="row"> -->
         <div class="nameUser">{{m.userName}}</div>

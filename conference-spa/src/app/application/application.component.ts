@@ -41,8 +41,8 @@ export class ApplicationComponent implements OnInit {
       tap(ap=> this.app = ap),
       //iif(this.app.isNew, ),
       switchMap(ap=>{
-        if(this.app.isNew)
-          return this.applicationService.deleteNotifications(this.app.id)
+        if(ap.isNew)
+          return this.applicationService.deleteNotifications(ap.id)
         return of();
       })
     ).subscribe();
@@ -66,7 +66,7 @@ export class ApplicationComponent implements OnInit {
         this.applicationService.setStatus(this.app.id, app)
         .subscribe(()=>this.app.applicationStatus = app.applicationStatus)
       }, () => {
-        alert(app.applicationStatus);
+        //alert(app.applicationStatus);
         //alert("Dismissed");
       });    
   }

@@ -9,9 +9,13 @@ namespace ConfRepository.Interface
     {
         Application GetWithNotificationsAndSectionAndConference(int id);
 
-        IEnumerable<Application> GetWithNotificationsAndSectionAndConferenceWhere(Expression<Func<Application, bool>> predicate);
+        IEnumerable<Application> GetWithNotificationsAndSectionAndConferenceWhere(int userId);
 
         IEnumerable<Application> GetConsidered(int userId);
+
+        void RemoveMessageNotifications(int appId);
+
+        void RemoveFileNotifications(int appId);
 
         void SaveChanges();
     }

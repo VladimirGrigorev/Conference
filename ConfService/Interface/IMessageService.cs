@@ -8,8 +8,8 @@ namespace ConfService.Interface
     public interface IMessageService
     {
         int Add(MessageDto messageDto);
-        IEnumerable<MessageDto> GetAllByApplicationId(int applicationId);
-
+        IEnumerable<MessageDto> GetAllByApplicationId(int applicationId, int userId);
+        void RemoveMessages(int appId);
     }
 }
  
