@@ -13,14 +13,14 @@ namespace ConfRepository.Repository
     {
         public ApplicationRepository(ConfContext confContext) : base(confContext){}
         
-        public Application GetWithNotificationsAndSectionAndConference(int id)
+        public Application GetWithNotificationsAndSectionAndConference(int userId, int id)
         {
             var queryable = Set.Include(a => a.Section).ThenInclude(s => s.Conference)
                 .Include(a => a.ApplicationNotifications)
                 .Select(a => new AppIsNew()
                 {
                     App = a,
-                    IsNew = a.ApplicationNotifications.Any()
+                    IsNew = a.ApplicationNotifications.Any(n=>n.UserId == userId)
                 });
             return FromAppIsNewToApplication(queryable.FirstOrDefault(a => a.App.Id == id));
         }
@@ -63,7 +63,7 @@ namespace ConfRepository.Repository
         private IEnumerable<Application> GetApps(int userId, bool isMy)
         {
             var q = isMy ? GetMyConfQuery(userId) : GetConsideredQuery(userId);
-            return SelectAppIsNew(q).ToList()
+            return SelectAppIsNew(q, userId).ToList()
                 .Select(FromAppIsNewToApplication);
         }
 
@@ -73,16 +73,16 @@ namespace ConfRepository.Repository
             return appIsNew.App;
         }
 
-        private IQueryable<AppIsNew> SelectAppIsNew(IQueryable<Application> q)
+        private IQueryable<AppIsNew> SelectAppIsNew(IQueryable<Application> q, int userId)
         {
             return IncludeMessNotifFileNotif(q)
                 .Include(a => a.ApplicationNotifications)
                 .Select(a => new AppIsNew()
                 {
                     App = a,
-                    IsNew = a.ApplicationNotifications.Any()
-                            || a.Messages.SelectMany(m => m.MessageNotifications).Any()
-                            || a.Files.SelectMany(m => m.FileNotifications).Any()
+                    IsNew = a.ApplicationNotifications.Any(n => n.UserId == userId)
+                            || a.Messages.SelectMany(m => m.MessageNotifications).Any(n=>n.UserId == userId)
+                            || a.Files.SelectMany(m => m.FileNotifications).Any(n => n.UserId == userId)
                 });
         }
 

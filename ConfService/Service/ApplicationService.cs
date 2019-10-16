@@ -37,7 +37,7 @@ namespace ConfService.Service
 
         public ApplicationDto Get(int userId, int id)
         {
-            if (_applicationRepository.GetWithNotificationsAndSectionAndConference(id) is Application app 
+            if (_applicationRepository.GetWithNotificationsAndSectionAndConference(userId, id) is Application app 
             && CheckUserPermission(userId, app, app.Section.Conference))
             {
                 return _mapper.Map<ApplicationDto>(app);
@@ -78,7 +78,7 @@ namespace ConfService.Service
 
         public void SetStatus(int userId, int id, ApplicationStatDto applicationStatDto)
         {
-            if (_applicationRepository.GetWithNotificationsAndSectionAndConference(id) is Application app
+            if (_applicationRepository.GetWithNotificationsAndSectionAndConference(userId, id) is Application app
                 && CheckUserPermission(userId, app, app.Section.Conference)
                 && app.UserId != userId)
             {

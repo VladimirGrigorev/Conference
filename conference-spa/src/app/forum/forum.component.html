@@ -24,7 +24,10 @@
   <div *ngFor="let m of messages" class="rowTable" [ngClass]="{'border-danger' : m.isNew}">
     <div class="container">
       <!-- <div class="row"> -->
-        <div class="nameUser">{{m.userName}}</div>
+        <div class="nameUser">
+            <img *ngIf="m.isNew" class="mr-1" src="https://img.icons8.com/color/20/000000/high-importance.png">
+          {{m.userName}}
+        </div>
         <div class="float-right">{{m.dateTimeSent | date:'dd.MM.yyyy HH:mm'}}</div>
       <!-- </div> -->
       <pre>{{m.text}}</pre>

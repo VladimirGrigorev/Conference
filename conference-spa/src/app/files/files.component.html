@@ -6,7 +6,11 @@
 <ul class="list-group list-group-horizontal">
   <li class="list-group-item" *ngFor="let c of files">
       <!-- <p> -->
-      <div [ngClass]="{'text-danger' : c.isNew}">  {{c.name}}</div>
+      
+      <div [ngClass]="{'text-danger' : c.isNew}">  
+          <img *ngIf="c.isNew" class="mr-1" src="https://img.icons8.com/color/20/000000/high-importance.png">
+        {{c.name}}
+      </div>
       <!-- </p> -->
       <!-- <p> -->
         <a class="btn btn-outline-secondary mr-1 btn-sm" role="button" (click)="show(c)">Открыть</a>

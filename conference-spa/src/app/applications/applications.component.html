@@ -5,6 +5,9 @@
   <!-- <input type="text" placeholder="Find..." class="form-control mb" [(ngModel)]="filter" > -->
   <ul class="list-group">
     <li *ngFor="let app of applications" class="list-group-item clearfix" >    
+      
+      <img *ngIf="app.isNew" class="mr-1" src="https://img.icons8.com/color/20/000000/high-importance.png">
+
       <a [ngClass]="{'text-danger' : app.isNew}" 
       routerLink="/applications/{{app.id}}" >{{app.topic}}</a>
       <!-- [ngClass]="{'bg-danger': isMyApps }" -->

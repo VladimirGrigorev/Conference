@@ -26,9 +26,7 @@ namespace ConfRepository.Repository
                     .Include(c => c.Sections).ThenInclude(s => s.Lectures)
                     .ThenInclude(l => l.RoleInLectures)
                     .ThenInclude(r=>r.User)
-                    .FirstOrDefault(c => c.Id == id)
-                ;
-            //return Set.Find(id);
+                    .FirstOrDefault(c => c.Id == id);
         }
 
         public override void Update(Conference entity)

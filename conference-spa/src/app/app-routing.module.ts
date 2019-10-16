@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'conferences/:id', component: ConfInfoPagesComponent,
     children:[
       {path: '', component: ConferenceDetailComponent},
+      {path: 'schedule', component: ConferenceDetailComponent},
       {path: 'pages/:pid', component: InfoPageComponent}
     ]
   },  
@@ -31,7 +32,7 @@ const routes: Routes = [
   { path: 'applications/add', component: AddApplicationComponent},
   { path: 'applications/:id', component: ApplicationComponent},
   { path: 'signup', component: RegisterComponent },
-  { path: 'schedule', component: ScheduleComponent},
+  // { path: 'schedule', component: ScheduleComponent},
   { path: 'apps/my', component: ApplicationsComponent, data:{isMy : true}},
   { path: 'apps/considered', component: ApplicationsComponent, data:{isMy : false}}
 ]
