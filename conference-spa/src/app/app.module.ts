@@ -19,7 +19,21 @@ import { LectureComponent } from './lecture/lecture.component';
 import { ForumComponent } from './forum/forum.component';
 import { FilesComponent } from './files/files.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { ModalComponent } from './modal/modal.component';
+import { ModalFileUploadComponent } from './modal-file-upload/modal-file-upload.component';
+import { NgbModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ApplicationsComponent } from './applications/applications.component';
+import { ApplicationComponent } from './application/application.component';
+import { ApplicationStatusComponent } from './application-status/application-status.component';
+import { AddApplicationComponent } from './add-application/add-application.component';
+import { SetApplicationStatusComponent } from './set-application-status/set-application-status.component';
+import { ModalSetApplicationStatusComponent } from './modal-set-application-status/modal-set-application-status.component';
+import { AddInfoPageComponent } from './add-info-page/add-info-page.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { InfoPageComponent } from './info-page/info-page.component';
+import { ConfMenuPagesComponent } from './conf-menu-pages/conf-menu-pages.component';
+import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.component';
 
 @NgModule({
    declarations: [
@@ -34,27 +48,47 @@ import { ScheduleComponent } from './schedule/schedule.component';
       LectureComponent,
       ForumComponent,
       FilesComponent,
-      ScheduleComponent
+      ScheduleComponent,
+      FileUploadComponent,
+      ModalComponent,
+      ModalFileUploadComponent,
+      ApplicationsComponent,
+      ApplicationComponent,
+      ApplicationStatusComponent,
+      AddApplicationComponent,
+      SetApplicationStatusComponent,
+      ModalSetApplicationStatusComponent,
+      AddInfoPageComponent,
+      InfoPageComponent,
+      ConfMenuPagesComponent,
+      ConfInfoPagesComponent
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
       AppRoutingModule,
+      CKEditorModule,
       ReactiveFormsModule,
+      NgbModule.forRoot()
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider,
+      //ErrorInterceptorProvider,
       {
          provide: HTTP_INTERCEPTORS,
          useClass: TokenHttpRequestInterceptor,
          multi: true
-       }
+       },
+       NgbActiveModal
       
    ],
    bootstrap: [
       AppComponent
-   ]
+   ],
+   entryComponents: [
+      ModalFileUploadComponent,
+      ModalSetApplicationStatusComponent
+    ]
 })
 export class AppModule { }

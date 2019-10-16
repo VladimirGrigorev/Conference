@@ -3,6 +3,8 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse } from '@angular/c
 import { ConfFile } from '../conf-file';
 import { FileService } from '../_services/file.service';
 import { AuthService } from '../_services/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalFileUploadComponent } from '../modal-file-upload/modal-file-upload.component';
 
 @Component({
   selector: 'app-files',
@@ -16,12 +18,14 @@ export class FilesComponent implements OnInit {
 
   @Input()
   lectureId: number;
-
+  @Input()
+  isAddDisplayed: boolean;
   files: ConfFile[];
 
   constructor(private fileService: FileService,
     private authService: AuthService,
-    private http: HttpClient) { }
+    private http: HttpClient,
+    private modalService: NgbModal) { }
 
   ngOnInit(){
     this.getFiles();  
@@ -116,7 +120,16 @@ export class FilesComponent implements OnInit {
     
   }
 
-  isAddDisplayed(){
-    return this.authService.isSpeaker(this.lectureId);
+  openModalFileUpload() {
+    const modalRef = this.modalService.open(ModalFileUploadComponent);
+    modalRef.componentInstance.lectureId = this.lectureId;
+
+    modalRef.result.then(() => {
+        //alert("Closed");
+        this.getFiles();
+      }, () => {
+        //alert("Dismissed");
+        this.getFiles();
+      });    
   }
 }

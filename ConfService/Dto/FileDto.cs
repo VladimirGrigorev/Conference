@@ -8,11 +8,15 @@ namespace ConfService.Dto
 
         [StringLength(300)]
         public string Name { get; set; }
+        [StringLength(100)]
+        public string ContentType { get; set; }
+        [StringLength(200)]
+        public string TempName { get; set; }
 
         public double Size { get; set; }
 
-        public bool Private { get; set; }
+        public bool IsNew { get; set; }
 
-        public int LectureId { get; set; }
+        public int ApplicationId { get; set; }
     }
 }

@@ -16,5 +16,7 @@ namespace ConfService.Dto
         public int ConferenceId { get; set; }
 
         public ICollection<LectureDto> Lectures { get; set; } = new List<LectureDto>();
+
+        public ICollection<UserInfoDto> Experts { get; set; } = new List<UserInfoDto>();
     }
 }

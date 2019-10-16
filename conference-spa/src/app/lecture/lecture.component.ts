@@ -7,6 +7,8 @@ import { p } from '@angular/core/src/render3';
 import {Location} from '@angular/common';
 import { ScheduleService } from '../_services/schedule.service';
 import { AuthService } from '../_services/auth.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { ModalFileUploadComponent } from '../modal-file-upload/modal-file-upload.component';
 
 @Component({
   selector: 'app-lecture',
@@ -23,7 +25,8 @@ export class LectureComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private scheduleService: ScheduleService,
-    private authService:AuthService) { }
+    private authService:AuthService,
+    private modalService: NgbModal) { }
 
   ngOnInit() {
     this.getLecture();
@@ -64,5 +67,10 @@ export class LectureComponent implements OnInit {
 
   isAuthenticated(){
     return this.authService.isAuthenticated();
+  }
+
+  openModalFileUpload() {
+    const modalRef = this.modalService.open(ModalFileUploadComponent);
+    modalRef.componentInstance.lectureId = this.id;
   }
 }

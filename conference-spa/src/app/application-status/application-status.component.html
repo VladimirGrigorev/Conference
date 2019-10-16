@@ -1,0 +1,21 @@
+<div [ngSwitch]="appStatus">
+    <b class=" p-1" *ngSwitchCase="this.applicationStatus.Pending">
+      На рассмотрении
+      <img src="https://img.icons8.com/color/45/000000/clock.png">          
+    </b>
+    <b class=" p-1 text-warning" *ngSwitchCase="this.applicationStatus.RejectedDesign">
+      Отклонено из-за оформления
+      <img src="https://img.icons8.com/flat_round/40/000000/file-delete.png">
+      <!-- <img src="https://img.icons8.com/color/30/000000/file-delete.png">           -->
+    </b>
+    <b class=" p-1 text-danger" *ngSwitchCase="this.applicationStatus.RejectedContent">
+      Отклонено из-за содержания
+      <!-- <img src="https://img.icons8.com/color/30/000000/close-window.png">           -->
+      <img src="https://img.icons8.com/flat_round/40/000000/delete-sign.png">
+    </b>
+    <b class=" p-1 text-success" *ngSwitchCase="this.applicationStatus.Accepted">
+      Принято
+      <!-- <img src="https://img.icons8.com/color/30/000000/checked-2.png">           -->
+      <img src="https://img.icons8.com/color/45/000000/checked.png">
+    </b>
+  </div>  

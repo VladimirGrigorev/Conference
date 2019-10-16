@@ -7,9 +7,10 @@ namespace ConfService.Interface
 {
     public interface IFileService
     {
-        IEnumerable<FileDto> GetAllByLectureId(int idLecture);
-        int Upload(int userId, IFormFile file, int lectureId);
+        IEnumerable<FileDto> GetAllByApplicationId(int userId, int applicationId);
+        int Upload(int userId, IFormFile file, int applicationId);
         (Stream fileStream, string contentType, string fileDownloadName) Download(int id);
         void Delete(int userId, int id);
+        void DeleteNotifications(int appId);
     }
 }

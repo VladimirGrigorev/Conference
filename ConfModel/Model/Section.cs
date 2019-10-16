@@ -20,5 +20,8 @@ namespace ConfModel.Model
         public Conference Conference{ get; set; }
 
         public ICollection<Lecture> Lectures { get; set; } = new List<Lecture>();
+        public ICollection<Application> Applications { get; set; } = new List<Application>();
+
+        public ICollection<SectionExpert> SectionExperts { get; set; } = new List<SectionExpert>();
     }
 }

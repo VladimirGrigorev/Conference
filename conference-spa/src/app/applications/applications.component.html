@@ -1,0 +1,23 @@
+<div class="container">
+    
+  <a *ngIf="isMyApps" class="btn btn-outline-secondary mb-1" role="button" routerLink="/applications/add" (click)="show(c)">Подать заявку</a>
+
+  <!-- <input type="text" placeholder="Find..." class="form-control mb" [(ngModel)]="filter" > -->
+  <ul class="list-group">
+    <li *ngFor="let app of applications" class="list-group-item clearfix" >    
+      
+      <img *ngIf="app.isNew" class="mr-1" src="https://img.icons8.com/color/20/000000/high-importance.png">
+
+      <a [ngClass]="{'text-danger' : app.isNew}" 
+      routerLink="/applications/{{app.id}}" >{{app.topic}}</a>
+      <!-- [ngClass]="{'bg-danger': isMyApps }" -->
+      <app-application-status class="float-right" [appStatus]="app.applicationStatus"></app-application-status>
+      <!-- <p class="rounded-circle bg-danger float-left" *ngIf="app.isNew"> </p> -->
+
+      <p class="mb-1">{{app.authors}}</p>
+      <small>Конференция: {{app.conferenceName}}</small><br>
+      <small>Секция: {{app.sectionName}}</small>
+      
+    </li>
+  </ul>
+</div>

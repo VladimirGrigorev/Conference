@@ -16,6 +16,8 @@
         </p>
     </div>
 
+    <button class="btn btn-outline-secondary" type="button" (click)="openModalFileUpload()">Загрузить</button>
     <app-files [lectureId]="id"></app-files>
+    <!-- <app-file-upload [lectureId]="id"></app-file-upload> -->
     <app-forum [idLecture]="id"></app-forum>    
 </div>

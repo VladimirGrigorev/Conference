@@ -69,6 +69,9 @@ namespace ConfService.Service
             {
                 ExpirationTime = expirationTime,
                 IsGlobalAdmin = user.IsGlobalAdmin,
+                UserId = user.Id,
+                AdminnedConferences = user.AdminOfConferences
+                    .Select(a=>a.ConferenceId).ToList(),
                 PresentedLectures = user.RoleInLectures
                     .Where(l=>l.Role == Role.Speaker)
                     .Select(l=>l.LectureId).ToList(),
@@ -86,7 +89,7 @@ namespace ConfService.Service
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.IsGlobalAdmin.ToString())
+                    new Claim(ClaimTypes.Role, user.IsGlobalAdmin.ToString()) 
                 }),
                 Expires = expirationTime,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),

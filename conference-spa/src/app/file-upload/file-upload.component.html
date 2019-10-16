@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="card-body box-shadow " style="position:relative; " >
+    <p class="text-center">Загрузить файл</p>
+    <input class="btn" #file type="file" multiple (change)="upload(file.files)"/>
+  </div>
+  <div *ngIf="isFailed()" class="alert alert-danger" role="alert">
+
+      <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Параграф</th>
+              <th scope="col">Комментарий</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of checkedStatus.Errors">
+              <!-- <th scope="row">1</th> -->
+              <td>{{item.Paragraph}}</td>
+              <td>{{item.Comment}}</td>
+            </tr>
+            <tr *ngFor="let item of checkedStatus.Warnings">
+                <!-- <th scope="row">1</th> -->
+                <td>{{item.Paragraph}}</td>
+                <td>{{item.Comment}}</td>
+              </tr>
+          </tbody>
+        </table>
+
+
+      <!-- <p *ngFor="let item of checkedStatus.Errors">
+        {{item.Paragraph}}: {{item.Comment}}
+      </p>
+      <p *ngFor="let item of checkedStatus.Warnings">
+        {{item.Paragraph}}: {{item.Comment}}
+      </p> -->
+  </div>
+  <div *ngIf="isSuccessful()" class="alert alert-success" role="alert">
+    Файл успешно загружен
+  </div>
+</div>

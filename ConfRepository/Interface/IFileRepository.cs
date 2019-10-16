@@ -9,8 +9,9 @@ namespace ConfRepository.Interface
 {
     public interface IFileRepository : IRepository<File>
     {
-        int Upload(IFormFile file, int lectureId);
-        (Stream fileStream, string contentType, string fileDownloadName) Download(int id);
         void Delete(File file);
+        IEnumerable<int> GetExpertIds();
+        File GetWithApplication(int id);
+        IEnumerable<File> GetAll(int appId, int userId);
     }
 }

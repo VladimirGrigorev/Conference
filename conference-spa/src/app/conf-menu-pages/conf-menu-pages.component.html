@@ -1,0 +1,21 @@
+<div class="list-group">
+  <a href="#" routerLink="/conferences/{{confId}}"
+  class="list-group-item list-group-item-action">Главная</a>
+  <a href="/conferences/p.id/schedule" class="list-group-item list-group-item-action">Расписание</a>
+  <a href="#" class="list-group-item list-group-item-action">Новости</a>
+<!-- </div> -->
+
+<!-- <div > -->
+  <a *ngFor="let p of pages" href="#" routerLink="/conferences/{{confId}}/pages/{{p.id}}"
+     class="list-group-item list-group-item-action">{{p.title}}
+    <!-- <a href="#"  *ngIf="isConfAdmin()" routerLink="/conferences/{{conferenceId}}/pages/{{p.id}}/edit"
+      class="buttonEdit btn btn-sm btn-outline-secondary ml-1"> -->
+      
+      <img class="float-right mr-1" *ngIf="isConfAdmin()" src="https://img.icons8.com/material/20/000000/delete-sign.png">
+      <img class="float-right" *ngIf="isConfAdmin()" src="https://img.icons8.com/small/20/000000/edit.png">
+    <!-- </a> -->
+  </a>
+<!-- </div> -->
+</div>
+
+<a *ngIf="isConfAdmin()" class="btn btn-outline-secondary mt-1" role="button" routerLink="/conferences/{{confId}}/pages/add">Добавить страницу</a>

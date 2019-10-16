@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConfModel.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190322185301_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190512090100_addStat")]
+    partial class addStat
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,38 @@ namespace ConfModel.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AdminOfConferences");
+                });
+
+            modelBuilder.Entity("ConfModel.Model.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationStatus");
+
+                    b.Property<string>("Authors")
+                        .HasMaxLength(300);
+
+                    b.Property<string>("Info")
+                        .HasMaxLength(8000);
+
+                    b.Property<string>("Keywords")
+                        .HasMaxLength(300);
+
+                    b.Property<int>("SectionId");
+
+                    b.Property<string>("Topic")
+                        .HasMaxLength(300);
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Applications");
                 });
 
             modelBuilder.Entity("ConfModel.Model.Conference", b =>
@@ -64,18 +96,22 @@ namespace ConfModel.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("LectureId");
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<string>("ContentType")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Name")
                         .HasMaxLength(300);
 
-                    b.Property<bool>("Private");
-
                     b.Property<double>("Size");
+
+                    b.Property<string>("TempName")
+                        .HasMaxLength(200);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LectureId");
+                    b.HasIndex("ApplicationId");
 
                     b.ToTable("Files");
                 });
@@ -111,9 +147,9 @@ namespace ConfModel.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("DateTimeSent");
+                    b.Property<int>("ApplicationId");
 
-                    b.Property<int>("LectureId");
+                    b.Property<DateTime>("DateTimeSent");
 
                     b.Property<string>("Text")
                         .HasMaxLength(200);
@@ -122,7 +158,7 @@ namespace ConfModel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LectureId");
+                    b.HasIndex("ApplicationId");
 
                     b.HasIndex("UserId");
 
@@ -169,6 +205,24 @@ namespace ConfModel.Migrations
                     b.ToTable("Sections");
                 });
 
+            modelBuilder.Entity("ConfModel.Model.SectionExpert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("SectionId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SectionId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SectionExperts");
+                });
+
             modelBuilder.Entity("ConfModel.Model.User", b =>
                 {
                     b.Property<int>("Id")
@@ -177,7 +231,7 @@ namespace ConfModel.Migrations
                     b.Property<string>("Email")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("IsGlobalAdmin");
+                    b.Property<short>("IsGlobalAdmin");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200);
@@ -199,17 +253,30 @@ namespace ConfModel.Migrations
                         .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ConfModel.Model.User")
+                    b.HasOne("ConfModel.Model.User", "User")
                         .WithMany("AdminOfConferences")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.Application", b =>
+                {
+                    b.HasOne("ConfModel.Model.Section", "Section")
+                        .WithMany("Applications")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany("Applications")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ConfModel.Model.File", b =>
                 {
-                    b.HasOne("ConfModel.Model.Lecture", "Lecture")
+                    b.HasOne("ConfModel.Model.Application", "Application")
                         .WithMany("Files")
-                        .HasForeignKey("LectureId")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -223,9 +290,9 @@ namespace ConfModel.Migrations
 
             modelBuilder.Entity("ConfModel.Model.Message", b =>
                 {
-                    b.HasOne("ConfModel.Model.Lecture", "Lecture")
+                    b.HasOne("ConfModel.Model.Application", "Application")
                         .WithMany("Messages")
-                        .HasForeignKey("LectureId")
+                        .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ConfModel.Model.User", "User")
@@ -252,6 +319,19 @@ namespace ConfModel.Migrations
                     b.HasOne("ConfModel.Model.Conference", "Conference")
                         .WithMany("Sections")
                         .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.SectionExpert", b =>
+                {
+                    b.HasOne("ConfModel.Model.Section", "Section")
+                        .WithMany("SectionExperts")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany("SectionExperts")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

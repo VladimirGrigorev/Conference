@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Message } from '../message';
 import { AuthService } from '../_services/auth.service';
+import { switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 
 @Component({
@@ -16,7 +18,7 @@ export class ForumComponent implements OnInit {
   @Input() idLecture:number;
 
   text = new FormControl('');
-  messages: any[]=[];
+  messages: Message[]=[];
 
   constructor(private forumService:ForumService,
     private authService:AuthService) { }
@@ -27,7 +29,14 @@ export class ForumComponent implements OnInit {
 
   getMessages(){
     this.forumService.getAllByLectureId(this.idLecture)
-      .subscribe((data:any)=>this.messages=data);
+      .pipe(
+        switchMap(data=> {
+          this.messages = data;
+          if(this.messages.some(m=> m.isNew))
+            return this.forumService.deleteNotifications(this.idLecture);
+          return of();
+        })
+      ).subscribe();
   }
 
   isEmpty():boolean{
@@ -37,7 +46,7 @@ export class ForumComponent implements OnInit {
   addMessage(){
     let body = new Message;
     body.text=this.text.value;
-    body.lectureId = this.idLecture;
+    body.applicationId = this.idLecture;
 
     this.forumService.add(body)
       .subscribe(res=>{

@@ -18,11 +18,15 @@ export class ConferenceDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // console.log(this.route.snapshot.parent.paramMap.get('id'));
+    // console.log(this.route.snapshot.paramMap.get('id'));
+
     this.getConference();
   }
 
   getConference(): void{
-    const id = +this.route.snapshot.paramMap.get('id');
+    const id = +(this.route.snapshot.paramMap.get('id') || this.route.snapshot.parent.paramMap.get('id'));
+    console.log(id);
     this.conferencesService.get(id)
       .subscribe(conference => this.conference = conference);
   }

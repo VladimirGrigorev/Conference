@@ -12,11 +12,15 @@ namespace ConfService.Service
     public class MessageService : IMessageService
     {
         protected readonly IMessageRepository _messageRepository;
+        private readonly IApplicationRepository _applicationRepository;
         protected readonly IMapper _mapper;
 
-        public MessageService(IMessageRepository repositoy, IMapper mapper)
+        public MessageService(IMessageRepository repositoy,
+            IApplicationRepository applicationRepository,
+            IMapper mapper)
         {
             _messageRepository = repositoy;
+            _applicationRepository = applicationRepository;
             _mapper = mapper;
         }
         /*public MessageDto Get(int id)
@@ -33,12 +37,27 @@ namespace ConfService.Service
         {
             var message = _mapper.Map<Message>(messageDto);
             message.User = null;
+
+            foreach (var expertId in _messageRepository.GetExpertIds())
+            {
+                message.MessageNotifications.Add(new MessageNotification()
+                {
+                    UserId = expertId
+                });
+            }
+
             return _messageRepository.Add(message);
         }
-
-        public IEnumerable<MessageDto> GetAllByLectureId(int idLecture)
+        
+        public IEnumerable<MessageDto> GetAllByApplicationId(int applicationId, int userId)
         {
-            return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository.GetWhere(x => x.LectureId==idLecture));
+            return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository
+                .GetAll(applicationId, userId));
+        }
+
+        public void RemoveMessages(int appId)
+        {
+            _applicationRepository.RemoveMessageNotifications(appId);
         }
     }
 }

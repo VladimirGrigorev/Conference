@@ -1,0 +1,49 @@
+<div class="container">  
+  <h4>Страница</h4>
+  <form (ngSubmit)="onSubmit()" #appForm="ngForm">
+    
+    <div class="form-group">
+      <!-- <label for="title">Заголовок</label> -->
+      <input type="text" name="title" class="form-control" id="title"
+       [(ngModel)]="page.title" #title="ngModel" required placeholder="Заголовок">
+      <div [hidden]="title.valid || title.pristine"
+      class="alert alert-danger">
+      Необходимо заполнить поле
+      </div>
+    </div>
+
+    <div class="form-group">
+	    <ckeditor [(ngModel)]="page.data" 
+            #myckeditor="ngModel"
+            name="myckeditor"
+            required
+            [config]="ckeConfig" 
+            [editor]="Editor">
+      </ckeditor>
+      <div [hidden]="myckeditor.valid || myckeditor.pristine"
+      class="alert alert-danger">
+      Необходимо заполнить поле
+      </div>
+    </div>
+<!--     
+    <div class="form-group">
+      <label for="keywords">Ключевые слова</label>
+      <input type="text" name="keywords" class="form-control" id="keywords" [(ngModel)]="app.keywords" #keywords="ngModel" required placeholder="Список ключевых слов">
+      <div [hidden]="keywords.valid || keywords.pristine"
+      class="alert alert-danger">
+      Необходимо заполнить поле
+      </div>
+    </div> -->
+
+    <button class="btn btn-outline-secondary" type="submit" role="button" [disabled]="!appForm.form.valid">Добавить страницу</button>
+    <!-- <button type="submit" class="btn btn-outline-secondary" [disabled]="!articleForm.form.valid">Submit</button> -->
+
+  </form>
+
+  <div class="alert rounded-lg border mt-3" *ngIf="page.data">
+      <h4>Предпросмотр</h4>
+      <hr>
+      <div [innerHTML]="page.data"></div>
+  </div>
+  
+</div> 

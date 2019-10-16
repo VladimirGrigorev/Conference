@@ -9,6 +9,7 @@ using ConfModel.Interface;
 
 namespace ConfRepository
 {
+    //todo rewrite to return List<T>
     public class BaseRepository<T> : IRepository<T> where T: class, IId, new()
     {
         protected readonly ConfContext _context;
@@ -22,7 +23,7 @@ namespace ConfRepository
             _context = confContext;
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return Set;
         }
@@ -44,7 +45,7 @@ namespace ConfRepository
             return entityEntry.Entity.Id;
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             Set.Update(entity);
             _context.SaveChanges();

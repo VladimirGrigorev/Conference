@@ -23,6 +23,12 @@ export class AuthService {
   private subscribedLectures:number[];
   private subscribedLecturesKey = 'subscribedLectures';
 
+  private adminnedConferences:number[];
+  private adminnedConferencesKey = 'adminnedConferences';
+
+  private userId:number;
+  private userIdKey = 'userId';
+
   constructor(private http: HttpClient) { }
 
 signin(model: any) { 
@@ -42,6 +48,14 @@ signin(model: any) {
             let sL =  userResponse.subscribedLectures;
             localStorage.setItem(this.subscribedLecturesKey, JSON.stringify(sL) );
             this.subscribedLectures = sL;
+
+            let aC =  userResponse.adminnedConferences;
+            localStorage.setItem(this.adminnedConferencesKey, JSON.stringify(aC) );
+            this.adminnedConferences = aC;
+
+            let ui =  userResponse.userId;
+            localStorage.setItem(this.userIdKey, JSON.stringify(ui) );
+            this.userId = ui;
 
             let a =  userResponse.isGlobalAdmin;
             localStorage.setItem(this.isGlobalAdminKey, JSON.stringify(a) );
@@ -105,12 +119,40 @@ signin(model: any) {
     return this.lectures.includes(lectureId);
   }
 
+  isConfAdmin(confId: number){
+    if(this.adminnedConferences === undefined){
+      let maybeConfs = localStorage.getItem(this.adminnedConferencesKey);
+      if (maybeConfs){
+        this.adminnedConferences =  JSON.parse(maybeConfs)        
+      }
+      else{
+        this.adminnedConferences = [];
+      }
+    }
+    return this.adminnedConferences.includes(confId);
+  }
+
+  isAuthor(authorId : number){
+    if(this.userId === undefined){
+      let maybeUserId = localStorage.getItem(this.userIdKey);
+      if (maybeUserId){
+        this.userId =  JSON.parse(maybeUserId)        
+      }
+      else{
+        this.userId = null;
+      }
+    }
+    return this.userId === authorId;
+  }
+
   logout() {
     localStorage.clear();
     this.token = null;
     this.lectures = [];
     this.isGlobalAdmin = false;
-    this.subscribedLectures = [];  
+    this.subscribedLectures = []; 
+    this.adminnedConferences = [];
+    this.userId = null;
     //return this.http.get(DOMAIN);
   }
   isListener(lectureId: number){

@@ -8,5 +8,6 @@ namespace ConfService.Interface
         ConferenceDto Get(int id);
         IEnumerable<ConferenceDto> GetAll();
         int Add(int userId, ConferenceDto conferenceDto);
+        void Update(int userId, ConferenceDto conferenceDto);
     }
 }

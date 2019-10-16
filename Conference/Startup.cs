@@ -78,10 +78,15 @@ namespace Conference
             services.AddAutoMapper();
             services.AddScoped<IConferenceRepository, ConferenceRepository>();
             services.AddScoped<IConferenceService, ConferenceService>();
+            services.AddScoped<IInfoPageRepository, InfoPageRepository>();
+            services.AddScoped<IInfoPageService, InfoPageService>();
             services.AddScoped<ISectionRepository, SectionRepository>();
             services.AddScoped<IAdminOfConferenceRepository, AdminOfConferenceRepository>();
             services.AddScoped<ILectureRepository, LectureRepository>();
             services.AddScoped<ILectureService, LectureService>();
+            services.AddScoped<IApplicationRepository, ApplicationRepository>();
+            services.AddScoped<IApplicationService, ApplicationService>();
+            services.AddScoped<IApplicationNotificationRepository, ApplicationNotificationRepository>();
             services.AddScoped<IMessageRepository, MessageRepository>();
             services.AddScoped<IMessageService, MessageService>();
             services.AddScoped<IFileRepository, FileRepository>();
@@ -89,8 +94,9 @@ namespace Conference
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleInLectureRepository, RoleInLectureRepository>();
+            services.AddScoped<ISectionExpertRepository, SectionExpertRepository>();
             services.AddDbContext<ConfContext>
-                (options => options.UseMySQL(Configuration.GetConnectionString("db")));
+                (options => options.UseMySql(Configuration.GetConnectionString("db")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
