@@ -61,7 +61,8 @@ import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.compon
       AddInfoPageComponent,
       InfoPageComponent,
       ConfMenuPagesComponent,
-      ConfInfoPagesComponent
+      ConfInfoPagesComponent,
+      HomeComponent
    ],
    imports: [
       BrowserModule,
@@ -81,7 +82,7 @@ import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.compon
          multi: true
        },
        NgbActiveModal
-      
+
    ],
    bootstrap: [
       AppComponent
