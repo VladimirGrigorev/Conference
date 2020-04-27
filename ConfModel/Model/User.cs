@@ -9,6 +9,8 @@ namespace ConfModel.Model
 {
     public class User : IId
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        
         public int Id { get; set; }
 
         [StringLength(200)]
