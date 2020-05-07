@@ -8,9 +8,7 @@ using ConfModel.Interface;
 namespace ConfModel.Model
 {
     public class User : IId
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        
+    {   
         public int Id { get; set; }
 
         [StringLength(200)]
@@ -18,11 +16,10 @@ namespace ConfModel.Model
         [StringLength(50)]
         public string Email { get; set; }
         [StringLength(500)]
-        public string PassHash { get; set; }
+        public string Password { get; set; }
 
         public bool IsGlobalAdmin { get; set; } = false;
 
-        public SexType Sex { get; set; }
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 

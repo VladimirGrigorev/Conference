@@ -9,14 +9,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ConfModel.Migrations
 {
     [DbContext(typeof(ConfContext))]
-    [Migration("20190512090100_addStat")]
-    partial class addStat
+    [Migration("20200507132725_UpdateMessage")]
+    partial class UpdateMessage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("ConfModel.Model.AdminOfConference", b =>
                 {
@@ -34,6 +35,26 @@ namespace ConfModel.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("AdminOfConferences");
+                });
+
+            modelBuilder.Entity("ConfModel.Model.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<string>("Data")
+                        .HasMaxLength(1000);
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConferenceId");
+
+                    b.ToTable("Announcements");
                 });
 
             modelBuilder.Entity("ConfModel.Model.Application", b =>
@@ -68,6 +89,24 @@ namespace ConfModel.Migrations
                     b.ToTable("Applications");
                 });
 
+            modelBuilder.Entity("ConfModel.Model.ApplicationNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApplicationId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ApplicationNotifications");
+                });
+
             modelBuilder.Entity("ConfModel.Model.Conference", b =>
                 {
                     b.Property<int>("Id")
@@ -79,6 +118,8 @@ namespace ConfModel.Migrations
 
                     b.Property<string>("Info")
                         .HasMaxLength(8000);
+
+                    b.Property<bool>("IsFileCheckRequired");
 
                     b.Property<string>("Location")
                         .HasMaxLength(500);
@@ -116,6 +157,43 @@ namespace ConfModel.Migrations
                     b.ToTable("Files");
                 });
 
+            modelBuilder.Entity("ConfModel.Model.FileNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("FileId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FileId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FileNotifications");
+                });
+
+            modelBuilder.Entity("ConfModel.Model.InfoPage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<string>("Data");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConferenceId");
+
+                    b.ToTable("InfoPages");
+                });
+
             modelBuilder.Entity("ConfModel.Model.Lecture", b =>
                 {
                     b.Property<int>("Id")
@@ -147,9 +225,11 @@ namespace ConfModel.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ApplicationId");
+                    b.Property<int?>("ApplicationId");
 
                     b.Property<DateTime>("DateTimeSent");
+
+                    b.Property<int?>("LectureId");
 
                     b.Property<string>("Text")
                         .HasMaxLength(200);
@@ -160,9 +240,50 @@ namespace ConfModel.Migrations
 
                     b.HasIndex("ApplicationId");
 
+                    b.HasIndex("LectureId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("ConfModel.Model.MessageNotification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MessageId");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MessageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MessageNotifications");
+                });
+
+            modelBuilder.Entity("ConfModel.Model.News", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ConferenceId");
+
+                    b.Property<string>("Data");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(200);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ConferenceId");
+
+                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("ConfModel.Model.RoleInLecture", b =>
@@ -236,10 +357,8 @@ namespace ConfModel.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(200);
 
-                    b.Property<string>("PassHash")
+                    b.Property<string>("Password")
                         .HasMaxLength(500);
-
-                    b.Property<int>("Sex");
 
                     b.HasKey("Id");
 
@@ -259,6 +378,14 @@ namespace ConfModel.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ConfModel.Model.Announcement", b =>
+                {
+                    b.HasOne("ConfModel.Model.Conference", "Conference")
+                        .WithMany("Announcements")
+                        .HasForeignKey("ConferenceId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ConfModel.Model.Application", b =>
                 {
                     b.HasOne("ConfModel.Model.Section", "Section")
@@ -272,11 +399,45 @@ namespace ConfModel.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("ConfModel.Model.ApplicationNotification", b =>
+                {
+                    b.HasOne("ConfModel.Model.Application", "Application")
+                        .WithMany("ApplicationNotifications")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ConfModel.Model.File", b =>
                 {
                     b.HasOne("ConfModel.Model.Application", "Application")
                         .WithMany("Files")
                         .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.FileNotification", b =>
+                {
+                    b.HasOne("ConfModel.Model.File", "File")
+                        .WithMany("FileNotifications")
+                        .HasForeignKey("FileId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.InfoPage", b =>
+                {
+                    b.HasOne("ConfModel.Model.Conference", "Conference")
+                        .WithMany("InfoPages")
+                        .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -292,12 +453,36 @@ namespace ConfModel.Migrations
                 {
                     b.HasOne("ConfModel.Model.Application", "Application")
                         .WithMany("Messages")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("ConfModel.Model.Lecture", "Lecture")
+                        .WithMany("Messages")
+                        .HasForeignKey("LectureId");
 
                     b.HasOne("ConfModel.Model.User", "User")
                         .WithMany("Messages")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.MessageNotification", b =>
+                {
+                    b.HasOne("ConfModel.Model.Message", "Message")
+                        .WithMany("MessageNotifications")
+                        .HasForeignKey("MessageId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ConfModel.Model.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConfModel.Model.News", b =>
+                {
+                    b.HasOne("ConfModel.Model.Conference", "Conference")
+                        .WithMany("News")
+                        .HasForeignKey("ConferenceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

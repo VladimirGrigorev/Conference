@@ -10,6 +10,7 @@ import { AuthService } from '../_services/auth.service';
 export class ConferencesComponent implements OnInit {
 
   conferences: Array<any>;
+  message: string;
 
   constructor(private conferencesService: ConferencesService,
     private authService: AuthService) { 
@@ -23,6 +24,19 @@ export class ConferencesComponent implements OnInit {
   getConferences(): void{
     this.conferencesService.getAll()
       .subscribe((conferences :any ) => this.conferences = conferences);
+  }
+
+  deleteConference(id:number){
+    this.conferencesService.deleteById(id).subscribe(
+      data => {
+        this.message = "Вы успешно удалили конференцию";
+      }
+    );
+    setTimeout(() => {
+      this.ngOnInit();
+      this.message = '';
+    }, 1000);
+
   }
 
   isAddDisplayed():boolean{

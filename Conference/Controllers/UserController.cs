@@ -50,6 +50,7 @@ namespace Conference.Controllers
         [HttpPost("auth/signup")]
         public IActionResult SignUp([FromBody] UserDto userDto)
         {
+            
             var userId = _userService.Add(userDto);
             return Ok(userId);
         }

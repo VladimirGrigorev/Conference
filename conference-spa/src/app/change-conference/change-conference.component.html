@@ -1,0 +1,291 @@
+<div class="container">
+  <h2>Редактирование  конференции</h2>
+  <form id="conferenceForm" [formGroup]="conferenceForm" class="marg-bottom" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Название конференции:</label>
+      <input id="name" class="form-control" type="text" formControlName="name" [ngModel]="conference?.name" required>
+    </div>
+    <div class="form-group">
+      <label for="info">Информация о конференции: </label>
+      <input id="info" class="form-control" type="text" [ngModel]="conference?.info" formControlName="info"  required>
+    </div>
+    <div class="form-group">
+      <label for="location">Место проведения конференции: </label>
+      <input id="location" class="form-control" type="text" [ngModel]="conference?.location" formControlName="location"  required>
+    </div>
+    <div class="form-group">
+      <label for="dateTimeStart">Дата начала конференции: </label>
+      <input id="dateTimeStart" class="form-control" type="datetime-local"  [ngModel]="conference?.dateTimeStartConference" [(ngModel)]="start" 
+      (ngModelChange)="myDate = $event" formControlName="dateTimeStartConference"  required>
+    </div>
+    <div class="form-group">
+      <label for="dateTimeFinish">Дата окончания конференции: </label>
+      <input id="dateTimeFinish" class="form-control" type="datetime-local" [ngModel]="conference?.dateTimeFinishConference"  [(ngModel)]="end" 
+      (ngModelChange)="myDate = $event" formControlName="dateTimeFinishConference" required>
+    </div>
+    <div *ngIf="dateerror" class="alert alert-danger" >
+      <p>{{dateerror}}</p>
+    </div>
+    <!--<button type="submit" [disabled]="!conferenceForm.valid" (click)="save()">Сохранить</button>-->
+    <!--button type="submit">Добавить секции</button>-->
+
+  </form>
+
+  <div class="marg-bottom">
+    <div class="row mb-3">
+      <h2 class="col-xl-3 col-md-3 col-sm-9 ">Администраторы</h2>
+      <a id="addAdmin" class=" marg add-a" (click)="addAdmin()" >
+        <img class="add  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+      </a>
+    </div>
+    <div *ngFor="let a of listAdmins; let ai=index"  [attr.data-index]="ai"  class="rowTable row">
+
+      <div class="col-12 col-md-8 ">
+        <h4>{{a.name}}</h4>
+        <p>{{a.email}}</p>
+      </div>
+
+
+      <div class="col-6 col-md-4">
+        <div class="row-reverse ">
+          <button attr.id="deleteAdmin_{{ai}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteAdmin(ai)">Удалить</button>  
+        </div>
+      </div>
+
+
+  </div>
+
+
+    <form id="adminForm" [formGroup] = "adminForm" style="display:none; " (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email администратора: </label>
+        <input id="email" class="form-control" type="text" formControlName="email" required>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!adminForm.valid" (click)="saveAdmin()">Сохранить</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="closeAdmin()">Отменить</button>
+      </div>
+      <div *ngIf="errorFlag" class="alert alert-error" >
+        <p>Пользователь с таким email не был найден</p>
+      </div>
+    </form>
+  </div>
+
+    <!--------------------------------SECTIONS!!------------------------------>
+    <div class="marg-bottom">
+      <div class="row">
+          <h2 class="col-md-2 col-sm-5 col-xl-2">Секции</h2>
+          <a id="addSection" class=" marg add-a"  (click)="addSection()" >
+            <img class="add  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+          </a>
+        </div>
+        <div *ngFor="let s of listSections; let i=index" [attr.data-index]="i" class="rowTable row">
+            <div class="col-12 col-md-6 ">
+              <h3>{{s.name}}</h3>
+              <p>{{s.info}}</p>
+            </div>
+        
+  
+  
+  
+            <div class="col-12 col-md-6">
+              <div class="row-reverse">
+                <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button>
+                <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="lectures(i)">Лекции</button>
+                <button attr.id="hide_{{i}}" class="btn btn-outline-secondary float-right" type="button" (click)="hideLectures(i)" 
+                style="display:none;">Скрыть лекции</button>
+                <!-- <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button> -->
+                <button attr.id="expert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="experts(i)"> Эксперты</button>
+                <button attr.id="hide_expert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="hideExperts(i)"
+                  style="display:none;"> Скрыть экспертов</button>
+                 
+              </div>
+            </div>
+  
+            <div id="compExperts_{{i}}" style="width:100%; display: none;">
+            <!-------------------------------------------EXPERTS!---------------------------------------->
+  
+            <div class="container marg-bottom">
+              <div class="row">
+                <h5 class="col-md-2 col-3">Эксперты</h5>
+                <a id="addExpert{{i}}" class=" marg add-a"  (click)="addExpert(i)" style="margin-top: -5px;">
+                    <img class="add addLect  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+                  </a>
+              </div>
+  
+              <div *ngFor="let sp of listSections[i].experts; let exi=index" [attr.data-index]="exi" class="rowTableColor row">
+                <div class="col-12 col-md-8 ">
+                    <h6>{{sp.name}}</h6>
+                    <p>{{sp.email}}</p>
+                  </div>
+  
+  
+                  <div class="col-6 col-md-4">
+                    <div class="row-reverse ">
+                      <button attr.id="deleteExpert_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteExpert(i,exi)">Удалить</button>  
+                    </div>
+                  </div>
+  
+              </div>
+  
+              <form id="formExpert{{i}}" [formGroup]="expertForm" (ngSubmit)="onSubmit()" style="display:none;">
+                  <div class="form-group">
+                    <label for="emailExpert">Email: </label>
+                    <input id="emailExpert" class="form-control" type="text" formControlName="email" required>
+                  </div>
+  
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary " type="submit" [disabled]="!expertForm.valid" (click)="saveExpert(i)">Сохранить</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="closeExpert(i,i)">Отменить</button>
+                  </div>
+  
+                  <div *ngIf="errorFlag" class="alert alert-error" >
+                    <p>Пользователь с таким email не был найден</p>
+                  </div>
+                </form>
+              </div>
+            </div>
+  
+  
+  
+  
+            <!-- <div class="col-6 col-md-4">
+              <button id="edit_{{i}}" type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>
+              <div class="row-reverse">
+                <button attr.id="lectures_delete_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSection(i)">Удалить</button>
+                <button attr.id="lectures_{{i}}" type="button" class="btn  btn-outline-secondary float-right" (click)="lectures(i)">Лекции</button>
+                <button attr.id="hide_{{i}}" class="btn btn-outline-secondary float-right" type="button" (click)="hideLectures(i)" 
+                style="display:none;">Скрыть лекции</button>
+               
+            </div>
+            </div> -->
+        
+            <div  attr.id="compLectures_{{i}}" style="width:100%; display: none;">
+              <!------------------------------------------LECTURE!!!-------------------------------------------------->
+  
+              <div class="container marg-bottom">
+                  <div class="row">
+                      <h3 class="col-md-2 col-3">Лекции</h3>
+                      <!-- <button id="addLecture{{i}}" class="btn btn-outline-secondary " type="button" (click)="addLecture(i)" >Добавить лекцию</button> -->
+                      <a id="addLecture{{i}}" class=" marg add-a" (click)="addLecture(i)" >
+                          <img class="add addLect  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+                        </a>
+                    </div>
+                    <div *ngFor="let s of listSections[i].lectures; let si=index" [attr.data-index]="si" class="rowTableColor row">
+                        <div class="col-12 col-md-8 ">
+                          <h4>{{s.topic}}</h4>
+                          <p>{{s.info}}</p>
+                        </div>
+                    
+                          <!-- <div class="col-6 col-md-4 btn-group">
+                            <button  type="button" class="btn  btn-outline-secondary" (click)="edit()">Редактировать</button>   
+                            <button type="button" class="btn  btn-outline-secondary">Добавить лекцию</button>
+                          </div> -->
+                          <div class="col-6 col-md-4">
+                            <div class="row-reverse">
+                              <button attr.id="lecture_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteLecture(i,si)">Удалить</button> 
+                              <button attr.id="speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="speakers(i,si)"> Лекторы</button>
+                              <button attr.id="hide_speaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="hideSpeakers(i,si)"
+                                style="display:none;"> Скрыть лекторов</button>
+                               
+                            </div>
+                          </div>
+  
+                          <div id="compSpeakers_{{i}}_{{si}}" style="width:100%; display: none;">
+                          <!-------------------------------------------SPEAKERS!---------------------------------------->
+  
+                          <div class="container marg-bottom">
+                            <div class="row">
+                              <h5 class="col-md-2 col-3">Лекторы</h5>
+                              <a id="addSpeaker{{i}}_{{si}}" class=" marg add-a"  (click)="addSpeaker(i,si)" style="margin-top: -5px;">
+                                  <img class="add addLect  rounded-circle " src="https://img.icons8.com/material-rounded/30/000000/plus-math.png">
+                                </a>
+                            </div>
+  
+                            <div *ngFor="let sp of listSections[i].lectures[si].speakers; let spi=index" [attr.data-index]="spi" class="rowTableColor row">
+                              <div class="col-12 col-md-8 ">
+                                  <h6>{{sp.name}}</h6>
+                                  <p>{{sp.email}}</p>
+                                </div>
+  
+  
+                                <div class="col-6 col-md-4">
+                                  <div class="row-reverse ">
+                                    <button attr.id="deleteSpeaker_{{i}}_{{si}}" type="button" class="btn  btn-outline-secondary float-right" (click)="deleteSpeaker(i,si,spi)">Удалить</button>  
+                                  </div>
+                                </div>
+          
+                            </div>
+  
+                            <form id="formSpeaker{{i}}_{{si}}" [formGroup]="speakerForm" (ngSubmit)="onSubmit()" style="display:none;">
+                                <div class="form-group">
+                                  <label for="emailSpeaker">Email: </label>
+                                  <input id="emailSpeaker" class="form-control" type="text" formControlName="email" required>
+                                </div>
+  
+                                <div class="btn-group">
+                                  <button type="button" class="btn btn-outline-secondary " type="submit" [disabled]="!speakerForm.valid" (click)="saveSpeaker(i,si)">Сохранить</button>
+                                  <button type="button" class="btn btn-outline-secondary" (click)="closeSpeaker(i,si)">Отменить</button>
+                                </div>
+  
+                                <div *ngIf="errorFlag" class="alert alert-error" >
+                                  <p>Пользователь с таким email не был найден</p>
+                                </div>
+                              </form>
+  
+  
+                          </div>
+                          </div>
+                      </div>
+  
+  
+  
+  
+                    <form id="formLecture{{i}}" [formGroup]="lectureForm" (ngSubmit)="onSubmit()" style="display:none;">
+                      <div class="form-group">
+                        <label for="name">Тема лекции: </label>
+                        <input id="name" class="form-control" type="text" formControlName="topic" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="info">Информация о лекции: </label>
+                        <input id="info" class="form-control" type="text" formControlName="info">
+                      </div>
+                      <div class="form-group">
+                          <label for="info">Дата и время начала лекции: </label>
+                          <input id="dateLecture" class="form-control" type="datetime-local" formControlName="dateTimeStart">
+                        </div>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!lectureForm.valid" (click)="saveLecture(i)">Сохранить</button>
+                        <button type="button" class="btn btn-outline-secondary" (click)="closeLecture(i)">Отменить</button>
+                      </div>
+                    </form>
+                  </div>
+  
+  
+             </div>
+        
+        </div>
+        <form id="formSection" [formGroup]="sectionForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="name">Название секции:</label>
+            <input id="name" class="form-control" type="text" formControlName="name" required>
+          </div>
+          <div class="form-group">
+            <label for="info">Информация о секции: </label>
+            <input id="info" class="form-control" type="text" formControlName="info">
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!sectionForm.valid" (click)="saveSection()">Сохранить</button>
+            <button type="button" class="btn btn-outline-secondary" (click)="close()">Отменить</button>
+          </div>
+        </form>
+    </div>
+    <div class="row ml-0" >
+      <button type="button" class="btn btn-outline-secondary btn-lg" (click)="save()" 
+        [disabled]="!conferenceForm.valid && !sectionForm.valid && !lectureForm.valid ">Сохранить</button>
+      <p class="ml-3 mt-3" *ngIf="errorFlagSave">{{errorMessageSave}}</p>
+    </div>
+
+
+</div>

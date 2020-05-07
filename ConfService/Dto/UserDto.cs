@@ -10,7 +10,7 @@ namespace ConfService.Dto
         public string Email { get; set; }
         [Required]
         [StringLength(100)]
-        public string PassHash { get; set; }
+        public string Password { get; set; }
     }
 
     public class UserDto : UserAuthDto

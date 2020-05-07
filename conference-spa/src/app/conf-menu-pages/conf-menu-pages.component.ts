@@ -4,6 +4,7 @@ import { InfoPage } from '../info-page';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { AuthService } from '../_services/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-conf-menu-pages',
@@ -17,6 +18,7 @@ export class ConfMenuPagesComponent implements OnInit {
 
   constructor(private infoPageService: InfoPageService,
     private authService: AuthService,
+    private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {

@@ -2,7 +2,6 @@
   <button class="btn btn-outline-secondary" type="button" (click)="goBack()">Назад</button>
 
   <h3 [ngClass]="{'text-danger' : app.isNew}">{{app.topic}}</h3>
-  <!-- [ngClass]="{'bg-danger': isMyApps }" -->
   <button *ngIf="!isAppAuthor()" class="float-right btn btn-outline-secondary m-1" role="button" (click)="openModalSetStatus()">Изменить</button>
   <app-application-status class="float-right" [appStatus]="app.applicationStatus"></app-application-status>
   
@@ -14,5 +13,5 @@
   <small>Аннотация: </small><pre>{{app.info}}</pre>
 
   <app-files [lectureId]="id" [isAddDisplayed] = "isAppAuthor()"></app-files>
-  <app-forum [idLecture]="id"></app-forum>    
+  <app-forum [idApplication]="id"></app-forum>    
 </div>

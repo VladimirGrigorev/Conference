@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
         <div class=" col-xl-3 col-lg-4 col-md-6" *ngIf="isAddDisplayed()">
-          <div class="card mb-4" style="height:93%; ">
+          <div class="card mb-6" style="height:93%; ">
             <div class="card-body box-shadow " style="position:relative; " >
               <h2 class="text-center">Создать конференцию</h2>
               <a class="add-conf-a text-center" routerLink="/conferences/add-conf" >
@@ -11,8 +11,8 @@
             </div>
           </div>
         </div>
-      <div class=" col-xl-3 col-lg-4 col-md-6" *ngFor="let c of conferences">
-        <div class="card mb-4">
+      <div class=" col-xl-3 col-lg-4 col-md-12" *ngFor="let c of conferences">
+        <div class="card mb-4 ">
           <div class="card-body box-shadow text-center">
             <h2>{{c.name}}</h2>
             <!-- <p>{{c.info}}</p> -->
@@ -30,11 +30,16 @@
 
             <!-- <p> -->
               <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/{{c.id}}">Подробнее</a>
+              <a class="btn btn-outline-secondary" role="button" routerLink="/conferences/change-conf/{{c.id}}">Редактировать</a>
+              <a class="btn btn-outline-secondary" role="button" (click)="deleteConference(c.id)">Удалить</a>
             <!-- </p> -->
           </div>
         </div>
       </div>
     </div>
   </div>
+  </div>
+  <div *ngIf="message" class="alert alert-success" >
+    <p>{{message}}</p>
   </div>
   

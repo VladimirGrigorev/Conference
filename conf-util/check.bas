@@ -9,11 +9,12 @@ Const adSaveCreateOverWrite = 2
 
 
 
-Function Contains(Col As Collection, Key As Variant) As Boolean
-    Dim obj As Variant
+Function Contains(Col As Collection, Key As Object
+                 ) As Boolean
+    Dim obj As Object
     On Error GoTo Err
-        Contains = True
-        obj = Col(Key)
+    Contains = True
+    obj = Col(Key)
     Exit Function
 Err:
     Contains = False
@@ -32,16 +33,21 @@ Function CompareParagraphFormatting(ByRef Paragraph As Paragraph, ByRef RightPar
 
     Dim Range As Range
     Dim RightRange As Range
-    Set Range = Paragraph.Range
-    Set RightRange = RightParagraph.Range
+
+    Range = Paragraph.Range
+    RightRange = RightParagraph.Range
+
     Dim Font As Font
     Dim RightFont As Font
-    Set Font = Range.Font
-    Set RightFont = RightRange.Font
+
+    Font = Range.Font
+    RightFont = RightRange.Font
+
     Dim Format As ParagraphFormat
     Dim RightFormat As ParagraphFormat
-    Set Format = Paragraph.Format
-    Set RightFormat = RightParagraph.Format
+
+    Format = Paragraph.Format
+    RightFormat = RightParagraph.Format
 
     On Error Resume Next
 
@@ -62,7 +68,7 @@ Function CompareParagraphFormatting(ByRef Paragraph As Paragraph, ByRef RightPar
 
     Dim Word As Range
     For Each Word In Range.Words
-        Set Font = Word.Font
+        Font = Word.Font
 
         If StrComp(Font.Name, RightFont.Name) = 0 Then
             FontNameEquals = True
@@ -238,7 +244,7 @@ Function CheckSameFormatting(ByRef Paragraph As Paragraph) As String
     End If
 
     Dim Font As Font
-    Set Font = Paragraph.Range.Font
+    Font = Paragraph.Range.Font
 
     On Error Resume Next
 
@@ -309,15 +315,15 @@ End Function
 
 Sub Check()
     Dim TemplateDoc As Document
-    Set TemplateDoc = Application.Documents.Open( _
-        FileName:=TemplateFileName, _
-        ReadOnly:=True, _
-        AddToRecentFiles:=False, _
-        Visible:=False _
+    TemplateDoc = Application.Documents.Open(
+        FileName:=TemplateFileName,
+        ReadOnly:=True,
+        AddToRecentFiles:=False,
+        Visible:=False
     )
 
     Dim Styles As Collection
-    Set Styles = New Collection
+    Styles = New Collection
 
     Dim Paragraph As Paragraph
     Dim Range As Range
@@ -325,13 +331,13 @@ Sub Check()
     For Each Paragraph In TemplateDoc.Paragraphs
         If InStr(1, Paragraph.Style, "$_") = 1 Or InStr(1, Paragraph.Style, "@_") = 1 Then
             If Not Contains(Styles, Paragraph.Style) Then
-                Styles.Add Paragraph, Paragraph.Style
+                Styles.Add(Paragraph, Paragraph.Style)
             End If
         End If
     Next Paragraph
 
     Dim ErrorsAndWarnings As Collection
-    Set ErrorsAndWarnings = New Collection
+    ErrorsAndWarnings = New Collection
 
     Dim Result As String
     Result = "Ok"
@@ -354,18 +360,18 @@ Sub Check()
             Dim CheckResult As String
             CheckResult = CompareParagraphFormatting(Paragraph, Styles(Paragraph.Style))
             If StrComp(CheckResult, "Ok") <> 0 Then
-                ErrorsAndWarnings.Add Array( _
-                    "Error", ParagraphText, _
-                    CheckResult _
-                )
+                ErrorsAndWarnings.Add(Array(
+                    "Error", ParagraphText,
+                    CheckResult
+                ))
                 Result = "Error"
             Else
                 CheckResult = CheckSameFormatting(Paragraph)
                 If StrComp(CheckResult, "Ok") <> 0 Then
-                    ErrorsAndWarnings.Add Array( _
-                        "Warning", ParagraphText, _
-                        CheckResult _
-                    )
+                    ErrorsAndWarnings.Add(Array(
+                        "Warning", ParagraphText,
+                        CheckResult
+                    ))
                     If StrComp(Result, "Ok") = 0 Then
                         Result = "Warning"
                     End If
@@ -374,42 +380,42 @@ Sub Check()
             StylesFound = True
         Else
             If InStr(ParagraphText, Chr(7)) <> Len(ParagraphText) Then
-                ErrorsAndWarnings.Add Array( _
-                    "Error", ParagraphText, _
-                    "Стиль """ & Paragraph.Style & """ для абзаца недопустим (не шаблонный)" _
-                )
+                ErrorsAndWarnings.Add(Array(
+                    "Error", ParagraphText,
+                    "Стиль """ & Paragraph.Style & """ для абзаца недопустим (не шаблонный)"
+                ))
                 Result = "Error"
             End If
         End If
     Next Paragraph
 
     If Not StylesFound Then
-        Set ErrorsAndWarnings = New Collection
-        ErrorsAndWarnings.Add Array( _
-            "Error", "Весь документ", _
-            "Шаблон оформления не был использован." _
-        )
+        ErrorsAndWarnings = New Collection
+        ErrorsAndWarnings.Add(Array(
+            "Error", "Весь документ",
+            "Шаблон оформления не был использован."
+        ))
         Result = "Error"
     End If
 
     Dim objStream As Object
-    Set objStream = CreateObject("ADODB.Stream")
+    objStream = CreateObject("ADODB.Stream")
     objStream.Charset = "utf-8"
     objStream.LineSeparator = adLF
     objStream.Open
 
-    objStream.WriteText "<Check Result=""" & Result & """>", adWriteLine
+    objStream.WriteText("<Check Result=""" & Result & """>", adWriteLine)
     Dim ErrWarn
     For Each ErrWarn In ErrorsAndWarnings
-        objStream.WriteText "  <" & ErrWarn(0) & ">", adWriteLine
-        objStream.WriteText "    <Paragraph>" & ErrWarn(1) & "</Paragraph>", adWriteLine
-        objStream.WriteText "    <Comment>" & ErrWarn(2) & "</Comment>", adWriteLine
-        objStream.WriteText "  </" & ErrWarn(0) & ">", adWriteLine
+        objStream.WriteText("  <" & ErrWarn(0) & ">", adWriteLine)
+        objStream.WriteText("    <Paragraph>" & ErrWarn(1) & "</Paragraph>", adWriteLine)
+        objStream.WriteText("    <Comment>" & ErrWarn(2) & "</Comment>", adWriteLine)
+        objStream.WriteText("  </" & ErrWarn(0) & ">", adWriteLine)
     Next ErrWarn
-    objStream.WriteText "</Check>", adWriteLine
+    objStream.WriteText("</Check>", adWriteLine)
 
-    objStream.SaveToFile DocumentFileName & ".check", adSaveCreateOverWrite
+    objStream.SaveToFile(DocumentFileName & ".check", adSaveCreateOverWrite)
     objStream.Close
 
-    TemplateDoc.Close wdDoNotSaveChanges
+    TemplateDoc.Close(wdDoNotSaveChanges)
 End Sub

@@ -66,8 +66,6 @@ export class ApplicationComponent implements OnInit {
         this.applicationService.setStatus(this.app.id, app)
         .subscribe(()=>this.app.applicationStatus = app.applicationStatus)
       }, () => {
-        //alert(app.applicationStatus);
-        //alert("Dismissed");
       });    
   }
 }

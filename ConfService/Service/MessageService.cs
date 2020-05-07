@@ -52,7 +52,13 @@ namespace ConfService.Service
         public IEnumerable<MessageDto> GetAllByApplicationId(int applicationId, int userId)
         {
             return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository
-                .GetAll(applicationId, userId));
+                .GetAllByApplicationId(applicationId, userId));
+        }
+
+        public IEnumerable<MessageDto> GetAllByLectureId(int lectureId, int userId)
+        {
+            return _mapper.Map<IEnumerable<MessageDto>>(_messageRepository
+                .GetAllByLectureId(lectureId , userId));
         }
 
         public void RemoveMessages(int appId)

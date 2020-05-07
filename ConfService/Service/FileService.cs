@@ -49,8 +49,8 @@ namespace ConfService.Service
             {
                 return Upload(file, applicationId);
             }
-
-            throw new NotEnoughRightsException();
+            else
+              throw new NotEnoughRightsException();
         }
 
         public int Upload(IFormFile file, int applicationId)

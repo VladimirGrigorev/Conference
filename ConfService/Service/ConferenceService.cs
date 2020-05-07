@@ -66,6 +66,16 @@ namespace ConfService.Service
                 throw new NotEnoughRightsException();
         }
 
+        public void DeleteById(int id, int userId)
+        {
+            if (CheckUserPermission(userId))
+            {
+                _conferenceRepository.Delete(id);
+            }
+            else
+                throw new NotEnoughRightsException();
+        }   
+
         private bool CheckUserPermission(int userId)
         {
             return _userRepository.Get(userId)?.IsGlobalAdmin?? false;
@@ -73,8 +83,8 @@ namespace ConfService.Service
 
         private bool CheckUserUpdatePermission(int userId, int id)
         {
-            return _adminOfConferenceRepository.GetFirstOrDefault(a => a.UserId == userId && a.ConferenceId == id) !=
-                   null;
+            return (_adminOfConferenceRepository.GetFirstOrDefault(a => a.UserId == userId && a.ConferenceId == id) !=
+                   null) || (_userRepository.Get(userId)?.IsGlobalAdmin ?? false);
         }
     }
 }

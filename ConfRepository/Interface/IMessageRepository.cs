@@ -9,5 +9,7 @@ namespace ConfRepository.Interface
     {
         IEnumerable<int> GetExpertIds();
         IEnumerable<Message> GetAll(int appId, int userId);
+        object GetAllByApplicationId(int applicationId, int userId);
+        object GetAllByLectureId(int applicationId, int userId);
     }
 }

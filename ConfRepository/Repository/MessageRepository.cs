@@ -16,7 +16,7 @@ namespace ConfRepository.Repository
 
         public IEnumerable<Message> GetAll(int appId, int userId)
         {
-            return Set.Where(m=> m.ApplicationId == appId).Include(m=>m.User)
+            return Set.Where(m=> m.LectureId == appId).Include(m=>m.User)
                 .Include(m=>m.MessageNotifications).Select(m=> new MessageIsNew()
                 {
                     Message = m,
@@ -30,10 +30,41 @@ namespace ConfRepository.Repository
 
         public IEnumerable<int> GetExpertIds()
         {
-            return Set.Include(m=>m.Application).ThenInclude(a=>a.Section)
-                .ThenInclude(s=>s.SectionExperts).SelectMany(m => m.Application.Section.SectionExperts.Select(e=>e.UserId));
+            return Set.Include(m=>m.Lecture).ThenInclude(a=>a.Section)
+                .ThenInclude(s=>s.SectionExperts).SelectMany(m => m.Lecture.Section.SectionExperts.Select(e=>e.UserId));
         }
 
+    
+
+        object IMessageRepository.GetAllByApplicationId(int applicationId, int userId)
+        {
+            return Set.Where(m => m.ApplicationId == applicationId).Include(m => m.User)
+                 .Include(m => m.MessageNotifications).Select(m => new MessageIsNew()
+                 {
+                     Message = m,
+                     IsNew = m.MessageNotifications.Any(n => n.UserId == userId)
+                 }).ToList().Select(m =>
+                 {
+                     m.Message.IsNew = m.IsNew;
+                     return m.Message;
+                 });
+        }
+
+        object IMessageRepository.GetAllByLectureId(int lectureId, int userId)
+        {
+            return Set.Where(m => m.LectureId == lectureId).Include(m => m.User)
+                 .Include(m => m.MessageNotifications).Select(m => new MessageIsNew()
+                 {
+                     Message = m,
+                     IsNew = m.MessageNotifications.Any(n => n.UserId == userId)
+                 }).ToList().Select(m =>
+                 {
+                     m.Message.IsNew = m.IsNew;
+                     return m.Message;
+                 });
+        }
+
+ 
         private class MessageIsNew
         {
             public Message Message { get; set; }

@@ -26,7 +26,6 @@ export class ConferenceDetailComponent implements OnInit {
 
   getConference(): void{
     const id = +(this.route.snapshot.paramMap.get('id') || this.route.snapshot.parent.paramMap.get('id'));
-    console.log(id);
     this.conferencesService.get(id)
       .subscribe(conference => this.conference = conference);
   }

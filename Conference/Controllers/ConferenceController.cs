@@ -44,12 +44,21 @@ namespace Conference.Controllers
             return Ok(_conferenceService.GetAll());
         }
 
-        [HttpPut]
+        [HttpPost("update")]
         [Authorize]
         public IActionResult Update([FromBody]ConferenceDto conference)
         {
             var id = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             _conferenceService.Update(id, conference);
+            return Ok();
+        }
+
+        
+        [HttpGet("delete")]
+        public IActionResult Delete([FromQuery(Name = "conferenceId")] int conferenceId)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            _conferenceService.DeleteById(conferenceId, userId);
             return Ok();
         }
     }

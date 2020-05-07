@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { CONFERENCES_ENDPOINT } from '../conf-endpoints';
 import { Observable } from 'rxjs';
 import { Conference } from '../conference';
@@ -8,6 +8,7 @@ import { Conference } from '../conference';
   providedIn: 'root'
 })
 export class ConferencesService {
+  
   private headers: HttpHeaders;
   private baseUrl = CONFERENCES_ENDPOINT;
 
@@ -32,11 +33,17 @@ export class ConferencesService {
   }
 
   public update(body){
-    return this.http.put(this.baseUrl, body, {headers: this.headers})
+    return this.http.post(this.baseUrl+"/update", body, {headers: this.headers})
   }
 
   public getAllWithSections(): Observable<Conference[]>{
     return this.http.get<Conference[]>(this.baseUrl, {headers: this.headers});
+  }
+
+  public deleteById(id: number) {
+    const params = new HttpParams()
+      .set('conferenceId', id.toString());
+    return this.http.get<string>(this.baseUrl+"/delete", {params: params});
   }
 }
 

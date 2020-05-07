@@ -1,34 +1,31 @@
-import { Component,  EventEmitter, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConferencesService } from '../_services/conferences.service';
-import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Data } from '@angular/router';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Section } from '../section';
 import { UserService } from '../_services/user.service';
 
 @Component({
-  selector: 'app-add-conference',
-  templateUrl: './add-conference.component.html',
-  styleUrls: ['./add-conference.component.css']
+  selector: 'app-change-conference',
+  templateUrl: './change-conference.component.html',
+  styleUrls: ['./change-conference.component.css']
 })
-export class AddConferenceComponent implements OnInit {
-  id:number;
-  update : boolean;
+export class ChangeConferenceComponent implements OnInit {
+
+  conference;
   currentConference: any;
-
-
-  dateerror=''
-
   listSections:Section[]=[];
   listAdmins:any[] = [];
   errorMessage:string;
   errorFlag:boolean;
-  
+  start = new Date();
+  end = new Date();
+  update
+  dateerror=''
+  id;
   errorMessageSave:string;
   errorFlagSave:boolean;
 
-
-  start = new Date();
-  end = new Date();
   lectureForm=this.fb.group({
     topic:['', Validators.required],
     info:[''],
@@ -60,44 +57,33 @@ export class AddConferenceComponent implements OnInit {
     email:['']
   });
 
-  constructor(
-    private conferenceService:ConferencesService, 
-    private router:Router,
-    private route: ActivatedRoute,
+  constructor(private route:ActivatedRoute,
+    private confService: ConferencesService,
     private fb:FormBuilder,
-    private userService:UserService) { 
-  }
+    private conferenceService: ConferencesService,
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit() {
-    this.id = +this.route.snapshot.paramMap.get('id');
-    if(this.id !=0)
-      this.getConference();
+    this.id = +(this.route.snapshot.paramMap.get('id') || this.route.snapshot.parent.paramMap.get('id'));
+    this.getConference();
     this.hideById('formSection');
+    
   }
 
-  fillForms(){
-    this.conferenceForm.setValue({
-      name: this.currentConference.name,
-      info: this.currentConference.info,
-      location: this.currentConference.location,
-      dateTimeStartConference: this.currentConference.dateTimeStartConference,
-      dateTimeFinishConference: this.currentConference.dateTimeFinishConference
-    });
-  }
+  getConference(): void{
+    
+    this.confService.get(this.id)
+      .subscribe(conference => {
+        this.conference = conference;
 
-  getConference(){
-    
-    console.log(this.id);
-    this.conferenceService.get(this.id)
-      .subscribe(c =>
-        { this.currentConference = c;
-          this.listSections = this.currentConference.sections;
-          this.listAdmins = this.currentConference.admins;
-          this.fillForms();
-          this.update = true;
-          console.log(this.currentConference);
-        });
-    
+        console.log(this.conference);
+        this.start = new Date(this.conference.dateTimeStartConference)
+        this.end = new Date(this.conference.dateTimeFinishConference)
+        this.listAdmins = this.conference.admins;
+        this.listSections = this.conference.sections;
+      } );
+     
   }
 
   addSection(){
@@ -138,15 +124,11 @@ export class AddConferenceComponent implements OnInit {
       this.currentConference = this.conferenceForm.value;
       this.currentConference.sections = this.listSections;
       this.currentConference.admins= this.listAdmins;
-        this.conferenceService.add(this.currentConference)
-        .subscribe(res=>{
-          this.router.navigate(['/conferences'])
-        },
-        error=>{
-          this.errorMessageSave = error.body;
-          this.errorFlagSave=true;
-        });
-      
+        this.currentConference.id=this.id;
+        this.conferenceService.update(this.currentConference)
+          .subscribe(res=>
+            this.router.navigate(['/conferences'])
+          )
     }
     else{
       this.dateerror='Введите даты корректно'
@@ -308,4 +290,6 @@ export class AddConferenceComponent implements OnInit {
   deleteExpert(i,exi){
     this.listSections[i].experts.splice(exi,1);
   }
+
+
 }

@@ -14,12 +14,14 @@ import { AddApplicationComponent } from './add-application/add-application.compo
 import { AddInfoPageComponent } from './add-info-page/add-info-page.component';
 import { InfoPageComponent } from './info-page/info-page.component';
 import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.component';
+import { ChangeConferenceComponent } from './change-conference/change-conference.component';
 
 const routes: Routes = [
   { path: 'conferences', component: ConferencesComponent },
   { path: '', redirectTo:'conferences', pathMatch:'full'},
   { path: 'conferences/add-conf', component: AddConferenceComponent},
-  { path: 'conferences/update/:id', component: AddConferenceComponent},
+  { path: 'conferences/change-conf/:id', component: ChangeConferenceComponent},
+  // { path: 'conferences/update/:id', component: AddConferenceComponent},
   { path: 'conferences/:confId/pages/add', component: AddInfoPageComponent},
   { path: 'conferences/:id', component: ConfInfoPagesComponent,
     children:[
@@ -32,7 +34,7 @@ const routes: Routes = [
   { path: 'applications/add', component: AddApplicationComponent},
   { path: 'applications/:id', component: ApplicationComponent},
   { path: 'signup', component: RegisterComponent },
-  // { path: 'schedule', component: ScheduleComponent},
+   { path: 'conference/:id/schedule', component: ScheduleComponent},
   { path: 'apps/my', component: ApplicationsComponent, data:{isMy : true}},
   { path: 'apps/considered', component: ApplicationsComponent, data:{isMy : false}}
 ]

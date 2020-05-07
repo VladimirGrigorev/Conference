@@ -4,25 +4,47 @@
   <h2 class="text-center" style="padding: 5%">Регистрация</h2>
   <hr>
   <div class="form-group">
-    <input type="text" class="form-control" required name ="name" [(ngModel)]="model.name" placeholder="Имя пользователя">
+    <input type="text" class="form-control" required name ="name" [(ngModel)]="model.name" placeholder="Имя пользователя" #name="ngModel"  >
+    <div [hidden]="name.valid || name.untouched" class="alert alert-danger">
+      Обязательное поле
+    </div>
   </div>
   <!-- <div class="form-group">
     <input type="radio" name="sex" [(ngModel)]="model.sex" value="male" checked> Male<br>
     <input type="radio" name="sex" [(ngModel)]="model.sex" value="female"> Female<br>
   </div> -->
   <div class="form-group">
-    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" required placeholder="Email">
+    <input type="email" class="form-control" name="email" [(ngModel)]="model.email" required email placeholder="Email" #email="ngModel" >
+    <div [hidden]="email.valid || email.untouched" class="alert alert-danger">
+      Некорректный email
+    </div>
   </div>
 
   <div class="form-group">
-    <input type="password" class="form-control" required name="passhash" [(ngModel)]="model.passhash" placeholder="Пароль">
+    <input type="password" class="form-control" required name="password" [(ngModel)]="model.password" placeholder="Пароль" #password="ngModel" >
+    
+    <div [hidden]="password.valid || password.untouched" class="alert alert-danger">
+      Обязательное поле
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="password" class="form-control" required name="confirm" [(ngModel)]="model.confirm" placeholder="Подтверждение пароля" #confirm="ngModel" >
+    <div [hidden]="confirm.valid || confirm.untouched" class="alert alert-danger">
+      Обязательное поле
+    </div>
+    <div [hidden]="confirm.value===password.value || confirm.untouched || password.untouched" class="alert alert-danger">
+      Пароли не совпадают
+    </div>
   </div>
 
   <div class="form-group text-center">
     <button class="btn btn-success" type="submit">Регистрация</button>
-    <button class="btn btn-default" type="button" routerLink="/conferences" (click)="cancel()">К списку конференций</button>
   </div>
   <div *ngIf="errorFlag" class="Error text-center" >
           <p>{{errorMessage}}</p>
+  </div>
+  <div *ngIf="successFlag" class="alert alert-success" >
+    <p>{{successMessage}}</p>
   </div>
 </form>

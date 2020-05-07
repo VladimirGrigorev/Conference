@@ -42,7 +42,7 @@ namespace ConfService.Service
                 return _mapper.Map<UserInfoDto>(user);
             }
 
-            throw new UserNotFoundException();
+            throw new UserNotFoundException("Пользователь с таким email не найден");
         }
 
         public int Add(UserDto userDto)
@@ -59,10 +59,10 @@ namespace ConfService.Service
         public TokenDto Authenticate(UserAuthDto userDto)
         {
             var user = _userRepository.GetFirstOrDefaultWithRoles(
-                x => x.Email == userDto.Email && x.PassHash == userDto.PassHash);
+                x => x.Email == userDto.Email && x.Password == userDto.Password);
 
             if(user == null)
-                throw new AuthenticationException();
+                throw new AuthenticationException("Неверные данные для входа");
 
             var expirationTime = DateTime.UtcNow.AddSeconds(_jwtSettings.LifetimeSeconds);
             var tokenDto = new TokenDto()
