@@ -8,6 +8,7 @@ import { Message } from '../message';
   providedIn: 'root'
 })
 export class ForumService {
+  
 
   private headers: HttpHeaders;
   private baseUrl = FORUM_ENDPOINT;
@@ -26,7 +27,11 @@ export class ForumService {
   }
 
   public getAllByLectureId(idLecture:number): Observable<Message[]>{
-    return this.http.get<Message[]>(this.baseUrl+'/'+idLecture ,{headers: this.headers})
+    return this.http.get<Message[]>(this.baseUrl+'/getCommentsForLecture/'+idLecture ,{headers: this.headers})
+  }
+
+  public getAllByApplicationId(idApplication: number): Observable<Message[]> {
+    return this.http.get<Message[]>(this.baseUrl+'/getCommentsForApp/'+idApplication ,{headers: this.headers})
   }
 
   public add(body){
@@ -40,6 +45,8 @@ export class ForumService {
   public update(body){
     return this.http.put(this.baseUrl, body, {headers: this.headers})
   }
+
+
 
   deleteNotifications(id:number){
     return this.http.delete( `${this.applicationsUrl}/${id}/messages/notifications`);

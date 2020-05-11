@@ -14,7 +14,7 @@ namespace ConfModel.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085")
+                .HasAnnotation("ProductVersion", "2.1.14-servicing-32113")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("ConfModel.Model.AdminOfConference", b =>
@@ -223,9 +223,11 @@ namespace ConfModel.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("ApplicationId");
+                    b.Property<int?>("ApplicationId");
 
                     b.Property<DateTime>("DateTimeSent");
+
+                    b.Property<int?>("LectureId");
 
                     b.Property<string>("Text")
                         .HasMaxLength(200);
@@ -235,6 +237,8 @@ namespace ConfModel.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
+
+                    b.HasIndex("LectureId");
 
                     b.HasIndex("UserId");
 
@@ -351,10 +355,8 @@ namespace ConfModel.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(200);
 
-                    b.Property<string>("PassHash")
+                    b.Property<string>("Password")
                         .HasMaxLength(500);
-
-                    b.Property<int>("Sex");
 
                     b.HasKey("Id");
 
@@ -449,8 +451,11 @@ namespace ConfModel.Migrations
                 {
                     b.HasOne("ConfModel.Model.Application", "Application")
                         .WithMany("Messages")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ApplicationId");
+
+                    b.HasOne("ConfModel.Model.Lecture", "Lecture")
+                        .WithMany("Messages")
+                        .HasForeignKey("LectureId");
 
                     b.HasOne("ConfModel.Model.User", "User")
                         .WithMany("Messages")

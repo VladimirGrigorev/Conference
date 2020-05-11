@@ -1,7 +1,7 @@
 <div class="list-group">
   <a href="#" routerLink="/conferences/{{confId}}"
   class="list-group-item list-group-item-action">Главная</a>
-  <a href="/conferences/p.id/schedule" class="list-group-item list-group-item-action">Расписание</a>
+  <a [routerLink]="['/conference',confId,'schedule']" class="list-group-item list-group-item-action">Расписание</a>
   <a href="#" class="list-group-item list-group-item-action">Новости</a>
 <!-- </div> -->
 

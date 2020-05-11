@@ -1,8 +1,11 @@
 <div class="container">
-    
-  <a *ngIf="isMyApps" class="btn btn-outline-secondary mb-1" role="button" routerLink="/applications/add" (click)="show(c)">Подать заявку</a>
+  <h1>Список моих заявок</h1>
+  
 
   <!-- <input type="text" placeholder="Find..." class="form-control mb" [(ngModel)]="filter" > -->
+  <div *ngIf="applications.length === 0">
+    <h2> Здесь пока ничего нет</h2>
+  </div>
   <ul class="list-group">
     <li *ngFor="let app of applications" class="list-group-item clearfix" >    
       
@@ -20,4 +23,5 @@
       
     </li>
   </ul>
+  <a *ngIf="isMyApps" class="btn btn-outline-secondary mb-1" role="button" routerLink="/applications/add" (click)="show(c)">Подать заявку</a>
 </div>

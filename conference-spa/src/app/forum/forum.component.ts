@@ -16,6 +16,7 @@ import { of } from 'rxjs';
 export class ForumComponent implements OnInit {
 
   @Input() idLecture:number;
+  @Input() idApplication:number;
 
   text = new FormControl('');
   messages: Message[]=[];
@@ -28,7 +29,8 @@ export class ForumComponent implements OnInit {
   }
 
   getMessages(){
-    this.forumService.getAllByLectureId(this.idLecture)
+    if(this.idLecture){
+      this.forumService.getAllByLectureId(this.idLecture)
       .pipe(
         switchMap(data=> {
           this.messages = data;
@@ -37,6 +39,20 @@ export class ForumComponent implements OnInit {
           return of();
         })
       ).subscribe();
+    }
+    else if(this.idApplication ){
+      console.log(this.idApplication);
+      this.forumService.getAllByApplicationId(this.idApplication)
+      .pipe(
+        switchMap(data=> {
+          this.messages = data;
+          if(this.messages.some(m=> m.isNew))
+            return this.forumService.deleteNotifications(this.idApplication);
+          return of();
+        })
+      ).subscribe();
+    }
+    
   }
 
   isEmpty():boolean{
@@ -46,8 +62,15 @@ export class ForumComponent implements OnInit {
   addMessage(){
     let body = new Message;
     body.text=this.text.value;
-    body.applicationId = this.idLecture;
-
+    if(this.idLecture){
+      body.lectureId = this.idLecture;
+      console.log(body);
+    }
+    else if(this.idApplication){
+      body.applicationId = this.idApplication;
+      console.log(body);
+    }
+    
     this.forumService.add(body)
       .subscribe(res=>{
         this.getMessages();

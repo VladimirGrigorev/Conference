@@ -9,7 +9,10 @@ namespace ConfService.Interface
     {
         int Add(MessageDto messageDto);
         IEnumerable<MessageDto> GetAllByApplicationId(int applicationId, int userId);
+
+        IEnumerable<MessageDto> GetAllByLectureId(int lectureId, int userId);
         void RemoveMessages(int appId);
+        //object GetAllByLectureId(int id, int userId);
     }
 }
  

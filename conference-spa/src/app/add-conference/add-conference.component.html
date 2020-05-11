@@ -15,11 +15,16 @@
     </div>
     <div class="form-group">
       <label for="dateTimeStart">Дата начала конференции: </label>
-      <input id="dateTimeStart" class="form-control" type="datetime-local" formControlName="dateTimeStartConference">
+      <input id="dateTimeStart" class="form-control" type="datetime-local" [(ngModel)]="start" 
+      (ngModelChange)="myDate = $event" formControlName="dateTimeStartConference">
     </div>
     <div class="form-group">
       <label for="dateTimeFinish">Дата окончания конференции: </label>
-      <input id="dateTimeFinish" class="form-control" type="datetime-local" formControlName="dateTimeFinishConference">
+      <input id="dateTimeFinish" class="form-control" type="datetime-local" [(ngModel)]="end" 
+      (ngModelChange)="myDate = $event" formControlName="dateTimeFinishConference">
+    </div>
+    <div *ngIf="dateerror" class="alert alert-danger" >
+      <p>{{dateerror}}</p>
     </div>
     <!--<button type="submit" [disabled]="!conferenceForm.valid" (click)="save()">Сохранить</button>-->
     <!--button type="submit">Добавить секции</button>-->
@@ -61,9 +66,9 @@
         <button type="button" class="btn btn-outline-secondary" type="submit" [disabled]="!adminForm.valid" (click)="saveAdmin()">Сохранить</button>
         <button type="button" class="btn btn-outline-secondary" (click)="closeAdmin()">Отменить</button>
       </div>
-      <p *ngIf="errorFlag">
-        {{errorMessage}}
-      </p>
+      <div *ngIf="errorFlag" class="alert alert-error" >
+        <p>Пользователь с таким email не был найден</p>
+      </div>
     </form>
   </div>
 
@@ -135,9 +140,9 @@
                   <button type="button" class="btn btn-outline-secondary" (click)="closeExpert(i,i)">Отменить</button>
                 </div>
 
-                <p *ngIf="errorFlag">
-                  {{errorMessage}}
-                </p>
+                <div *ngIf="errorFlag" class="alert alert-error" >
+                  <p>Пользователь с таким email не был найден</p>
+                </div>
               </form>
             </div>
           </div>
@@ -224,9 +229,9 @@
                                 <button type="button" class="btn btn-outline-secondary" (click)="closeSpeaker(i,si)">Отменить</button>
                               </div>
 
-                              <p *ngIf="errorFlag">
-                                {{errorMessage}}
-                              </p>
+                              <div *ngIf="errorFlag" class="alert alert-error" >
+                                <p>Пользователь с таким email не был найден</p>
+                              </div>
                             </form>
 
 

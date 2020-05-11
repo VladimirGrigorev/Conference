@@ -25,7 +25,15 @@ namespace Conference.Controllers
         }
 
         [Authorize]
-        [HttpGet("message/{id}")]
+        [HttpGet("message/getCommentsForLecture/{id}")]
+        public IActionResult GetAllByLecturenId(int id)
+        {
+            var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(_messageService.GetAllByLectureId(id, userId));
+        }
+
+        [Authorize]
+        [HttpGet("message/getCommentsForApp/{id}")]
         public IActionResult GetAllByApplicationId(int id)
         {
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier).Value);

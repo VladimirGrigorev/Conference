@@ -20,7 +20,10 @@ namespace ConfModel.Model
         public int UserId { get; set; }
         public User User { get; set; }
 
-        public int ApplicationId { get; set; }
+        public int? LectureId { get; set; }
+        public Lecture Lecture { get; set; }
+
+        public int? ApplicationId { get; set; }
         public Application Application { get; set; }
 
         [NotMapped]

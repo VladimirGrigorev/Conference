@@ -9,5 +9,6 @@ namespace ConfService.Interface
         IEnumerable<ConferenceDto> GetAll();
         int Add(int userId, ConferenceDto conferenceDto);
         void Update(int userId, ConferenceDto conferenceDto);
+        void DeleteById(int id, int userId);
     }
 }

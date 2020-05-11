@@ -34,6 +34,8 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { InfoPageComponent } from './info-page/info-page.component';
 import { ConfMenuPagesComponent } from './conf-menu-pages/conf-menu-pages.component';
 import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.component';
+import { ChangeConferenceComponent } from './change-conference/change-conference.component';
+
 
 @NgModule({
    declarations: [
@@ -63,6 +65,7 @@ import { ConfInfoPagesComponent } from './conf-info-pages/conf-info-pages.compon
       ConfMenuPagesComponent,
       ConfInfoPagesComponent,
       HomeComponent
+      ChangeConferenceComponent
    ],
    imports: [
       BrowserModule,

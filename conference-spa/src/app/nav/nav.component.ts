@@ -12,7 +12,7 @@ import { getTypeNameForDebugging } from '@angular/core/src/change_detection/diff
 export class NavComponent implements OnInit {
 
   nameUser:any = {};
-
+  autherror;
   model: any = {};
   registerMode = false;
   regComponent  = true;
@@ -26,14 +26,15 @@ export class NavComponent implements OnInit {
   login()
   {
     this.authService.signin(this.model).subscribe(next => {
-        console.log('success');
         this.regComponent = !this.regComponent;
         this.getName();    
         this.model.email = "";
-        this.model.passhash = ""; 
+        this.model.password = ""; 
+        this.autherror = ""
             
     }, error => {
-      console.log(error); 
+      console.log(error);
+      this.autherror = error.error.error;
       localStorage.clear();
     }
     );
