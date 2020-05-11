@@ -64,6 +64,7 @@ import { ChangeConferenceComponent } from './change-conference/change-conference
       InfoPageComponent,
       ConfMenuPagesComponent,
       ConfInfoPagesComponent,
+      HomeComponent
       ChangeConferenceComponent
    ],
    imports: [
@@ -84,7 +85,7 @@ import { ChangeConferenceComponent } from './change-conference/change-conference
          multi: true
        },
        NgbActiveModal
-      
+
    ],
    bootstrap: [
       AppComponent
